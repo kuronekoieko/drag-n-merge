@@ -13,7 +13,6 @@ public class BlocksManager : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             SetBlocksNewLine();
-
         }
     }
 
@@ -38,7 +37,6 @@ public class BlocksManager : MonoBehaviour
 
     public void SetBlocksNewLine()
     {
-        Vector2 pos = new Vector2(-2.5f, -3.6f);
         int count = 0;
 
         for (int i = 0; i < blockControllers.Length; i++)
@@ -46,8 +44,7 @@ public class BlocksManager : MonoBehaviour
             BlockController block = blockControllers[i];
             if (block.gameObject.activeSelf) { continue; }
 
-            block.transform.position = pos;
-            pos.x += 0.16f * 6;
+            block.TransrateBlock(indexX: count, indexY: 0);
             block.gameObject.SetActive(true);
             count++;
             if (count == Values.BOARD_LENGTH_X) { break; }
@@ -61,9 +58,7 @@ public class BlocksManager : MonoBehaviour
         for (int i = 0; i < blockControllers.Length; i++)
         {
             BlockController block = blockControllers[i];
-            Vector2 pos = block.transform.position;
-            pos.y += 0.16f * 6;
-            block.transform.position = pos;
+            block.TransrateBlock(block.indexX, block.indexY + 1);
         }
     }
 }

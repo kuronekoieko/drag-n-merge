@@ -9,11 +9,17 @@ public class ResultCanvasManager : MonoBehaviour
     [SerializeField] Text resultText;
     public void OnStart()
     {
-        /*
-         this.ObserveEveryValueChanged(timer => Variables.timer)
-            .Subscribe(timer => { timerText.text = timer.ToString("F2"); })
-            .AddTo(this.gameObject);
-        */
 
+        this.ObserveEveryValueChanged(screenState => Variables.screenState)
+            .Where(screenState => screenState == ScreenState.RESULT)
+            .Subscribe(timer => { OnOpen(); })
+            .AddTo(this.gameObject);
+        gameObject.SetActive(false);
+    }
+
+    void OnOpen()
+    {
+        gameObject.SetActive(true);
+        resultText.text = Variables.resultState == ResultState.WIN ? "YOU WIN" : "YOU LOSE";
     }
 }

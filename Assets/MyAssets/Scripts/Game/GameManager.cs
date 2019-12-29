@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameCanvasManager gameCanvasManager;
+    [SerializeField] ResultCanvasManager resultCanvasManager;
     GameController gameController;
     void Awake()
     {
@@ -17,12 +18,22 @@ public class GameManager : MonoBehaviour
         gameController = GetComponent<GameController>();
         gameController.OnStart();
         gameCanvasManager.OnStart();
+        resultCanvasManager.OnStart();
         Variables.resultState = ResultState.PLAYING;
+        Variables.screenState = ScreenState.GAME;
     }
 
 
     void Update()
     {
-        gameController.OnUpdate();
+        switch (Variables.screenState)
+        {
+            case ScreenState.GAME:
+                gameController.OnUpdate();
+                break;
+            case ScreenState.RESULT:
+                break;
+        }
+
     }
 }

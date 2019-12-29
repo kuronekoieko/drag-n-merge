@@ -24,8 +24,20 @@ public class BlockController : MonoBehaviour
     int num;
     bool isDrag;
     Rigidbody2D rb;
-    int indexX;
-    int indexY;
+    public int indexX
+    {
+        get
+        {
+            return Utils.PositionToIndexX(transform.position.x);
+        }
+    }
+    public int indexY
+    {
+        get
+        {
+            return Utils.PositionToIndexY(transform.position.y);
+        }
+    }
 
     public void OnStart()
     {
@@ -102,6 +114,17 @@ public class BlockController : MonoBehaviour
             Debug.Log("クリア");
             Variables.screenState = ScreenState.RESULT;
             Variables.resultState = ResultState.WIN;
+        }
+    }
+
+    public void TransrateBlock(int indexX, int indexY)
+    {
+        transform.position = Utils.IndexToPosition(indexX, indexY);
+        if (indexY == Values.BOARD_LENGTH_Y)
+        {
+            Debug.Log("負け");
+            Variables.screenState = ScreenState.RESULT;
+            Variables.resultState = ResultState.LOSE;
         }
     }
 }

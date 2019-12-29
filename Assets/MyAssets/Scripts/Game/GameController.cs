@@ -5,10 +5,11 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     [SerializeField] BlocksManager blocksManager;
+    float timeLimit = 10;
     public void OnStart()
     {
         blocksManager.OnStart();
-        Variables.timer = 10;
+        Variables.timer = timeLimit;
     }
 
     public void OnUpdate()
@@ -18,7 +19,7 @@ public class GameController : MonoBehaviour
         if (Variables.timer < 0)
         {
             blocksManager.SetBlocksNewLine();
-            Variables.timer = 10;
+            Variables.timer = timeLimit;
         }
     }
 }
