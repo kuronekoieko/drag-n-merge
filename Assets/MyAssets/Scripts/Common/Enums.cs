@@ -15,3 +15,10 @@ public enum ResultState
     WIN,
     LOSE,
 }
+
+public enum BlockState
+{
+    STOP,
+    FALL,
+    DRAG,
+}

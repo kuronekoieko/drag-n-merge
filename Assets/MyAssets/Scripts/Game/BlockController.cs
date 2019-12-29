@@ -22,8 +22,8 @@ public class BlockController : MonoBehaviour
     [SerializeField] TextMesh textMesh;
     EventTrigger eventTrigger;
     int num;
-    bool isDrag;
     Rigidbody2D rb;
+    BlockState blockState;
     public int indexX
     {
         get
@@ -48,13 +48,13 @@ public class BlockController : MonoBehaviour
                .AddTo(this.gameObject);
 
         rb = GetComponent<Rigidbody2D>();
-        isDrag = false;
+        blockState = BlockState.STOP;
         gameObject.SetActive(false);
     }
 
     public void OnUpdate()
     {
-        rb.velocity = Vector2.zero;
+        if (blockState == BlockState.FALL) transform.Translate(0, -0.1f, 0);
     }
 
     void SetEventTriggers()
@@ -83,13 +83,15 @@ public class BlockController : MonoBehaviour
 
     void OnPointerDown()
     {
-        isDrag = true;
+        blockState = BlockState.DRAG;
     }
 
 
     void OnPointerUp()
     {
-        isDrag = false;
+        blockState = BlockState.FALL;
+        //Debug.Log(indexX);
+        TransrateBlock(indexX, indexY);
     }
 
     void OnDrag()
@@ -99,21 +101,63 @@ public class BlockController : MonoBehaviour
         transform.position = worldPos;
     }
 
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        BlockController block;
+        switch (blockState)
+        {
+            case BlockState.STOP:
+
+                break;
+            case BlockState.DRAG:
+
+                break;
+            case BlockState.FALL:
+
+                block = col.gameObject.GetComponent<BlockController>();
+                if (block.num != num)
+                {
+                    blockState = BlockState.STOP;
+                    TransrateBlock(indexX, block.indexY + 1);
+                }
+                break;
+        }
+    }
+
     void OnCollisionStay2D(Collision2D col)
     {
-        float distance = (col.transform.position - transform.position).magnitude;
-        if (distance > 0.3f) { return; }
-        if (isDrag) { return; }
-        BlockController block = col.gameObject.GetComponent<BlockController>();
-        if (block.num != num) { return; }
-        num++;
-        block.gameObject.SetActive(false);
-        //Debug.Log("マージ");
-        if (num == 5)
+        BlockController block;
+        switch (blockState)
         {
-            Debug.Log("クリア");
-            Variables.screenState = ScreenState.RESULT;
-            Variables.resultState = ResultState.WIN;
+            case BlockState.STOP:
+                float distance = (col.transform.position - transform.position).magnitude;
+                if (distance > 0.3f) { return; }
+                block = col.gameObject.GetComponent<BlockController>();
+                if (block.num != num) { return; }
+                num++;
+                block.gameObject.SetActive(false);
+
+                //Debug.Log("マージ");
+                if (num == 5)
+                {
+                    Variables.screenState = ScreenState.RESULT;
+                    Variables.resultState = ResultState.WIN;
+                }
+                break;
+            case BlockState.DRAG:
+
+                break;
+            case BlockState.FALL:
+                /*
+                 block = col.gameObject.GetComponent<BlockController>();
+                    if (block.num != num)
+                    {
+                        blockState = BlockState.STOP;
+                        TransrateBlock(indexX, block.indexY + 1);
+                    }
+                */
+
+                break;
         }
     }
 
@@ -122,7 +166,6 @@ public class BlockController : MonoBehaviour
         transform.position = Utils.IndexToPosition(indexX, indexY);
         if (indexY == Values.BOARD_LENGTH_Y)
         {
-            Debug.Log("負け");
             Variables.screenState = ScreenState.RESULT;
             Variables.resultState = ResultState.LOSE;
         }

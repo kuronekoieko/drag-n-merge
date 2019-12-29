@@ -61,4 +61,22 @@ public class BlocksManager : MonoBehaviour
             block.TransrateBlock(block.indexX, block.indexY + 1);
         }
     }
+
+    BlockController GetLowestBlock(int indexX)
+    {
+        int indexY = 100;
+        BlockController lowestBlock = null;
+        for (int i = 0; i < blockControllers.Length; i++)
+        {
+            BlockController block = blockControllers[i];
+            if (block.indexX != indexX) { continue; }
+            if (!block.gameObject.activeSelf) { continue; }
+            if (block.indexY >= indexY) { continue; }
+            indexY = block.indexY;
+            lowestBlock = block;
+        }
+
+
+        return lowestBlock;
+    }
 }

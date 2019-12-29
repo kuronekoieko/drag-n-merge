@@ -14,6 +14,7 @@ public class Utils : MonoBehaviour
     public static int PositionToIndexY(float pos_y)
     {
         double ret = Math.Round((pos_y - Variables.blockLowerLeftPos.y) / Values.BROCK_HEIGHT, 1);
+        Debug.Log(ret.ToString("F4"));
         return (int)ret;
     }
 
