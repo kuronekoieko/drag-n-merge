@@ -24,6 +24,8 @@ public class BlockController : MonoBehaviour
     int num;
     bool isDrag;
     Rigidbody2D rb;
+    int indexX;
+    int indexY;
 
     public void OnStart()
     {
@@ -35,6 +37,7 @@ public class BlockController : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         isDrag = false;
+        gameObject.SetActive(false);
     }
 
     public void OnUpdate()
@@ -93,5 +96,6 @@ public class BlockController : MonoBehaviour
         if (block.num != num) { return; }
         num++;
         block.gameObject.SetActive(false);
+        Debug.Log("マージ");
     }
 }

@@ -9,6 +9,12 @@ public class BlocksManager : MonoBehaviour
     public void OnStart()
     {
         BlockGenerator();
+
+        for (int i = 0; i < 2; i++)
+        {
+            SetBlocksNewLine();
+            MoveUpAllBlocks();
+        }
     }
 
     public void OnUpdate()
@@ -23,24 +29,39 @@ public class BlocksManager : MonoBehaviour
     {
         int blockNum = Values.BOARD_LENGTH_X * Values.BOARD_LENGTH_Y;
         blockControllers = new BlockController[blockNum];
-        Vector2 pos;
-        int i_x = 0;
-        int i_y = 0;
         for (int i = 0; i < blockControllers.Length; i++)
         {
-            pos.x = -2.47f + i_x * 0.16f * 6;
-            pos.y = -4.05f + i_y * 0.16f * 6;
-            //Debug.Log(pos);
-            blockControllers[i] = Instantiate(blockControllerPrefab, pos, Quaternion.identity, transform);
+            blockControllers[i] = Instantiate(blockControllerPrefab, Vector2.zero, Quaternion.identity, transform);
             blockControllers[i].OnStart();
+        }
+    }
 
-            i_x++;
-            if (i_x == Values.BOARD_LENGTH_X)
-            {
-                i_x = 0;
-                i_y++;
-            }
+    void SetBlocksNewLine()
+    {
+        Vector2 pos = new Vector2(-2.5f, -3.6f);
+        int count = 0;
 
+        for (int i = 0; i < blockControllers.Length; i++)
+        {
+            BlockController block = blockControllers[i];
+            if (block.gameObject.activeSelf) { continue; }
+
+            block.transform.position = pos;
+            pos.x += 0.16f * 6;
+            block.gameObject.SetActive(true);
+            count++;
+            if (count == Values.BOARD_LENGTH_X) { break; }
+        }
+    }
+
+    void MoveUpAllBlocks()
+    {
+        for (int i = 0; i < blockControllers.Length; i++)
+        {
+            BlockController block = blockControllers[i];
+            Vector2 pos = block.transform.position;
+            pos.y += 0.16f * 6;
+            block.transform.position = pos;
         }
     }
 }

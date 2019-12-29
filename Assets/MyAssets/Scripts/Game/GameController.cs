@@ -8,10 +8,16 @@ public class GameController : MonoBehaviour
     public void OnStart()
     {
         blocksManager.OnStart();
+        Variables.timer = 10;
     }
 
     public void OnUpdate()
     {
         blocksManager.OnUpdate();
+        Variables.timer -= Time.deltaTime;
+        if (Variables.timer < 0)
+        {
+            Variables.timer = 10;
+        }
     }
 }

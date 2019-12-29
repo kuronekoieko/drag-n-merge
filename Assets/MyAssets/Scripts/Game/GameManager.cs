@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] GameCanvasManager gameCanvasManager;
     GameController gameController;
     void Awake()
     {
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     {
         gameController = GetComponent<GameController>();
         gameController.OnStart();
+        gameCanvasManager.OnStart();
     }
 
 
