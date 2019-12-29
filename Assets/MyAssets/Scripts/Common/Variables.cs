@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class Variables : MonoBehaviour
 {
-
+    public static ScreenState screenState;
+    public static GameState gameState;
 }

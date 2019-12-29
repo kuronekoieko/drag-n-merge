@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UniRx;
+
 
 /// <summary>
 /// Rayを飛ばさずに簡単にオブジェクトのクリックを検知
@@ -17,12 +19,18 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class BlockController : MonoBehaviour
 {
-
+    [SerializeField] TextMesh textMesh;
     EventTrigger eventTrigger;
+    int num = 1;
+
 
     public void OnStart()
     {
         SetEventTriggers();
+
+        this.ObserveEveryValueChanged(num => num)
+               .Subscribe(_ => { textMesh.text = num.ToString(); })
+               .AddTo(this.gameObject);
     }
 
     public void OnUpdate()
