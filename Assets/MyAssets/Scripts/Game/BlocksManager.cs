@@ -13,7 +13,7 @@ public class BlocksManager : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             SetBlocksNewLine();
-            MoveUpAllBlocks();
+
         }
     }
 
@@ -36,7 +36,7 @@ public class BlocksManager : MonoBehaviour
         }
     }
 
-    void SetBlocksNewLine()
+    public void SetBlocksNewLine()
     {
         Vector2 pos = new Vector2(-2.5f, -3.6f);
         int count = 0;
@@ -52,6 +52,8 @@ public class BlocksManager : MonoBehaviour
             count++;
             if (count == Values.BOARD_LENGTH_X) { break; }
         }
+
+        MoveUpAllBlocks();
     }
 
     void MoveUpAllBlocks()

@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
         Variables.timer -= Time.deltaTime;
         if (Variables.timer < 0)
         {
+            blocksManager.SetBlocksNewLine();
             Variables.timer = 10;
         }
     }
