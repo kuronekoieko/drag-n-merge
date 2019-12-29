@@ -12,6 +12,8 @@ using UnityEngine.EventSystems;
 /// https://nyama41.hatenablog.com/entry/click_position_to_xy_plane_position
 /// Unity(3D・2D) EventSystemでクリックイベントの制御
 /// https://qiita.com/Tachibana446/items/547a299c8829d1177a4d
+/// EventTriggerType
+/// https://docs.unity3d.com/ja/current/ScriptReference/EventSystems.EventTriggerType.html
 /// </summary>
 public class BlockController : MonoBehaviour
 {
@@ -31,7 +33,7 @@ public class BlockController : MonoBehaviour
     {//コライダーがアタッチされていないと反応しないので注意
         eventTrigger = GetComponent<EventTrigger>();
         eventTrigger.triggers = new List<EventTrigger.Entry>();
-        EventTrigger.Entry[] entries = new EventTrigger.Entry[2];
+        EventTrigger.Entry[] entries = new EventTrigger.Entry[3];
 
         for (int i = 0; i < entries.Length; i++)
         {
@@ -42,20 +44,33 @@ public class BlockController : MonoBehaviour
         entries[0].callback.AddListener((x) => OnPointerDown());
         entries[1].eventID = EventTriggerType.PointerUp;
         entries[1].callback.AddListener((x) => OnPointerUp());
+        entries[2].eventID = EventTriggerType.Drag;
+        entries[2].callback.AddListener((x) => OnDrag());
 
-        eventTrigger.triggers.Add(entries[0]);
-        eventTrigger.triggers.Add(entries[1]);
-        Debug.Log(entries[0].callback);
+        for (int i = 0; i < entries.Length; i++)
+        {
+            eventTrigger.triggers.Add(entries[i]);
+        }
+
     }
 
     void OnPointerDown()
     {
-        Debug.Log("down");
+
     }
 
 
     void OnPointerUp()
     {
-        Debug.Log("up");
+
     }
+    void OnDrag()
+    {
+        Vector2 screenPos = Input.mousePosition;
+        Vector2 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
+        transform.position = worldPos;
+    }
+
+
+
 }
