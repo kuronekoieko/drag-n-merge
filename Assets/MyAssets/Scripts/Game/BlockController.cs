@@ -64,13 +64,11 @@ public class BlockController : MonoBehaviour
     {
 
     }
+
     void OnDrag()
     {
         Vector2 screenPos = Input.mousePosition;
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
         transform.position = worldPos;
     }
-
-
-
 }

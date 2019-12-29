@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
     GameController gameController;
     void Awake()
     {
-
+        QualitySettings.vSyncCount = 0; // VSyncをOFFにする
+        Application.targetFrameRate = 60; // ターゲットフレームレートを60に設定
     }
 
     void Start()

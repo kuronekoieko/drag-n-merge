@@ -1,4 +1,4 @@
-﻿public enum Screen
+﻿public enum ScreenState
 {
     GAME,
 }
