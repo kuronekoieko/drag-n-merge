@@ -64,7 +64,6 @@ public class BlockController : MonoBehaviour
         {
             eventTrigger.triggers.Add(entries[i]);
         }
-
     }
 
     void OnPointerDown()
@@ -88,19 +87,11 @@ public class BlockController : MonoBehaviour
     void OnCollisionStay2D(Collision2D col)
     {
         float distance = (col.transform.position - transform.position).magnitude;
-        if (distance < 0.3f) { Merge(); }
+        if (distance > 0.3f) { return; }
+        if (isDrag) { return; }
+        BlockController block = col.gameObject.GetComponent<BlockController>();
+        if (block.num != num) { return; }
+        num++;
+        block.gameObject.SetActive(false);
     }
-
-    void Merge()
-    {
-        if (isDrag)
-        {
-            gameObject.SetActive(false);
-        }
-        else
-        {
-            num++;
-        }
-    }
-
 }

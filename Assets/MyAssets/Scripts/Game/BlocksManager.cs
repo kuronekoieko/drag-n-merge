@@ -30,7 +30,7 @@ public class BlocksManager : MonoBehaviour
         {
             pos.x = -2.47f + i_x * 0.16f * 6;
             pos.y = -4.05f + i_y * 0.16f * 6;
-            Debug.Log(pos);
+            //Debug.Log(pos);
             blockControllers[i] = Instantiate(blockControllerPrefab, pos, Quaternion.identity, transform);
             blockControllers[i].OnStart();
 
