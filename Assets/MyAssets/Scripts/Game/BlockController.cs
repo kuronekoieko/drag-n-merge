@@ -21,20 +21,25 @@ public class BlockController : MonoBehaviour
 {
     [SerializeField] TextMesh textMesh;
     EventTrigger eventTrigger;
-    int num = 1;
-
+    int num;
+    bool isDrag;
+    Rigidbody2D rb;
 
     public void OnStart()
     {
         SetEventTriggers();
-
-        this.ObserveEveryValueChanged(num => num)
-               .Subscribe(_ => { textMesh.text = num.ToString(); })
+        num = 1;
+        this.ObserveEveryValueChanged(num => this.num)
+               .Subscribe(num => { textMesh.text = num.ToString(); })
                .AddTo(this.gameObject);
+
+        rb = GetComponent<Rigidbody2D>();
+        isDrag = false;
     }
 
     public void OnUpdate()
     {
+        rb.velocity = Vector2.zero;
     }
 
     void SetEventTriggers()
@@ -64,13 +69,13 @@ public class BlockController : MonoBehaviour
 
     void OnPointerDown()
     {
-
+        isDrag = true;
     }
 
 
     void OnPointerUp()
     {
-
+        isDrag = false;
     }
 
     void OnDrag()
@@ -79,4 +84,23 @@ public class BlockController : MonoBehaviour
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
         transform.position = worldPos;
     }
+
+    void OnCollisionStay2D(Collision2D col)
+    {
+        float distance = (col.transform.position - transform.position).magnitude;
+        if (distance < 0.3f) { Merge(); }
+    }
+
+    void Merge()
+    {
+        if (isDrag)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            num++;
+        }
+    }
+
 }

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] BlockController blockController;
+    [SerializeField] BlocksManager blocksManager;
     public void OnStart()
     {
-        blockController.OnStart();
+        blocksManager.OnStart();
     }
 
     public void OnUpdate()
     {
-        blockController.OnUpdate();
+        blocksManager.OnUpdate();
     }
 }
