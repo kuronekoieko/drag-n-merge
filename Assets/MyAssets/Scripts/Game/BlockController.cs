@@ -101,6 +101,7 @@ public class BlockController : MonoBehaviour
         {
             Debug.Log("クリア");
             Variables.screenState = ScreenState.RESULT;
+            Variables.resultState = ResultState.WIN;
         }
     }
 }

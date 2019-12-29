@@ -8,3 +8,10 @@ public enum GameState
 {
 
 }
+
+public enum ResultState
+{
+    PLAYING,
+    WIN,
+    LOSE,
+}

@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
         gameController = GetComponent<GameController>();
         gameController.OnStart();
         gameCanvasManager.OnStart();
+        Variables.resultState = ResultState.PLAYING;
     }
 
 
