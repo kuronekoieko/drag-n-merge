@@ -164,7 +164,7 @@ public class BlockController : MonoBehaviour
     public void TransrateBlock(int indexX, int indexY)
     {
         transform.position = Utils.IndexToPosition(indexX, indexY);
-        if (indexY == Values.BOARD_LENGTH_Y)
+        if (indexY == Values.BOARD_LENGTH_Y - 1 && gameObject.activeSelf)
         {
             Variables.screenState = ScreenState.RESULT;
             Variables.resultState = ResultState.LOSE;

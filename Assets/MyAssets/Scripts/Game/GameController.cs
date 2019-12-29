@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     [SerializeField] BlocksManager blocksManager;
-    float timeLimit = 100;
+    float timeLimit = 10;
     public void OnStart()
     {
         blocksManager.OnStart();
