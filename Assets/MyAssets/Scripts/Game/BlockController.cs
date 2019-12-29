@@ -96,6 +96,11 @@ public class BlockController : MonoBehaviour
         if (block.num != num) { return; }
         num++;
         block.gameObject.SetActive(false);
-        Debug.Log("マージ");
+        //Debug.Log("マージ");
+        if (num == 5)
+        {
+            Debug.Log("クリア");
+            Variables.screenState = ScreenState.RESULT;
+        }
     }
 }
