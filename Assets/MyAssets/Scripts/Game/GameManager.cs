@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    GameController gameController;
     void Awake()
     {
 
@@ -11,12 +12,12 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-
+        gameController = GetComponent<GameController>();
     }
 
 
     void Update()
     {
-
+        gameController.OnStart();
     }
 }
