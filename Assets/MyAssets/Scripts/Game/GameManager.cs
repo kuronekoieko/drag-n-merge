@@ -13,11 +13,12 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         gameController = GetComponent<GameController>();
+        gameController.OnStart();
     }
 
 
     void Update()
     {
-        gameController.OnStart();
+        gameController.OnUpdate();
     }
 }
