@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using UnityEngine.SceneManagement;
 
 public class ResultCanvasManager : MonoBehaviour
 {
     [SerializeField] Text resultText;
+    [SerializeField] Button restartButton;
     public void OnStart()
     {
 
@@ -14,6 +16,9 @@ public class ResultCanvasManager : MonoBehaviour
             .Where(screenState => screenState == ScreenState.RESULT)
             .Subscribe(timer => { OnOpen(); })
             .AddTo(this.gameObject);
+
+        restartButton.onClick.AddListener(OnClickRestartButton);
+
         gameObject.SetActive(false);
     }
 
@@ -21,5 +26,10 @@ public class ResultCanvasManager : MonoBehaviour
     {
         gameObject.SetActive(true);
         resultText.text = Variables.resultState == ResultState.WIN ? "YOU WIN" : "YOU LOSE";
+    }
+
+    void OnClickRestartButton()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
