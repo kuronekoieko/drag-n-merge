@@ -222,29 +222,38 @@ public class BlockController : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D col)
     {
-        BlockController block;
         switch (blockState)
         {
             case BlockState.STOP:
-                float distance = (col.transform.position - transform.position).magnitude;
-                if (distance > 0.3f) { return; }
-                block = col.gameObject.GetComponent<BlockController>();
-                if (block.num != num) { return; }
-                num++;
-                block.gameObject.SetActive(false);
-
-                //Debug.Log("マージ");
-                if (num == Variables.targetNum)
-                {
-                    Variables.screenState = ScreenState.RESULT;
-                    Variables.resultState = ResultState.WIN;
-                }
+                BlockController block = col.gameObject.GetComponent<BlockController>();
+                Merge(block);
                 break;
             case BlockState.DRAG:
                 break;
             case BlockState.FALL:
                 break;
         }
+    }
+
+    void Merge(BlockController block)
+    {
+        float distance = (block.transform.position - transform.position).magnitude;
+        if (distance > 0.3f) { return; }
+
+        if (block.num != num) { return; }
+        num++;
+        block.gameObject.SetActive(false);
+
+        BlockController underBlock = BlocksManager.i.GetBlock(indexX, indexY - 1);
+        if (underBlock.num == num) { blockState = BlockState.FALL; }
+
+        //Debug.Log("マージ");
+        if (num == Variables.targetNum)
+        {
+            Variables.screenState = ScreenState.RESULT;
+            Variables.resultState = ResultState.WIN;
+        }
+
     }
 
     public void TransrateBlock(int indexX, int indexY)
