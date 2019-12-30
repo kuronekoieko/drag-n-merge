@@ -23,7 +23,7 @@ public class BlockController : MonoBehaviour
     EventTrigger eventTrigger;
     int num;
     Rigidbody2D rb;
-    BlockState blockState;
+    public BlockState blockState { get; private set; }
     public int indexX
     {
         get
@@ -38,6 +38,9 @@ public class BlockController : MonoBehaviour
             return Utils.PositionToIndexY(transform.position.y);
         }
     }
+
+    int pointerDownIndexX;
+    int pointerDownIndexY;
 
     public void OnStart()
     {
@@ -56,21 +59,28 @@ public class BlockController : MonoBehaviour
         blockState = BlockState.STOP;
         int remainder = Variables.targetNum % 2;
         int max = (Variables.targetNum + remainder) / 2;
-        Debug.Log(max);
         num = Random.Range(1, max);
     }
 
     public void OnUpdate()
     {
 
-        BlockController underBlock = BlocksManager.i.GetBlock(indexX, indexY - 1);
-        if (underBlock == null) { blockState = BlockState.FALL; }
+        FallCheck();
 
         if (blockState == BlockState.FALL)
         {
             FallDown();
         }
+    }
 
+    void FallCheck()
+    {
+        //一列目でバグるため
+        if (indexY <= 1) { return; }
+        //ドラッグ中のブロックが落ちるため
+        if (blockState != BlockState.STOP) { return; }
+        BlockController underBlock = BlocksManager.i.GetBlock(indexX, indexY - 1);
+        if (underBlock == null) { blockState = BlockState.FALL; }
 
     }
 
@@ -111,8 +121,9 @@ public class BlockController : MonoBehaviour
     void OnPointerDown()
     {
         blockState = BlockState.DRAG;
-        //Variables.draggingBlockNum = num;
         Variables.isDragging = true;
+        pointerDownIndexX = indexX;
+        pointerDownIndexY = indexY;
     }
 
 
@@ -158,9 +169,36 @@ public class BlockController : MonoBehaviour
         }
 
         worldPos.y = GetCollisionUnderBlockLimit(worldPos.y);
+        worldPos.y = GetCollisionUpperBlockLimit(worldPos.y);
         worldPos.x = GetCollisionLeftBlockLimit(worldPos.x);
         worldPos.x = GetCollisionRightBlockLimit(worldPos.x);
 
+        /*
+        int worldPosIndexX = Utils.PositionToIndexX(worldPos.x);
+        int worldPosIndexY = Utils.PositionToIndexY(worldPos.y);
+        BlockController block = BlocksManager.i.GetBlock(worldPosIndexX, worldPosIndexY);
+
+
+        if (block)
+        {
+
+
+            if (block.blockState == BlockState.STOP)
+            {
+                if (block.num != num)
+                {
+                    Debug.Log(block);
+                    return;
+                }
+
+            }
+
+
+        }
+        */
+
+
+        //Debug.Log(block == null);
         transform.position = worldPos;
     }
 
@@ -171,6 +209,16 @@ public class BlockController : MonoBehaviour
         if (underBlock.num == num) { return worldPosY; }
         float fixedY = underBlock.transform.position.y + Variables.blockHeight;
         if (worldPosY > fixedY) { return worldPosY; }
+        return fixedY;
+    }
+
+    float GetCollisionUpperBlockLimit(float worldPosY)
+    {
+        BlockController upperBlock = BlocksManager.i.GetBlock(indexX, indexY + 1);
+        if (upperBlock == null) { return worldPosY; }
+        if (upperBlock.num == num) { return worldPosY; }
+        float fixedY = upperBlock.transform.position.y - Variables.blockHeight;
+        if (worldPosY < fixedY) { return worldPosY; }
         return fixedY;
     }
 
@@ -238,7 +286,6 @@ public class BlockController : MonoBehaviour
     {
         float distance = (block.transform.position - transform.position).magnitude;
         if (distance > 0.3f) { return; }
-
         if (block.num != num) { return; }
         num++;
         block.gameObject.SetActive(false);
