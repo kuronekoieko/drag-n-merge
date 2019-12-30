@@ -2,19 +2,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 【C#】2次元配列の宣言・初期化・代入
+/// https://algorithm.joho.info/programming/csharp/2d-array-cs/
+/// </summary>
 public class BlocksManager : MonoBehaviour
 {
     [SerializeField] BlockController blockControllerPrefab;
     BlockController[] blockControllers;
+
+    public static BlocksManager i;
+
     public void OnStart()
     {
+        i = this;
+        Variables.blockHeight = blockControllerPrefab.GetComponent<BoxCollider2D>().size.x;
         BlockGenerator();
 
         for (int i = 0; i < 2; i++)
         {
             SetBlocksNewLine();
         }
+
     }
+
+
+    public bool IsBlockExist(int indexX, int indexY, out BlockController block)
+    {
+        for (int i = 0; i < blockControllers.Length; i++)
+        {
+            if (blockControllers[i].indexX != indexX) { continue; }
+            if (blockControllers[i].indexY != indexY) { continue; }
+            block = blockControllers[i];
+            return true;
+        }
+        block = null;
+        return false;
+    }
+
 
     public void OnUpdate()
     {

@@ -24,6 +24,7 @@ public class BlockController : MonoBehaviour
     int num;
     Rigidbody2D rb;
     BlockState blockState;
+    BlockController collidingBlock;
     public int indexX
     {
         get
@@ -62,15 +63,18 @@ public class BlockController : MonoBehaviour
     {
         if (blockState == BlockState.FALL)
         {
-            transform.Translate(0, -0.1f, 0);
-            float bottomY = Variables.blockLowerLeftPos.y + Values.BROCK_HEIGHT;
-            if (transform.position.y < bottomY)
-            {
-                blockState = BlockState.STOP;
-                int bottomIndexY = Utils.PositionToIndexY(bottomY);
-                transform.position = Utils.IndexToPosition(indexX, bottomIndexY);
-            }
+            FallDown();
         }
+    }
+
+    void FallDown()
+    {
+        transform.Translate(0, -0.1f, 0);
+        float bottomY = Variables.blockLowerLeftPos.y + Values.BROCK_DISTANCE;
+        if (transform.position.y > bottomY) { return; }
+        blockState = BlockState.STOP;
+        int bottomIndexY = Utils.PositionToIndexY(bottomY);
+        transform.position = Utils.IndexToPosition(indexX, bottomIndexY);
     }
 
     void SetEventTriggers()
@@ -100,20 +104,27 @@ public class BlockController : MonoBehaviour
     void OnPointerDown()
     {
         blockState = BlockState.DRAG;
+        //Variables.draggingBlockNum = num;
     }
 
 
     void OnPointerUp()
     {
-        blockState = BlockState.FALL;
-        //Debug.Log(indexX);
+        if (BlocksManager.i.IsBlockExist(indexX, indexY - 1, out BlockController block))
+        {
+            blockState = BlockState.STOP;
+        }
+        else
+        {
+            blockState = BlockState.FALL;
+        }
+
         TransrateBlock(indexX, indexY);
     }
 
     void OnDrag()
     {
-        Vector2 screenPos = Input.mousePosition;
-        Vector2 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
+        Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (worldPos.x < Variables.blockLowerLeftPos.x)
         {
             worldPos.x = Variables.blockLowerLeftPos.x;
@@ -125,20 +136,29 @@ public class BlockController : MonoBehaviour
             worldPos.x = rightX;
         }
 
-        float bottomY = Variables.blockLowerLeftPos.y + Values.BROCK_HEIGHT;
+        float bottomY = Variables.blockLowerLeftPos.y + Values.BROCK_DISTANCE;
         if (worldPos.y < bottomY)
         {
             worldPos.y = bottomY;
         }
 
-        float topY = Variables.blockLowerLeftPos.y + Values.BROCK_HEIGHT * (Values.BOARD_LENGTH_Y - 2);
+        float topY = Variables.blockLowerLeftPos.y + Values.BROCK_DISTANCE * (Values.BOARD_LENGTH_Y - 2);
         if (worldPos.y > topY)
         {
             worldPos.y = topY;
         }
 
+        if (collidingBlock)
+        {
 
+            float fixedY = collidingBlock.transform.position.y + Variables.blockHeight;
+            if (worldPos.y < fixedY)
+            {
+                worldPos.y = fixedY;
+            }
+        }
         transform.position = worldPos;
+        //        Debug.Log(indexY);
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -164,6 +184,11 @@ public class BlockController : MonoBehaviour
         }
     }
 
+    void OnCollisionExit2D(Collision2D col)
+    {
+        //collidingBlock = null;
+    }
+
     void OnCollisionStay2D(Collision2D col)
     {
         BlockController block;
@@ -185,7 +210,11 @@ public class BlockController : MonoBehaviour
                 }
                 break;
             case BlockState.DRAG:
-
+                block = col.gameObject.GetComponent<BlockController>();
+                if (block.num != num)
+                {
+                    collidingBlock = block;
+                }
                 break;
             case BlockState.FALL:
                 /*
