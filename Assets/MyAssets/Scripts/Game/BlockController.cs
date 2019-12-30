@@ -104,6 +104,17 @@ public class BlockController : MonoBehaviour
     {
         Vector2 screenPos = Input.mousePosition;
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
+        if (Mathf.Abs(worldPos.x) > Mathf.Abs(Variables.blockLowerLeftPos.x))
+        {
+            if (worldPos.x > 0)
+            {
+                worldPos.x = Variables.blockLowerLeftPos.x * -1;
+            }
+            else
+            {
+                worldPos.x = Variables.blockLowerLeftPos.x;
+            }
+        }
         transform.position = worldPos;
     }
 
