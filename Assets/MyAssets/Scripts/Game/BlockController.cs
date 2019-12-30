@@ -24,7 +24,6 @@ public class BlockController : MonoBehaviour
     int num;
     Rigidbody2D rb;
     BlockState blockState;
-    BlockController collidingBlock;
     public int indexX
     {
         get
@@ -110,6 +109,7 @@ public class BlockController : MonoBehaviour
 
     void OnPointerUp()
     {
+        TransrateBlock(indexX, indexY);
         if (BlocksManager.i.IsBlockExist(indexX, indexY - 1, out BlockController block))
         {
             blockState = BlockState.STOP;
@@ -118,8 +118,6 @@ public class BlockController : MonoBehaviour
         {
             blockState = BlockState.FALL;
         }
-
-        TransrateBlock(indexX, indexY);
     }
 
     void OnDrag()
@@ -148,17 +146,66 @@ public class BlockController : MonoBehaviour
             worldPos.y = topY;
         }
 
-        if (collidingBlock)
-        {
+        /*if (collidingBlock)
+                {
 
-            float fixedY = collidingBlock.transform.position.y + Variables.blockHeight;
-            if (worldPos.y < fixedY)
+                    float fixedY = collidingBlock.transform.position.y + Variables.blockHeight;
+                    if (worldPos.y < fixedY)
+                    {
+                        worldPos.y = fixedY;
+                    }
+                }*/
+
+
+        if (BlocksManager.i.IsBlockExist(indexX, indexY - 1, out BlockController block))
+        {
+            if (block.num != num)
             {
-                worldPos.y = fixedY;
+                float fixedY = block.transform.position.y + Variables.blockHeight;
+                if (worldPos.y < fixedY)
+                {
+                    worldPos.y = fixedY;
+                }
             }
         }
+
+
+        worldPos.x = GetCollisionBlockLimitX(worldPos);
+
+
         transform.position = worldPos;
         //        Debug.Log(indexY);
+    }
+
+    float GetCollisionBlockLimitX(Vector2 worldPos)
+    {
+        int sign = -1;
+        if (BlocksManager.i.IsBlockExist(indexX + sign, indexY, out BlockController leftBlock))
+        {
+            if (leftBlock.num != num)
+            {
+                float leftFixedX = leftBlock.transform.position.x - (Variables.blockHeight * sign);
+                if (worldPos.x < leftFixedX)
+                {
+                    worldPos.x = leftFixedX;
+                }
+            }
+        }
+
+        sign = 1;
+        if (BlocksManager.i.IsBlockExist(indexX + sign, indexY, out BlockController rightBlock))
+        {
+            if (rightBlock.num != num)
+            {
+                float rightFixedX = rightBlock.transform.position.x - (Variables.blockHeight * sign);
+                if (worldPos.x > rightFixedX)
+                {
+                    worldPos.x = rightFixedX;
+                }
+            }
+        }
+
+        return worldPos.x;
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -210,11 +257,6 @@ public class BlockController : MonoBehaviour
                 }
                 break;
             case BlockState.DRAG:
-                block = col.gameObject.GetComponent<BlockController>();
-                if (block.num != num)
-                {
-                    collidingBlock = block;
-                }
                 break;
             case BlockState.FALL:
                 /*
