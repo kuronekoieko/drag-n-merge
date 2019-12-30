@@ -200,7 +200,7 @@ TextMesh:
   m_Font: {fileID: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4283650939
+    rgba: 4293651455
 --- !u!1 &7130668835027558377
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,7 +270,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 55c9d96560f114c78aa310ce1c055a79, type: 3}
-  m_Color: {r: 1, g: 0.7523585, b: 0.504717, a: 1}
+  m_Color: {r: 1, g: 0.6580188, b: 0.3160377, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
