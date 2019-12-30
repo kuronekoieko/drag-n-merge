@@ -27,18 +27,16 @@ public class BlocksManager : MonoBehaviour
     }
 
 
-    public bool IsBlockExist(int indexX, int indexY, out BlockController block)
+    public BlockController GetBlock(int indexX, int indexY)
     {
         for (int i = 0; i < blockControllers.Length; i++)
         {
             if (blockControllers[i].indexX != indexX) { continue; }
             if (blockControllers[i].indexY != indexY) { continue; }
             if (!blockControllers[i].gameObject.activeSelf) { continue; }
-            block = blockControllers[i];
-            return true;
+            return blockControllers[i];
         }
-        block = null;
-        return false;
+        return null;
     }
 
 

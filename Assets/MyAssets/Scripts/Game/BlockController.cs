@@ -110,7 +110,8 @@ public class BlockController : MonoBehaviour
     void OnPointerUp()
     {
         TransrateBlock(indexX, indexY);
-        if (BlocksManager.i.IsBlockExist(indexX, indexY - 1, out BlockController block))
+        BlockController block = BlocksManager.i.GetBlock(indexX, indexY - 1);
+        if (block)
         {
             blockState = BlockState.STOP;
         }
@@ -146,66 +147,46 @@ public class BlockController : MonoBehaviour
             worldPos.y = topY;
         }
 
-        /*if (collidingBlock)
-                {
-
-                    float fixedY = collidingBlock.transform.position.y + Variables.blockHeight;
-                    if (worldPos.y < fixedY)
-                    {
-                        worldPos.y = fixedY;
-                    }
-                }*/
-
-
-        if (BlocksManager.i.IsBlockExist(indexX, indexY - 1, out BlockController block))
-        {
-            if (block.num != num)
-            {
-                float fixedY = block.transform.position.y + Variables.blockHeight;
-                if (worldPos.y < fixedY)
-                {
-                    worldPos.y = fixedY;
-                }
-            }
-        }
-
-
-        worldPos.x = GetCollisionBlockLimitX(worldPos);
-
+        worldPos.y = GetCollisionUnderBlockLimit(worldPos.y);
+        worldPos.x = GetCollisionLeftBlockLimit(worldPos.x);
+        worldPos.x = GetCollisionRightBlockLimit(worldPos.x);
 
         transform.position = worldPos;
-        //        Debug.Log(indexY);
     }
 
-    float GetCollisionBlockLimitX(Vector2 worldPos)
+    float GetCollisionUnderBlockLimit(float worldPosY)
+    {
+        BlockController underBlock = BlocksManager.i.GetBlock(indexX, indexY - 1);
+        if (underBlock == null) { return worldPosY; }
+        if (underBlock.num == num) { return worldPosY; }
+        float fixedY = underBlock.transform.position.y + Variables.blockHeight;
+        if (worldPosY > fixedY) { return worldPosY; }
+        return fixedY;
+    }
+
+    float GetCollisionLeftBlockLimit(float worldPosX)
     {
         int sign = -1;
-        if (BlocksManager.i.IsBlockExist(indexX + sign, indexY, out BlockController leftBlock))
-        {
-            if (leftBlock.num != num)
-            {
-                float leftFixedX = leftBlock.transform.position.x - (Variables.blockHeight * sign);
-                if (worldPos.x < leftFixedX)
-                {
-                    worldPos.x = leftFixedX;
-                }
-            }
-        }
+        BlockController leftBlock = BlocksManager.i.GetBlock(indexX + sign, indexY);
+        if (leftBlock == null) { return worldPosX; }
+        if (leftBlock.num == num) { return worldPosX; }
+        float leftFixedX = leftBlock.transform.position.x - (Variables.blockHeight * sign);
+        if (worldPosX > leftFixedX) { return worldPosX; }
+        return leftFixedX;
+    }
 
-        sign = 1;
-        if (BlocksManager.i.IsBlockExist(indexX + sign, indexY, out BlockController rightBlock))
-        {
-            if (rightBlock.num != num)
-            {
-                float rightFixedX = rightBlock.transform.position.x - (Variables.blockHeight * sign);
-                if (worldPos.x > rightFixedX)
-                {
-                    worldPos.x = rightFixedX;
-                }
-            }
-        }
+    float GetCollisionRightBlockLimit(float worldPosX)
+    {
+        int sign = 1;
 
-        return worldPos.x;
+        BlockController rightBlock = BlocksManager.i.GetBlock(indexX + sign, indexY);
+        if (rightBlock == null) { return worldPosX; }
+        if (rightBlock.num == num) { return worldPosX; }
+
+        float rightFixedX = rightBlock.transform.position.x - (Variables.blockHeight * sign);
+        if (worldPosX < rightFixedX) { return worldPosX; }
+
+        return rightFixedX;
     }
 
     void OnCollisionEnter2D(Collision2D col)
