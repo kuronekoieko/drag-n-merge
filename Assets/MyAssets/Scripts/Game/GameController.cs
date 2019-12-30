@@ -8,9 +8,10 @@ public class GameController : MonoBehaviour
     float timeLimit = 5;
     public void OnStart()
     {
+        Variables.targetNum = 5;
         blocksManager.OnStart();
         Variables.timer = timeLimit;
-        Variables.targetNum = 5;
+        Variables.isDragging = false;
     }
 
     public void OnUpdate()

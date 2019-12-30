@@ -42,7 +42,6 @@ public class BlockController : MonoBehaviour
     public void OnStart()
     {
         SetEventTriggers();
-        num = 1;
         this.ObserveEveryValueChanged(num => this.num)
                .Subscribe(num => { textMesh.text = num.ToString(); })
                .AddTo(this.gameObject);
@@ -55,7 +54,10 @@ public class BlockController : MonoBehaviour
     public void SetNewLine()
     {
         blockState = BlockState.STOP;
-        num = 1;
+        int remainder = Variables.targetNum % 2;
+        int max = (Variables.targetNum + remainder) / 2;
+        Debug.Log(max);
+        num = Random.Range(1, max);
     }
 
     public void OnUpdate()
@@ -203,13 +205,10 @@ public class BlockController : MonoBehaviour
         switch (blockState)
         {
             case BlockState.STOP:
-
                 break;
             case BlockState.DRAG:
-
                 break;
             case BlockState.FALL:
-
                 block = col.gameObject.GetComponent<BlockController>();
                 if (block.num != num)
                 {
@@ -243,17 +242,25 @@ public class BlockController : MonoBehaviour
         if (block.num != num) { return; }
         num++;
         block.gameObject.SetActive(false);
+        //タイマーが止まるため
+        Variables.isDragging = false;
+        FallCheckOnMerge();
+        ClearCheck();
+    }
 
+    void FallCheckOnMerge()
+    {
         BlockController underBlock = BlocksManager.i.GetBlock(indexX, indexY - 1);
-        if (underBlock.num == num) { blockState = BlockState.FALL; }
+        if (underBlock == null) { return; }
+        if (underBlock.num != num) { return; }
+        blockState = BlockState.FALL;
+    }
 
-        //Debug.Log("マージ");
-        if (num == Variables.targetNum)
-        {
-            Variables.screenState = ScreenState.RESULT;
-            Variables.resultState = ResultState.WIN;
-        }
-
+    void ClearCheck()
+    {
+        if (num != Variables.targetNum) { return; }
+        Variables.screenState = ScreenState.RESULT;
+        Variables.resultState = ResultState.WIN;
     }
 
     public void TransrateBlock(int indexX, int indexY)
