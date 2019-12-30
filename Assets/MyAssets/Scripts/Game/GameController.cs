@@ -16,11 +16,18 @@ public class GameController : MonoBehaviour
     public void OnUpdate()
     {
         blocksManager.OnUpdate();
-        Variables.timer -= Time.deltaTime;
+
         if (Variables.timer < 0)
         {
-            blocksManager.SetBlocksNewLine();
-            Variables.timer = timeLimit;
+            if (!Variables.isDragging)
+            {
+                blocksManager.SetBlocksNewLine();
+                Variables.timer = timeLimit;
+            }
+        }
+        else
+        {
+            Variables.timer -= Time.deltaTime;
         }
     }
 }

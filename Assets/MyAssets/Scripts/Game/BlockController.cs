@@ -104,6 +104,7 @@ public class BlockController : MonoBehaviour
     {
         blockState = BlockState.DRAG;
         //Variables.draggingBlockNum = num;
+        Variables.isDragging = true;
     }
 
 
@@ -119,6 +120,7 @@ public class BlockController : MonoBehaviour
         {
             blockState = BlockState.FALL;
         }
+        Variables.isDragging = false;
     }
 
     void OnDrag()
