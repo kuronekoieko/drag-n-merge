@@ -60,7 +60,17 @@ public class BlockController : MonoBehaviour
 
     public void OnUpdate()
     {
-        if (blockState == BlockState.FALL) transform.Translate(0, -0.1f, 0);
+        if (blockState == BlockState.FALL)
+        {
+            transform.Translate(0, -0.1f, 0);
+            float bottomY = Variables.blockLowerLeftPos.y + Values.BROCK_HEIGHT;
+            if (transform.position.y < bottomY)
+            {
+                blockState = BlockState.STOP;
+                int bottomIndexY = Utils.PositionToIndexY(bottomY);
+                transform.position = Utils.IndexToPosition(indexX, bottomIndexY);
+            }
+        }
     }
 
     void SetEventTriggers()
