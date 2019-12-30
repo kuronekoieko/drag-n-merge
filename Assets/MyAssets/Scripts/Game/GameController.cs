@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     {
         blocksManager.OnStart();
         Variables.timer = timeLimit;
+        Variables.targetNum = 5;
     }
 
     public void OnUpdate()

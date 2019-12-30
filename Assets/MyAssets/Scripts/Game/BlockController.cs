@@ -212,11 +212,6 @@ public class BlockController : MonoBehaviour
         }
     }
 
-    void OnCollisionExit2D(Collision2D col)
-    {
-        //collidingBlock = null;
-    }
-
     void OnCollisionStay2D(Collision2D col)
     {
         BlockController block;
@@ -231,7 +226,7 @@ public class BlockController : MonoBehaviour
                 block.gameObject.SetActive(false);
 
                 //Debug.Log("マージ");
-                if (num == 5)
+                if (num == Variables.targetNum)
                 {
                     Variables.screenState = ScreenState.RESULT;
                     Variables.resultState = ResultState.WIN;
@@ -240,15 +235,6 @@ public class BlockController : MonoBehaviour
             case BlockState.DRAG:
                 break;
             case BlockState.FALL:
-                /*
-                 block = col.gameObject.GetComponent<BlockController>();
-                    if (block.num != num)
-                    {
-                        blockState = BlockState.STOP;
-                        TransrateBlock(indexX, block.indexY + 1);
-                    }
-                */
-
                 break;
         }
     }
