@@ -60,10 +60,16 @@ public class BlockController : MonoBehaviour
 
     public void OnUpdate()
     {
+
+        BlockController underBlock = BlocksManager.i.GetBlock(indexX, indexY - 1);
+        if (underBlock == null) { blockState = BlockState.FALL; }
+
         if (blockState == BlockState.FALL)
         {
             FallDown();
         }
+
+
     }
 
     void FallDown()
