@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UniRx;
-
+using DG.Tweening;
 
 /// <summary>
 /// Rayを飛ばさずに簡単にオブジェクトのクリックを検知
@@ -296,10 +296,23 @@ public class BlockController : MonoBehaviour
     public void TransrateBlock(int indexX, int indexY)
     {
         transform.position = Utils.IndexToPosition(indexX, indexY);
-        if (indexY == Values.BOARD_LENGTH_Y - 1 && gameObject.activeSelf)
+    }
+
+    public void MoveUpAnim()
+    {
+        float y = Utils.IndexToPosition(indexX, indexY + 1).y;
+        transform.DOMoveY(y, 0.5f)
+        .OnComplete(() =>
         {
-            Variables.screenState = ScreenState.RESULT;
-            Variables.resultState = ResultState.LOSE;
-        }
+            FailedCheck();
+        });
+    }
+
+    void FailedCheck()
+    {
+        if (indexY != Values.BOARD_LENGTH_Y - 1) { return; }
+        if (!gameObject.activeSelf) { return; }
+        Variables.screenState = ScreenState.RESULT;
+        Variables.resultState = ResultState.LOSE;
     }
 }

@@ -19,10 +19,9 @@ public class BlocksManager : MonoBehaviour
         Variables.blockHeight = blockControllerPrefab.GetComponent<BoxCollider2D>().size.x;
         BlockGenerator();
 
-        for (int i = 0; i < 2; i++)
-        {
-            SetBlocksNewLine();
-        }
+
+        SetBlocksNewLine(1);
+        SetBlocksNewLine(2);
 
     }
 
@@ -61,7 +60,7 @@ public class BlocksManager : MonoBehaviour
         }
     }
 
-    public void SetBlocksNewLine()
+    public void SetBlocksNewLine(int indexY)
     {
         int count = 0;
 
@@ -70,22 +69,23 @@ public class BlocksManager : MonoBehaviour
             BlockController block = blockControllers[i];
             if (block.gameObject.activeSelf) { continue; }
 
-            block.TransrateBlock(indexX: count, indexY: 0);
+            block.TransrateBlock(indexX: count, indexY: indexY);
             block.gameObject.SetActive(true);
             block.SetNewLine();
             count++;
             if (count == Values.BOARD_LENGTH_X) { break; }
         }
 
-        MoveUpAllBlocks();
+        //MoveUpAllBlocks();
     }
 
-    void MoveUpAllBlocks()
+    public void MoveUpAllBlocks()
     {
         for (int i = 0; i < blockControllers.Length; i++)
         {
             BlockController block = blockControllers[i];
-            block.TransrateBlock(block.indexX, block.indexY + 1);
+            //block.TransrateBlock(block.indexX, block.indexY + 1);
+            block.MoveUpAnim();
         }
     }
 
