@@ -34,6 +34,7 @@ public class BlocksManager : MonoBehaviour
             if (blockControllers[i].indexX != indexX) { continue; }
             if (blockControllers[i].indexY != indexY) { continue; }
             if (!blockControllers[i].gameObject.activeSelf) { continue; }
+            if (blockControllers[i].blockState != BlockState.STOP) { continue; }
             return blockControllers[i];
         }
         return null;

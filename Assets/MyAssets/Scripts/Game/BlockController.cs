@@ -130,8 +130,8 @@ public class BlockController : MonoBehaviour
     void OnPointerUp()
     {
         TransrateBlock(indexX, indexY);
-        BlockController block = BlocksManager.i.GetBlock(indexX, indexY - 1);
-        if (block)
+        BlockController underBlock = BlocksManager.i.GetBlock(indexX, indexY - 1);
+        if (underBlock)
         {
             blockState = BlockState.STOP;
         }
@@ -139,6 +139,7 @@ public class BlockController : MonoBehaviour
         {
             blockState = BlockState.FALL;
         }
+
         Variables.isDragging = false;
     }
 
@@ -173,38 +174,20 @@ public class BlockController : MonoBehaviour
         worldPos.x = GetCollisionLeftBlockLimit(worldPos.x);
         worldPos.x = GetCollisionRightBlockLimit(worldPos.x);
 
-        /*
-        int worldPosIndexX = Utils.PositionToIndexX(worldPos.x);
-        int worldPosIndexY = Utils.PositionToIndexY(worldPos.y);
-        BlockController block = BlocksManager.i.GetBlock(worldPosIndexX, worldPosIndexY);
-
-
-        if (block)
-        {
-
-
-            if (block.blockState == BlockState.STOP)
-            {
-                if (block.num != num)
-                {
-                    Debug.Log(block);
-                    return;
-                }
-
-            }
-
-
-        }
-        */
-
-
-        //Debug.Log(block == null);
         transform.position = worldPos;
     }
 
     float GetCollisionUnderBlockLimit(float worldPosY)
     {
-        BlockController underBlock = BlocksManager.i.GetBlock(indexX, indexY - 1);
+        BlockController underBlock = null;
+        for (int iy = Values.BOARD_LENGTH_Y - 1; iy > 0; iy--)
+        {
+            underBlock = BlocksManager.i.GetBlock(indexX, iy);
+            if (underBlock == null) { continue; }
+            if (underBlock.num == num) { continue; }
+            break;
+        }
+
         if (underBlock == null) { return worldPosY; }
         if (underBlock.num == num) { return worldPosY; }
         float fixedY = underBlock.transform.position.y + Variables.blockHeight;

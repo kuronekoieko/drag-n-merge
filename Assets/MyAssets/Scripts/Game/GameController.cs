@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     [SerializeField] BlocksManager blocksManager;
-    float timeLimit = 5;
+    float timeLimit = 50;
     public void OnStart()
     {
         Variables.targetNum = 5;
