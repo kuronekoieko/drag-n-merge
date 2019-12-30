@@ -19,7 +19,9 @@ public class GameCanvasManager : MonoBehaviour
 
     void SetTimeCountText()
     {
-        timerText.text = Variables.timer.ToString("F2");
+        string timer = Variables.timer.ToString("F2");
+        if (Variables.timer < 0) timer = "0.00";
+        timerText.text = timer;
     }
 
 }
