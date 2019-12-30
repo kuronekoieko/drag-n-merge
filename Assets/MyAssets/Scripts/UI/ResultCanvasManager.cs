@@ -25,7 +25,7 @@ public class ResultCanvasManager : MonoBehaviour
     void OnOpen()
     {
         gameObject.SetActive(true);
-        resultText.text = Variables.resultState == ResultState.WIN ? "YOU WIN" : "YOU LOSE";
+        resultText.text = Variables.resultState == ResultState.WIN ? "CLEAR!!" : "FAILED";
     }
 
     void OnClickRestartButton()

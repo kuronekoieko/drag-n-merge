@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] StartCanvasManager startCanvasManager;
     [SerializeField] GameCanvasManager gameCanvasManager;
     [SerializeField] ResultCanvasManager resultCanvasManager;
     GameController gameController;
@@ -19,8 +20,9 @@ public class GameManager : MonoBehaviour
         gameController.OnStart();
         gameCanvasManager.OnStart();
         resultCanvasManager.OnStart();
+        startCanvasManager.OnStart();
         Variables.resultState = ResultState.PLAYING;
-        Variables.screenState = ScreenState.GAME;
+        Variables.screenState = ScreenState.START;
     }
 
 
@@ -28,6 +30,8 @@ public class GameManager : MonoBehaviour
     {
         switch (Variables.screenState)
         {
+            case ScreenState.START:
+                break;
             case ScreenState.GAME:
                 gameController.OnUpdate();
                 break;

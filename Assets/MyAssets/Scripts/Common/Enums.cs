@@ -1,5 +1,6 @@
 ﻿public enum ScreenState
 {
+    START,
     GAME,
     RESULT,
 }
