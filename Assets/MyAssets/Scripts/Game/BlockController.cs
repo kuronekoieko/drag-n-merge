@@ -52,6 +52,12 @@ public class BlockController : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public void SetNewLine()
+    {
+        blockState = BlockState.STOP;
+        num = 1;
+    }
+
     public void OnUpdate()
     {
         if (blockState == BlockState.FALL) transform.Translate(0, -0.1f, 0);

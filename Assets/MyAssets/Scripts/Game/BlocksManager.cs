@@ -46,6 +46,7 @@ public class BlocksManager : MonoBehaviour
 
             block.TransrateBlock(indexX: count, indexY: 0);
             block.gameObject.SetActive(true);
+            block.SetNewLine();
             count++;
             if (count == Values.BOARD_LENGTH_X) { break; }
         }
