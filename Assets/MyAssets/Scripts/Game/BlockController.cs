@@ -61,6 +61,18 @@ public class BlockController : MonoBehaviour
         int remainder = Variables.targetNum % 2;
         int max = (Variables.targetNum + remainder) / 2;
         num = Random.Range(1, max);
+        BlockController upperBlock = BlocksManager.i.GetBlock(indexX, 1);
+        int c = 0;
+        if (upperBlock)
+        {
+            while (upperBlock.num == num)
+            {
+                num = Random.Range(1, max);
+                c++;
+                if (c == 50) break;
+            }
+        }
+
     }
 
     public void OnUpdate()
