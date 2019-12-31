@@ -604,6 +604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 64325164}
   targetNumText: {fileID: 766121020}
+  targetBlockImage: {fileID: 119933303}
 --- !u!114 &372288006
 MonoBehaviour:
   m_ObjectHideFlags: 0

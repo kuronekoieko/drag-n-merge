@@ -8,6 +8,8 @@ public class GameCanvasManager : MonoBehaviour
 {
     [SerializeField] Text timerText;
     [SerializeField] Text targetNumText;
+    [SerializeField] Image targetBlockImage;
+
     public void OnStart()
     {
         this.ObserveEveryValueChanged(timer => Variables.timer)
@@ -15,6 +17,8 @@ public class GameCanvasManager : MonoBehaviour
             .AddTo(this.gameObject);
 
         targetNumText.text = Variables.targetNum.ToString();
+        targetNumText.color = BlockColorData.i.blockColors[Variables.targetNum - 1].textColor;
+        targetBlockImage.color = BlockColorData.i.blockColors[Variables.targetNum - 1].color;
     }
 
     void SetTimeCountText()
