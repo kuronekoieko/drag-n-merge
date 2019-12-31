@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class ResultCanvasManager : MonoBehaviour
 {
@@ -26,11 +27,27 @@ public class ResultCanvasManager : MonoBehaviour
     {
         gameObject.SetActive(true);
         resultText.text = Variables.resultState == ResultState.WIN ? "CLEAR!!" : "FAILED";
+        if (Variables.resultState == ResultState.WIN)
+        {
+            resultText.text = "CLEAR!!";
+            AudioManager.i.PlayOneShot(3);
+            Debug.Log(0);
+        }
+        else
+        {
+            resultText.text = "FAILED";
+            AudioManager.i.PlayOneShot(4);
+        }
     }
 
     void OnClickRestartButton()
     {
         AudioManager.i.PlayOneShot(2);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Variables.screenState = ScreenState.START;
+
+        DOVirtual.DelayedCall(0.4f, () =>
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        });
     }
 }

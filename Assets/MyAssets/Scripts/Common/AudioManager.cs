@@ -12,7 +12,8 @@ public class AudioManager : MonoBehaviour
     public void OnStart()
     {
         audioSource = GetComponent<AudioSource>();
-        i = this;
+        if (i == null) i = this;
+        DontDestroyOnLoad(i);
     }
 
     public void PlayOneShot(int index)

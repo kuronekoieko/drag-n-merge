@@ -1525,10 +1525,14 @@ MonoBehaviour:
   audioFiles:
   - audioClip: {fileID: 8300000, guid: 4bd28eed5dcab458da4a08aa1f623053, type: 3}
     soundName: "\u30D6\u30ED\u30C3\u30AF\u30DE\u30FC\u30B8\u97F3"
-  - audioClip: {fileID: 8300000, guid: 45d00302ccc3440179132068155be4ea, type: 3}
+  - audioClip: {fileID: 8300000, guid: 7cc979677c47f4e2f9d6c8c925b87af2, type: 3}
     soundName: "\u30B9\u30BF\u30FC\u30C8"
-  - audioClip: {fileID: 8300000, guid: 45d00302ccc3440179132068155be4ea, type: 3}
+  - audioClip: {fileID: 8300000, guid: 7cc979677c47f4e2f9d6c8c925b87af2, type: 3}
     soundName: "\u30EA\u30B9\u30BF\u30FC\u30C8"
+  - audioClip: {fileID: 8300000, guid: 45d00302ccc3440179132068155be4ea, type: 3}
+    soundName: "\u30AF\u30EA\u30A2"
+  - audioClip: {fileID: 8300000, guid: 7298bf2049ff54536b01e23e04d6a8f3, type: 3}
+    soundName: "\u5931\u6557"
 --- !u!4 &1590465346
 Transform:
   m_ObjectHideFlags: 0
@@ -1554,7 +1558,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

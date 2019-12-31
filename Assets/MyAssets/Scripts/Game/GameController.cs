@@ -5,10 +5,10 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     [SerializeField] BlocksManager blocksManager;
-    float timeLimit = 50;
+    float timeLimit = 5;
     public void OnStart()
     {
-        Variables.targetNum = 15;
+        Variables.targetNum = 3;
         blocksManager.OnStart();
         Variables.timer = timeLimit;
         Variables.isDragging = false;
