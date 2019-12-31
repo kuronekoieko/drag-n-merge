@@ -6,6 +6,28 @@ using UnityEngine;
 public class BlockColorData : ScriptableObject
 {
     public BlockColor[] blockColors;
+
+    private static BlockColorData _i;
+    public static BlockColorData i
+    {
+        get
+        {
+            string PATH = "ScriptableObjects/" + nameof(BlockColorData);
+            //初アクセス時にロードする
+            if (_i == null)
+            {
+                _i = Resources.Load<BlockColorData>(PATH);
+
+                //ロード出来なかった場合はエラーログを表示
+                if (_i == null)
+                {
+                    Debug.LogError(PATH + " not found");
+                }
+            }
+
+            return _i;
+        }
+    }
 }
 
 [System.Serializable]

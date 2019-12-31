@@ -20,6 +20,7 @@ using DG.Tweening;
 public class BlockController : MonoBehaviour
 {
     [SerializeField] TextMesh textMesh;
+    [SerializeField] SpriteRenderer spriteRenderer;
     EventTrigger eventTrigger;
     int num;
     Rigidbody2D rb;
@@ -46,7 +47,7 @@ public class BlockController : MonoBehaviour
     {
         SetEventTriggers();
         this.ObserveEveryValueChanged(num => this.num)
-               .Subscribe(num => { textMesh.text = num.ToString(); })
+               .Subscribe(num => { SetBlockView(); })
                .AddTo(this.gameObject);
 
         rb = GetComponent<Rigidbody2D>();
@@ -71,6 +72,18 @@ public class BlockController : MonoBehaviour
         {
             FallDown();
         }
+    }
+
+    void SetBlockView()
+    {
+
+        if (num > 0)
+        {
+            textMesh.color = BlockColorData.i.blockColors[num - 1].textColor;
+            spriteRenderer.color = BlockColorData.i.blockColors[num - 1].color;
+        }
+
+        textMesh.text = num.ToString();
     }
 
     void FallCheck()

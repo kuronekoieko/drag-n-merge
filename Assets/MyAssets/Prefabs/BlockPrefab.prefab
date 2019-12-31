@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textMesh: {fileID: 6593126479861544069}
+  spriteRenderer: {fileID: 8369211087466535710}
 --- !u!114 &6593126479506919470
 MonoBehaviour:
   m_ObjectHideFlags: 0
