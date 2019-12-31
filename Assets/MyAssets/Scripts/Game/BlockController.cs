@@ -195,6 +195,8 @@ public class BlockController : MonoBehaviour
 
         worldPos.y = GetCollisionUnderBlockLimit(worldPos.y);
         worldPos.y = GetCollisionUpperBlockLimit(worldPos.y);
+
+
         worldPos.x = GetCollisionLeftBlockLimit(worldPos.x);
         worldPos.x = GetCollisionRightBlockLimit(worldPos.x);
 
