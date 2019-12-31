@@ -37,8 +37,8 @@ MonoBehaviour:
   - color: {r: 0.6627451, g: 0.4509804, b: 0.87058824, a: 1}
     textColor: {r: 1, g: 1, b: 1, a: 1}
     num: 8
-  - color: {r: 0.83137256, g: 0.5529412, b: 0.30980393, a: 1}
-    textColor: {r: 0, g: 0, b: 0, a: 0.50980395}
+  - color: {r: 0.30980393, g: 0.4422975, b: 0.83137256, a: 1}
+    textColor: {r: 1, g: 1, b: 1, a: 1}
     num: 9
   - color: {r: 0.9411765, g: 0.93333334, b: 0.8901961, a: 1}
     textColor: {r: 0, g: 0, b: 0, a: 0.50980395}
@@ -50,7 +50,7 @@ MonoBehaviour:
     textColor: {r: 0, g: 0, b: 0, a: 0.50980395}
     num: 12
   - color: {r: 0.78431374, g: 0.26666668, b: 0.44705883, a: 1}
-    textColor: {r: 0, g: 0, b: 0, a: 0.50980395}
+    textColor: {r: 1, g: 1, b: 1, a: 1}
     num: 13
   - color: {r: 0.35686275, g: 0.5372549, b: 0.78039217, a: 1}
     textColor: {r: 1, g: 1, b: 1, a: 1}
