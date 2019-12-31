@@ -30,6 +30,7 @@ public class ResultCanvasManager : MonoBehaviour
 
     void OnClickRestartButton()
     {
+        AudioManager.i.PlayOneShot(2);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

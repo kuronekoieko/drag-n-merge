@@ -276,6 +276,7 @@ public class BlockController : MonoBehaviour
         Variables.isDragging = false;
         FallCheckOnMerge();
         ClearCheck();
+        AudioManager.i.PlayOneShot(0);
     }
 
     void FallCheckOnMerge()

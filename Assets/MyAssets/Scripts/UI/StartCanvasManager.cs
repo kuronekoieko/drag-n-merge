@@ -22,5 +22,6 @@ public class StartCanvasManager : MonoBehaviour
     {
         gameObject.SetActive(false);
         Variables.screenState = ScreenState.GAME;
+        AudioManager.i.PlayOneShot(1);
     }
 }
