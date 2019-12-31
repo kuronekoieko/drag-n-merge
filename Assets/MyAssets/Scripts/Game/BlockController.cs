@@ -301,6 +301,7 @@ public class BlockController : MonoBehaviour
         //タイマーが止まるため
         Variables.isDragging = false;
         FallCheckOnMerge();
+        FallCheckUpperBlockOnMerge();
         ClearCheck();
         AudioManager.i.PlayOneShot(0);
     }
@@ -311,6 +312,14 @@ public class BlockController : MonoBehaviour
         if (underBlock == null) { return; }
         if (underBlock.num != num) { return; }
         blockState = BlockState.FALL;
+    }
+
+    void FallCheckUpperBlockOnMerge()
+    {
+        BlockController upperBlock = BlocksManager.i.GetBlock(indexX, indexY + 1);
+        if (upperBlock == null) { return; }
+        if (upperBlock.num != num) { return; }
+        upperBlock.blockState = BlockState.FALL;
     }
 
     void ClearCheck()
