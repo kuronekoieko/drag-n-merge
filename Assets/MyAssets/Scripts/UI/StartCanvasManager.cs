@@ -9,6 +9,7 @@ public class StartCanvasManager : MonoBehaviour
     [SerializeField] Button startButton;
     [SerializeField] Text targetNumText;
     [SerializeField] Image targetBlockImage;
+
     public void OnStart()
     {
         startButton.onClick.AddListener(OnClickStartButton);
