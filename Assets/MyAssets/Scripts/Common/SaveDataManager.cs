@@ -13,9 +13,11 @@ public class SaveDataManager : MonoBehaviour
     {
         i = this;
         LoadUserData();
+        /*
         this.ObserveEveryValueChanged(i => SaveData.i)
           .Subscribe(i => { Save(); })
           .AddTo(this.gameObject);
+        */
     }
 
     public void Save()

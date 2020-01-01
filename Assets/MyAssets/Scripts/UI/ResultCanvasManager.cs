@@ -19,6 +19,7 @@ public class ResultCanvasManager : MonoBehaviour
     [SerializeField] Button restartButton;
     [SerializeField] Button twitterButton;
     [SerializeField] Text shareText;
+    [SerializeField] Text levelText;
     public void OnStart()
     {
 
@@ -41,6 +42,8 @@ public class ResultCanvasManager : MonoBehaviour
     {
         gameObject.SetActive(true);
         resultText.text = Variables.resultState == ResultState.WIN ? "CLEAR!!" : "FAILED";
+        levelText.text = "LEVEL  " + (SaveData.i.clearedLevel + 1);
+
         if (Variables.resultState == ResultState.WIN)
         {
             resultText.text = "CLEAR!!";
