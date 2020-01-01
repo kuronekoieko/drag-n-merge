@@ -27,15 +27,25 @@ MonoBehaviour:
     targetNum: 7
   - timeLimit: 6
     targetNum: 8
-  - timeLimit: 6
+  - timeLimit: 7
     targetNum: 10
-  - timeLimit: 6
+  - timeLimit: 8
+    targetNum: 11
+  - timeLimit: 9
     targetNum: 12
-  - timeLimit: 6
+  - timeLimit: 10
+    targetNum: 13
+  - timeLimit: 11
     targetNum: 14
-  - timeLimit: 6
+  - timeLimit: 11
+    targetNum: 15
+  - timeLimit: 11
     targetNum: 16
-  - timeLimit: 6
+  - timeLimit: 11
+    targetNum: 17
+  - timeLimit: 11
     targetNum: 18
-  - timeLimit: 6
+  - timeLimit: 11
+    targetNum: 19
+  - timeLimit: 11
     targetNum: 20

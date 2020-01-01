@@ -54,7 +54,6 @@ public class BlockController : MonoBehaviour
         blockState = BlockState.STOP;
         gameObject.SetActive(false);
     }
-    int temp = 11;
 
     public void SetNewLine()
     {
@@ -73,10 +72,6 @@ public class BlockController : MonoBehaviour
                 if (c == 50) break;
             }
         }
-
-        num = temp;
-        temp++;
-        if (temp > 20) temp = 20;
     }
 
     public void OnUpdate()
