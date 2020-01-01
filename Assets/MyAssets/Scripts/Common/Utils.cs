@@ -24,4 +24,10 @@ public class Utils : MonoBehaviour
         float y = Variables.blockLowerLeftPos.y + Values.BROCK_DISTANCE * index_y;
         return new Vector2(x, y);
     }
+
+    public static bool IsLanguageJapanese()
+    {
+        string deviceLanguage = Application.systemLanguage.ToString();
+        return deviceLanguage.Equals("Japanese");
+    }
 }

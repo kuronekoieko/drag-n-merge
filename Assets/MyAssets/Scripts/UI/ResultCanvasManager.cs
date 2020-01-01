@@ -5,11 +5,17 @@ using UnityEngine.UI;
 using UniRx;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using UnityEngine.Networking;
 
+/// <summary>
+/// 【Unity】Twitterボタン設置とツイートの報酬付与
+/// https://qiita.com/Kenji__SHIMIZU/items/d907744a977167d89a78
+/// </summary>
 public class ResultCanvasManager : MonoBehaviour
 {
     [SerializeField] Text resultText;
     [SerializeField] Button restartButton;
+    [SerializeField] Button twitterButton;
     public void OnStart()
     {
 
@@ -19,6 +25,7 @@ public class ResultCanvasManager : MonoBehaviour
             .AddTo(this.gameObject);
 
         restartButton.onClick.AddListener(OnClickRestartButton);
+        twitterButton.onClick.AddListener(OnClickTwitterButton);
 
         gameObject.SetActive(false);
     }
@@ -49,5 +56,26 @@ public class ResultCanvasManager : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         });
+    }
+
+    public void OnClickTwitterButton()
+    {
+        string text = "";
+        if (Utils.IsLanguageJapanese())
+        {
+            text = "「ColorfulMerge」をクリアしました！";
+        }
+        else
+        {
+            text = "You have completed this game!「ColorfulMerge」";
+        }
+
+        //urlの作成
+        string esctext = UnityWebRequest.EscapeURL(text + "\n" + Strings.APP_STORE_URL);
+        string esctag = UnityWebRequest.EscapeURL("ColorfulMerge");
+        string url = "https://twitter.com/intent/tweet?text=" + esctext + "\n" + "&hashtags=" + esctag;
+
+        //Twitter投稿画面の起動
+        Application.OpenURL(url);
     }
 }
