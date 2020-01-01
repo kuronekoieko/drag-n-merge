@@ -39,4 +39,5 @@ public class GameController : MonoBehaviour
             Variables.timer -= Time.deltaTime;
         }
     }
+
 }

@@ -16,7 +16,8 @@ using UnityEngine.iOS;
 public class ResultCanvasManager : MonoBehaviour
 {
     [SerializeField] Text resultText;
-    [SerializeField] Button restartButton;
+    [SerializeField] Button nextButton;
+    [SerializeField] Text nextButtonText;
     [SerializeField] Button twitterButton;
     [SerializeField] Text shareText;
     [SerializeField] Text levelText;
@@ -28,14 +29,18 @@ public class ResultCanvasManager : MonoBehaviour
             .Subscribe(timer => { OnOpen(); })
             .AddTo(this.gameObject);
 
-        restartButton.onClick.AddListener(OnClickRestartButton);
+        nextButton.onClick.AddListener(OnClickRestartButton);
         twitterButton.onClick.AddListener(OnClickTwitterButton);
+
+        Anim();
+        TwitterButtonAnim();
     }
 
     public void OnInitialize()
     {
         gameObject.SetActive(false);
         SetActiveShareGroup(isActive: false);
+
     }
 
     void OnOpen()
@@ -46,18 +51,31 @@ public class ResultCanvasManager : MonoBehaviour
 
         if (Variables.resultState == ResultState.WIN)
         {
-            resultText.text = "CLEAR!!";
-            AudioManager.i.PlayOneShot(3);
-            ReviewGuidance();
-            SetActiveShareGroup(isActive: true);
-            SaveData.i.clearedLevel++;
-            SaveDataManager.i.Save();
+            OnClear();
         }
         else
         {
             resultText.text = "FAILED";
             AudioManager.i.PlayOneShot(4);
         }
+
+    }
+
+    void OnClear()
+    {
+        resultText.text = "CLEAR!!";
+        nextButtonText.text = "RESTART";
+        AudioManager.i.PlayOneShot(3);
+        if (SaveData.i.clearedLevel == 5)
+        {
+            ReviewGuidance();
+        }
+        SetActiveShareGroup(isActive: true);
+
+        if (IsLastLevel()) { return; }
+        SaveData.i.clearedLevel++;
+        SaveDataManager.i.Save();
+        nextButtonText.text = "NEXT";
 
     }
 
@@ -110,5 +128,40 @@ public class ResultCanvasManager : MonoBehaviour
            // Application.OpenURL("market://details?id=com.brick.games");
 #endif
 
+    }
+
+    void Anim()
+    {
+        nextButton.transform.DOScale(1.1f, 0.5f)
+               .OnComplete(() =>
+               {
+                   nextButton.transform.DOScale(1f, 0.5f)
+                           .OnComplete(() =>
+                           {
+                               Anim();
+                           });
+               });
+    }
+
+
+    void TwitterButtonAnim()
+    {
+        twitterButton.transform.DOScale(1.1f, 0.5f)
+               .OnComplete(() =>
+               {
+                   twitterButton.transform.DOScale(1f, 0.5f)
+                           .OnComplete(() =>
+                           {
+                               TwitterButtonAnim();
+                           });
+               });
+    }
+
+
+    bool IsLastLevel()
+    {
+        int lastLevel = StageLevelData.i.stageLevels.Length - 1;
+        bool isLastLevel = lastLevel == (SaveData.i.clearedLevel + 1);
+        return isLastLevel;
     }
 }

@@ -1341,7 +1341,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -346.99997}
+  m_AnchoredPosition: {x: 0, y: -77}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &783150949
@@ -1453,7 +1453,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0025101, y: -263}
+  m_AnchoredPosition: {x: 0.0025101, y: 7}
   m_SizeDelta: {x: 749.99, y: 147.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &800063103
@@ -1487,7 +1487,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Share With ...
+  m_Text: Share on ...
 --- !u!222 &800063104
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1798,7 +1798,7 @@ GameObject:
   - component: {fileID: 1346266564}
   - component: {fileID: 1346266563}
   m_Layer: 5
-  m_Name: Text
+  m_Name: NextButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2568,7 +2568,7 @@ GameObject:
   - component: {fileID: 2118919402}
   - component: {fileID: 2118919401}
   m_Layer: 5
-  m_Name: RestartButton
+  m_Name: NextButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2591,8 +2591,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -86}
-  m_SizeDelta: {x: 321.6, y: 110}
+  m_AnchoredPosition: {x: 0, y: -228}
+  m_SizeDelta: {x: 391.3, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2118919401
 MonoBehaviour:
@@ -2765,7 +2765,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2146700551
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2804,7 +2804,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resultText: {fileID: 892844207}
-  restartButton: {fileID: 2118919401}
+  nextButton: {fileID: 2118919401}
+  nextButtonText: {fileID: 1346266563}
   twitterButton: {fileID: 783150949}
   shareText: {fileID: 800063103}
   levelText: {fileID: 1958237885}
