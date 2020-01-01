@@ -41,14 +41,14 @@ public class ResultCanvasManager : MonoBehaviour
         {
             resultText.text = "CLEAR!!";
             AudioManager.i.PlayOneShot(3);
-            Debug.Log(0);
+            ReviewGuidance();
         }
         else
         {
             resultText.text = "FAILED";
             AudioManager.i.PlayOneShot(4);
         }
-        ReviewGuidance();
+
     }
 
     void OnClickRestartButton()
