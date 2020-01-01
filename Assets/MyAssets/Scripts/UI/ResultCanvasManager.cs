@@ -74,16 +74,17 @@ public class ResultCanvasManager : MonoBehaviour
         {
             text = "You have completed this game!「ColorfulMerge」";
         }
-
+        //\n" + Strings.APP_STORE_URL
         //urlの作成
-        string esctag = UnityWebRequest.EscapeURL("ColorfulMerge");
+        string esctag = UnityWebRequest.EscapeURL("ColorfulMerge\n");
         string hushTag = "&hashtags=" + esctag;
-        string esctext = UnityWebRequest.EscapeURL(text + "\n" + hushTag + "\n" + Strings.APP_STORE_URL);
+        string esctext = UnityWebRequest.EscapeURL(text + "\n");
 
-        string url = "https://twitter.com/intent/tweet?text=" + esctext + "\n" + hushTag;
+        string url = "https://twitter.com/intent/tweet?text=" + esctext + hushTag + Strings.APP_STORE_URL;
 
         //Twitter投稿画面の起動
         Application.OpenURL(url);
+        Debug.Log("ツイッター");
     }
 
     void SetActiveShareGroup(bool isActive)
