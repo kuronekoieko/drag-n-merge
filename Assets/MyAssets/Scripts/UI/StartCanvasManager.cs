@@ -23,7 +23,6 @@ public class StartCanvasManager : MonoBehaviour
            .Subscribe(timer => { OnOpen(); })
            .AddTo(this.gameObject);
 
-
         Anim();
     }
 
