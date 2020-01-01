@@ -65,9 +65,10 @@ public class ResultCanvasManager : MonoBehaviour
     public void OnClickTwitterButton()
     {
         string text = "";
+        bool isClear = (Variables.resultState == ResultState.WIN);
         if (Utils.IsLanguageJapanese())
         {
-            if (Variables.resultState == ResultState.WIN)
+            if (isClear)
             {
                 text = "「ColorfulMerge」をクリアしました！";
             }
@@ -79,7 +80,7 @@ public class ResultCanvasManager : MonoBehaviour
         }
         else
         {
-            if (Variables.resultState == ResultState.WIN)
+            if (isClear)
             {
                 text = "You have completed this game!「ColorfulMerge」";
             }
