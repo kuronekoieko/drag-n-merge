@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour
 
     public void OnInitialize()
     {
-        int level = SaveData.i.clearedLevel + 1;
+        int level = SaveData.i.clearedLevel;
         Variables.targetNum = StageLevelData.i.stageLevels[level].targetNum;
         timeLimit = StageLevelData.i.stageLevels[level].timeLimit;
         Variables.timer = timeLimit;
