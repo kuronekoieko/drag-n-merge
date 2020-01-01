@@ -35,7 +35,10 @@ public class GameManager : MonoBehaviour
         {
             case ScreenState.INITIALIZE:
                 Variables.screenState = ScreenState.START;
-                gameController.Initialize();
+                gameController.OnInitialize();
+                gameCanvasManager.OnInitialize();
+                resultCanvasManager.OnInitialize();
+                startCanvasManager.OnInitialize();
                 break;
             case ScreenState.START:
                 break;

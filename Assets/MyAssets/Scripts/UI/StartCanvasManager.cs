@@ -16,9 +16,7 @@ public class StartCanvasManager : MonoBehaviour
     {
         startButton.onClick.AddListener(OnClickStartButton);
         gameObject.SetActive(true);
-        targetNumText.text = Variables.targetNum.ToString();
-        targetNumText.color = BlockColorData.i.blockColors[Variables.targetNum - 1].textColor;
-        targetBlockImage.color = BlockColorData.i.blockColors[Variables.targetNum - 1].color;
+
 
         this.ObserveEveryValueChanged(screenState => Variables.screenState)
            .Where(screenState => screenState == ScreenState.START)
@@ -27,6 +25,13 @@ public class StartCanvasManager : MonoBehaviour
 
 
         Anim();
+    }
+
+    public void OnInitialize()
+    {
+        targetNumText.text = Variables.targetNum.ToString();
+        targetNumText.color = BlockColorData.i.blockColors[Variables.targetNum - 1].textColor;
+        targetBlockImage.color = BlockColorData.i.blockColors[Variables.targetNum - 1].color;
     }
 
     void Anim()

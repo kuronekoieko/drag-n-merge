@@ -18,6 +18,7 @@ public class ResultCanvasManager : MonoBehaviour
     [SerializeField] Text resultText;
     [SerializeField] Button restartButton;
     [SerializeField] Button twitterButton;
+    [SerializeField] Text shareText;
     public void OnStart()
     {
 
@@ -28,8 +29,12 @@ public class ResultCanvasManager : MonoBehaviour
 
         restartButton.onClick.AddListener(OnClickRestartButton);
         twitterButton.onClick.AddListener(OnClickTwitterButton);
+    }
 
+    public void OnInitialize()
+    {
         gameObject.SetActive(false);
+        SetActiveShareGroup(isActive: false);
     }
 
     void OnOpen()
@@ -41,6 +46,7 @@ public class ResultCanvasManager : MonoBehaviour
             resultText.text = "CLEAR!!";
             AudioManager.i.PlayOneShot(3);
             ReviewGuidance();
+            SetActiveShareGroup(isActive: true);
         }
         else
         {
@@ -60,34 +66,16 @@ public class ResultCanvasManager : MonoBehaviour
     public void OnClickTwitterButton()
     {
         string text = "";
-        bool isClear = (Variables.resultState == ResultState.WIN);
         if (Utils.IsLanguageJapanese())
         {
-            if (isClear)
-            {
-                text = "「ColorfulMerge」をクリアしました！";
-            }
-            else
-            {
-                text = "チャレンジ失敗…みんなも挑戦してみよう！";
-            }
-
+            text = "「ColorfulMerge」をクリアしました！";
         }
         else
         {
-            if (isClear)
-            {
-                text = "You have completed this game!「ColorfulMerge」";
-            }
-            else
-            {
-                text = "You have failed this game...「ColorfulMerge」";
-            }
-
+            text = "You have completed this game!「ColorfulMerge」";
         }
 
         //urlの作成
-
         string esctag = UnityWebRequest.EscapeURL("ColorfulMerge");
         string hushTag = "&hashtags=" + esctag;
         string esctext = UnityWebRequest.EscapeURL(text + "\n" + hushTag + "\n" + Strings.APP_STORE_URL);
@@ -98,9 +86,14 @@ public class ResultCanvasManager : MonoBehaviour
         Application.OpenURL(url);
     }
 
+    void SetActiveShareGroup(bool isActive)
+    {
+        twitterButton.gameObject.SetActive(isActive);
+        shareText.gameObject.SetActive(isActive);
+    }
+
     void ReviewGuidance()
     {
-
 #if UNITY_EDITOR
         Debug.Log("レビュー誘導表示");
 #elif UNITY_IOS

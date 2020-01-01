@@ -20,7 +20,7 @@ public class BlocksManager : MonoBehaviour
         BlockGenerator();
     }
 
-    public void Initialize()
+    public void OnInitialize()
     {
         for (int i = 0; i < blockControllers.Length; i++)
         {

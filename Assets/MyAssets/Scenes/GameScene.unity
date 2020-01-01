@@ -2525,6 +2525,7 @@ MonoBehaviour:
   resultText: {fileID: 892844207}
   restartButton: {fileID: 2118919401}
   twitterButton: {fileID: 783150949}
+  shareText: {fileID: 800063103}
 --- !u!114 &2146700553
 MonoBehaviour:
   m_ObjectHideFlags: 0
