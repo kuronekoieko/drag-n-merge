@@ -160,7 +160,7 @@ public class ResultCanvasManager : MonoBehaviour
 
     bool IsLastLevel()
     {
-        int lastLevel = StageLevelData.i.stageLevels.Length - 1;
+        int lastLevel = StageLevelData.i.stageLevels.Length;
         bool isLastLevel = lastLevel == (SaveData.i.clearedLevel + 1);
         return isLastLevel;
     }
