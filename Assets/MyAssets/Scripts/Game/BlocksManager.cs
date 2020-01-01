@@ -18,13 +18,17 @@ public class BlocksManager : MonoBehaviour
         i = this;
         Variables.blockHeight = blockControllerPrefab.GetComponent<BoxCollider2D>().size.x;
         BlockGenerator();
-
-
-        SetBlocksNewLine(1);
-        SetBlocksNewLine(2);
-
     }
 
+    public void Initialize()
+    {
+        for (int i = 0; i < blockControllers.Length; i++)
+        {
+            blockControllers[i].gameObject.SetActive(false);
+        }
+        SetBlocksNewLine(1);
+        SetBlocksNewLine(2);
+    }
 
     public BlockController GetBlock(int indexX, int indexY)
     {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
-using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.Networking;
 using UnityEngine.iOS;
@@ -54,12 +53,8 @@ public class ResultCanvasManager : MonoBehaviour
     void OnClickRestartButton()
     {
         AudioManager.i.PlayOneShot(2);
-        Variables.screenState = ScreenState.START;
-
-        DOVirtual.DelayedCall(0.4f, () =>
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        });
+        Variables.screenState = ScreenState.INITIALIZE;
+        gameObject.SetActive(false);
     }
 
     public void OnClickTwitterButton()

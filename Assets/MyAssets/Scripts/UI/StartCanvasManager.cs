@@ -20,6 +20,12 @@ public class StartCanvasManager : MonoBehaviour
         targetNumText.color = BlockColorData.i.blockColors[Variables.targetNum - 1].textColor;
         targetBlockImage.color = BlockColorData.i.blockColors[Variables.targetNum - 1].color;
 
+        this.ObserveEveryValueChanged(screenState => Variables.screenState)
+           .Where(screenState => screenState == ScreenState.START)
+           .Subscribe(timer => { OnOpen(); })
+           .AddTo(this.gameObject);
+
+
         Anim();
     }
 
@@ -38,7 +44,7 @@ public class StartCanvasManager : MonoBehaviour
 
     void OnOpen()
     {
-
+        gameObject.SetActive(true);
     }
 
     void OnClickStartButton()

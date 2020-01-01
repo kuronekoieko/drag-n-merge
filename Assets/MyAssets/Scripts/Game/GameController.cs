@@ -14,6 +14,11 @@ public class GameController : MonoBehaviour
         Variables.isDragging = false;
     }
 
+    public void Initialize()
+    {
+        blocksManager.Initialize();
+    }
+
     public void OnUpdate()
     {
         blocksManager.OnUpdate();

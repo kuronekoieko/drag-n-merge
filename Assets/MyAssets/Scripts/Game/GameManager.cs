@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
         startCanvasManager.OnStart();
         audioManager.OnStart();
         Variables.resultState = ResultState.PLAYING;
-        Variables.screenState = ScreenState.START;
+        Variables.screenState = ScreenState.INITIALIZE;
     }
 
 
@@ -33,6 +33,10 @@ public class GameManager : MonoBehaviour
     {
         switch (Variables.screenState)
         {
+            case ScreenState.INITIALIZE:
+                Variables.screenState = ScreenState.START;
+                gameController.Initialize();
+                break;
             case ScreenState.START:
                 break;
             case ScreenState.GAME:
