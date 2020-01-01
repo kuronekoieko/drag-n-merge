@@ -67,11 +67,27 @@ public class ResultCanvasManager : MonoBehaviour
         string text = "";
         if (Utils.IsLanguageJapanese())
         {
-            text = "「ColorfulMerge」をクリアしました！";
+            if (Variables.resultState == ResultState.WIN)
+            {
+                text = "「ColorfulMerge」をクリアしました！";
+            }
+            else
+            {
+                text = "チャレンジ失敗…みんなも挑戦してみよう！";
+            }
+
         }
         else
         {
-            text = "You have completed this game!「ColorfulMerge」";
+            if (Variables.resultState == ResultState.WIN)
+            {
+                text = "You have completed this game!「ColorfulMerge」";
+            }
+            else
+            {
+                text = "You have failed this game...「ColorfulMerge」";
+            }
+
         }
 
         //urlの作成
