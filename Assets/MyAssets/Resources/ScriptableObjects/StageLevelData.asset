@@ -18,8 +18,14 @@ MonoBehaviour:
   - timeLimit: 10
     targetNum: 3
   - timeLimit: 8
-    targetNum: 5
+    targetNum: 4
   - timeLimit: 7
+    targetNum: 5
+  - timeLimit: 6
+    targetNum: 6
+  - timeLimit: 6
+    targetNum: 7
+  - timeLimit: 6
     targetNum: 8
   - timeLimit: 6
     targetNum: 10

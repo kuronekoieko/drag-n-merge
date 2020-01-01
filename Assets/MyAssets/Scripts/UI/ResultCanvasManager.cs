@@ -61,6 +61,7 @@ public class ResultCanvasManager : MonoBehaviour
         AudioManager.i.PlayOneShot(2);
         Variables.screenState = ScreenState.INITIALIZE;
         gameObject.SetActive(false);
+        Variables.level++;
     }
 
     public void OnClickTwitterButton()
@@ -79,7 +80,7 @@ public class ResultCanvasManager : MonoBehaviour
         string esctext = UnityWebRequest.EscapeURL(text + "\n");
         string esctag = UnityWebRequest.EscapeURL("ColorfulMerge\n");
         string hushTag = "&hashtags=" + esctag;
-       
+
         string url = "https://twitter.com/intent/tweet?text=" + esctext + hushTag + Strings.APP_STORE_URL;
 
         //Twitter投稿画面の起動

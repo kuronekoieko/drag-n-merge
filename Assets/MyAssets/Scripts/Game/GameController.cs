@@ -5,18 +5,19 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     [SerializeField] BlocksManager blocksManager;
-    float timeLimit = 1;
+    float timeLimit;
     public void OnStart()
     {
-        Variables.targetNum = 3;
         blocksManager.OnStart();
-        Variables.timer = timeLimit;
-        Variables.isDragging = false;
     }
 
     public void OnInitialize()
     {
+        Variables.targetNum = StageLevelData.i.stageLevels[Variables.level].targetNum;
+        timeLimit = StageLevelData.i.stageLevels[Variables.level].timeLimit;
+        Variables.timer = timeLimit;
         blocksManager.OnInitialize();
+        Variables.isDragging = false;
     }
 
     public void OnUpdate()
