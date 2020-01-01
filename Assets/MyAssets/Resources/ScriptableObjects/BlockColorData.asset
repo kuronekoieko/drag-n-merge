@@ -58,18 +58,18 @@ MonoBehaviour:
   - color: {r: 0.8392157, g: 0.69411767, b: 0.2627451, a: 1}
     textColor: {r: 1, g: 1, b: 1, a: 1}
     num: 15
-  - color: {r: 0, g: 0, b: 0, a: 0}
-    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - color: {r: 0.7411765, g: 0.24313726, b: 0.827451, a: 1}
+    textColor: {r: 1, g: 1, b: 1, a: 1}
     num: 16
-  - color: {r: 0, g: 0, b: 0, a: 0}
-    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - color: {r: 0.2784314, g: 0.7254902, b: 0.34117648, a: 1}
+    textColor: {r: 1, g: 1, b: 1, a: 1}
     num: 17
-  - color: {r: 0, g: 0, b: 0, a: 0}
-    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - color: {r: 0.88235295, g: 0.827451, b: 0.6509804, a: 1}
+    textColor: {r: 0, g: 0, b: 0, a: 0.50980395}
     num: 18
-  - color: {r: 0, g: 0, b: 0, a: 0}
-    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - color: {r: 0.8584906, g: 0.51428443, b: 0.80312616, a: 0}
+    textColor: {r: 0, g: 0, b: 0, a: 0.50980395}
     num: 19
-  - color: {r: 0, g: 0, b: 0, a: 0}
-    textColor: {r: 0, g: 0, b: 0, a: 0}
+  - color: {r: 0.9411765, g: 0.93333334, b: 0.8901961, a: 1}
+    textColor: {r: 0, g: 0, b: 0, a: 0.50980395}
     num: 20
