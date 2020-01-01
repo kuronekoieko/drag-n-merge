@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameCanvasManager gameCanvasManager;
     [SerializeField] ResultCanvasManager resultCanvasManager;
     [SerializeField] AudioManager audioManager;
+    [SerializeField] SaveDataManager saveDataManager;
     GameController gameController;
     void Awake()
     {
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
         resultCanvasManager.OnStart();
         startCanvasManager.OnStart();
         audioManager.OnStart();
+        saveDataManager.OnStart();
         Variables.resultState = ResultState.PLAYING;
         Variables.screenState = ScreenState.INITIALIZE;
     }

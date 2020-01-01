@@ -5,4 +5,5 @@ using UnityEngine;
 public class Strings : MonoBehaviour
 {
     public static readonly string APP_STORE_URL = "https://apps.apple.com/jp/app/colorful-merge/id1493275231";
+    public static readonly string KEY_SAVE_DATA = "SAVE_DATA";
 }

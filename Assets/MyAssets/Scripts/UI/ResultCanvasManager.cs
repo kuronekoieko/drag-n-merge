@@ -47,6 +47,8 @@ public class ResultCanvasManager : MonoBehaviour
             AudioManager.i.PlayOneShot(3);
             ReviewGuidance();
             SetActiveShareGroup(isActive: true);
+            SaveData.i.clearedLevel++;
+            SaveDataManager.i.Save();
         }
         else
         {
@@ -61,7 +63,7 @@ public class ResultCanvasManager : MonoBehaviour
         AudioManager.i.PlayOneShot(2);
         Variables.screenState = ScreenState.INITIALIZE;
         gameObject.SetActive(false);
-        Variables.level++;
+
     }
 
     public void OnClickTwitterButton()
