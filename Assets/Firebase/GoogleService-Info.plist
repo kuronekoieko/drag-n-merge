@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>514749915525-v9338s3qmn678p5l6kps0u9jm0pgku0a.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.514749915525-v9338s3qmn678p5l6kps0u9jm0pgku0a</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCeLergwIcsrjBEMzyysIShPWGZC553Y3Y</string>
+	<key>GCM_SENDER_ID</key>
+	<string>514749915525</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.colorfulMerge.games</string>
+	<key>PROJECT_ID</key>
+	<string>unity-7bca6</string>
+	<key>STORAGE_BUCKET</key>
+	<string>unity-7bca6.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:514749915525:ios:689cc763ffd864752b64ec</string>
+	<key>DATABASE_URL</key>
+	<string>https://unity-7bca6.firebaseio.com</string>
+</dict>
+</plist>
