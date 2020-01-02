@@ -11,7 +11,7 @@ public class StartCanvasManager : MonoBehaviour
     [SerializeField] Text targetNumText;
     [SerializeField] Image targetBlockImage;
     [SerializeField] Text startText;
-    [SerializeField] Text levelText;
+    // [SerializeField] Text levelText;
 
     public void OnStart()
     {
@@ -32,7 +32,7 @@ public class StartCanvasManager : MonoBehaviour
         targetNumText.text = Variables.targetNum.ToString();
         targetNumText.color = BlockColorData.i.blockColors[Variables.targetNum - 1].textColor;
         targetBlockImage.color = BlockColorData.i.blockColors[Variables.targetNum - 1].color;
-        levelText.text = "LEVEL  " + (SaveData.i.clearedLevel + 1);
+        // levelText.text = "LEVEL  " + (SaveData.i.clearedLevel + 1);
     }
 
     void Anim()

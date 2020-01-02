@@ -20,7 +20,7 @@ public class ResultCanvasManager : MonoBehaviour
     [SerializeField] Text nextButtonText;
     [SerializeField] Button twitterButton;
     [SerializeField] Text shareText;
-    [SerializeField] Text levelText;
+    //[SerializeField] Text levelText;
     public void OnStart()
     {
 
@@ -47,7 +47,7 @@ public class ResultCanvasManager : MonoBehaviour
     {
         gameObject.SetActive(true);
         resultText.text = Variables.resultState == ResultState.WIN ? "CLEAR!!" : "FAILED";
-        levelText.text = "LEVEL  " + (SaveData.i.clearedLevel + 1);
+        //levelText.text = "LEVEL  " + (SaveData.i.clearedLevel + 1);
 
         if (Variables.resultState == ResultState.WIN)
         {
@@ -66,15 +66,20 @@ public class ResultCanvasManager : MonoBehaviour
         resultText.text = "CLEAR!!";
         nextButtonText.text = "RESTART";
         AudioManager.i.PlayOneShot(3);
-        if (SaveData.i.clearedLevel == 5)
-        {
-            ReviewGuidance();
-        }
+
+        ReviewGuidance();
+        /*
+         if (SaveData.i.clearedLevel == 5)
+    {
+        ReviewGuidance();
+    }
+        */
+
         SetActiveShareGroup(isActive: true);
 
-        if (IsLastLevel()) { return; }
-        SaveData.i.clearedLevel++;
-        SaveDataManager.i.Save();
+        // if (IsLastLevel()) { return; }
+        //SaveData.i.clearedLevel++;
+        //SaveDataManager.i.Save();
         nextButtonText.text = "NEXT";
 
     }
@@ -92,11 +97,11 @@ public class ResultCanvasManager : MonoBehaviour
         string text = "";
         if (Utils.IsLanguageJapanese())
         {
-            text = "レベル " + SaveData.i.clearedLevel + " をクリアしました！";
+            //text = "レベル " + SaveData.i.clearedLevel + " をクリアしました！";
         }
         else
         {
-            text = "You have cleared this game! - Level " + SaveData.i.clearedLevel;
+            //text = "You have cleared this game! - Level " + SaveData.i.clearedLevel;
         }
 
         //urlの作成
@@ -157,11 +162,13 @@ public class ResultCanvasManager : MonoBehaviour
                });
     }
 
+    /*
+        bool IsLastLevel()
+        {
+            int lastLevel = StageLevelData.i.stageLevels.Length;
+            bool isLastLevel = lastLevel == (SaveData.i.clearedLevel + 1);
+            return isLastLevel;
+        }
+    */
 
-    bool IsLastLevel()
-    {
-        int lastLevel = StageLevelData.i.stageLevels.Length;
-        bool isLastLevel = lastLevel == (SaveData.i.clearedLevel + 1);
-        return isLastLevel;
-    }
 }

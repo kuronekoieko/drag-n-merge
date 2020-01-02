@@ -727,7 +727,6 @@ MonoBehaviour:
   timerText: {fileID: 64325164}
   targetNumText: {fileID: 766121020}
   targetBlockImage: {fileID: 119933303}
-  levelText: {fileID: 453703979}
 --- !u!114 &372288006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -807,7 +806,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &385382573
 RectTransform:
   m_ObjectHideFlags: 0
@@ -845,7 +844,6 @@ MonoBehaviour:
   targetNumText: {fileID: 2054037488}
   targetBlockImage: {fileID: 105201912}
   startText: {fileID: 2025266813}
-  levelText: {fileID: 1686640748}
 --- !u!114 &385382575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -995,7 +993,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &453703978
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2068,7 +2066,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1686640747
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2294,7 +2292,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1958237884
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2765,7 +2763,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2146700551
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2808,7 +2806,6 @@ MonoBehaviour:
   nextButtonText: {fileID: 1346266563}
   twitterButton: {fileID: 783150949}
   shareText: {fileID: 800063103}
-  levelText: {fileID: 1958237885}
 --- !u!114 &2146700553
 MonoBehaviour:
   m_ObjectHideFlags: 0

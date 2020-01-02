@@ -13,9 +13,9 @@ public class GameController : MonoBehaviour
 
     public void OnInitialize()
     {
-        int level = SaveData.i.clearedLevel;
-        Variables.targetNum = StageLevelData.i.stageLevels[level].targetNum;
-        timeLimit = StageLevelData.i.stageLevels[level].timeLimit;
+        //int level = SaveData.i.clearedLevel;
+        Variables.targetNum = 10;
+        timeLimit = 6;
         Variables.timer = timeLimit;
         blocksManager.OnInitialize();
         Variables.isDragging = false;
