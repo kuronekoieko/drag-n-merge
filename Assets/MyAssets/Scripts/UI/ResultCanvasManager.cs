@@ -69,7 +69,6 @@ public class ResultCanvasManager : MonoBehaviour
         AudioManager.i.PlayOneShot(2);
         Variables.screenState = ScreenState.INITIALIZE;
         gameObject.SetActive(false);
-
     }
 
     void SetTweetText()
