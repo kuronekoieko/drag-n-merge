@@ -28,24 +28,26 @@ MonoBehaviour:
   - timeLimit: 6
     targetNum: 8
   - timeLimit: 7
+    targetNum: 9
+  - timeLimit: 7
     targetNum: 10
   - timeLimit: 8
     targetNum: 11
-  - timeLimit: 9
+  - timeLimit: 8
     targetNum: 12
-  - timeLimit: 10
+  - timeLimit: 8
     targetNum: 13
-  - timeLimit: 11
+  - timeLimit: 8
     targetNum: 14
-  - timeLimit: 11
+  - timeLimit: 8
     targetNum: 15
-  - timeLimit: 11
+  - timeLimit: 8
     targetNum: 16
-  - timeLimit: 11
+  - timeLimit: 8
     targetNum: 17
-  - timeLimit: 11
+  - timeLimit: 8
     targetNum: 18
-  - timeLimit: 11
+  - timeLimit: 8
     targetNum: 19
-  - timeLimit: 11
+  - timeLimit: 8
     targetNum: 20
