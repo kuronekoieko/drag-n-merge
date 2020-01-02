@@ -42,15 +42,14 @@ public class ResultCanvasManager : MonoBehaviour
     {
         gameObject.SetActive(false);
         SetActiveShareGroup(isActive: false);
-
+        //スタート時のハイスコアを結果画面で出す
+        highScoreText.text = "HIGH SCORE : " + SaveData.i.eraseTargetBlockCount;
     }
 
     void OnOpen()
     {
         gameObject.SetActive(true);
         scoreText.text = "SCORE : " + Variables.eraseTargetBlockCount;
-        highScoreText.text = "HIGH SCORE : " + SaveData.i.eraseTargetBlockCount;
-        //levelText.text = "LEVEL  " + (SaveData.i.clearedLevel + 1);
 
         if (SaveData.i.eraseTargetBlockCount < Variables.eraseTargetBlockCount)
         {

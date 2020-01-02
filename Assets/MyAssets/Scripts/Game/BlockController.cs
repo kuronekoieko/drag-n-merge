@@ -325,9 +325,11 @@ public class BlockController : MonoBehaviour
     {
         if (num != Values.TARGET_BLOCK_NUM) { return; }
         Variables.eraseTargetBlockCount++;
-        //Variables.screenState = ScreenState.RESULT;
-        //Variables.resultState = ResultState.WIN;
-    
+        if (SaveData.i.eraseTargetBlockCount < Variables.eraseTargetBlockCount)
+        {
+            SaveData.i.eraseTargetBlockCount = Variables.eraseTargetBlockCount;
+            SaveDataManager.i.Save();
+        }
     }
 
     public void TransrateBlock(int indexX, int indexY)
