@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
         startCanvasManager.OnStart();
         audioManager.OnStart();
         saveDataManager.OnStart();
-        Variables.resultState = ResultState.PLAYING;
+       // Variables.resultState = ResultState.PLAYING;
         Variables.screenState = ScreenState.INITIALIZE;
     }
 

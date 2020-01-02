@@ -327,6 +327,7 @@ public class BlockController : MonoBehaviour
         Variables.eraseTargetBlockCount++;
         //Variables.screenState = ScreenState.RESULT;
         //Variables.resultState = ResultState.WIN;
+    
     }
 
     public void TransrateBlock(int indexX, int indexY)
@@ -349,6 +350,6 @@ public class BlockController : MonoBehaviour
         if (indexY != Values.BOARD_LENGTH_Y - 1) { return; }
         if (!gameObject.activeSelf) { return; }
         Variables.screenState = ScreenState.RESULT;
-        Variables.resultState = ResultState.LOSE;
+        //Variables.resultState = ResultState.LOSE;
     }
 }

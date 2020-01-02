@@ -15,12 +15,14 @@ using UnityEngine.iOS;
 /// </summary>
 public class ResultCanvasManager : MonoBehaviour
 {
-    [SerializeField] Text resultText;
+    [SerializeField] Text highScoreText;
+    [SerializeField] Text scoreText;
     [SerializeField] Button nextButton;
     [SerializeField] Text nextButtonText;
     [SerializeField] Button twitterButton;
     [SerializeField] Text shareText;
     //[SerializeField] Text levelText;
+
     public void OnStart()
     {
 
@@ -46,7 +48,8 @@ public class ResultCanvasManager : MonoBehaviour
     void OnOpen()
     {
         gameObject.SetActive(true);
-        resultText.text = Variables.resultState == ResultState.WIN ? "CLEAR!!" : "FAILED";
+        scoreText.text = "SCORE : " + Variables.eraseTargetBlockCount;
+        highScoreText.text = "HIGH SCORE : " + SaveData.i.eraseTargetBlockCount;
         //levelText.text = "LEVEL  " + (SaveData.i.clearedLevel + 1);
 
         if (SaveData.i.eraseTargetBlockCount < Variables.eraseTargetBlockCount)
@@ -55,40 +58,15 @@ public class ResultCanvasManager : MonoBehaviour
             SaveDataManager.i.Save();
         }
 
-
-
-        if (Variables.resultState == ResultState.WIN)
-        {
-            OnClear();
-        }
-        else
-        {
-            resultText.text = "FAILED";
-            AudioManager.i.PlayOneShot(4);
-        }
-
-    }
-
-    void OnClear()
-    {
-        resultText.text = "CLEAR!!";
         nextButtonText.text = "RESTART";
+
+        //クリア音
         AudioManager.i.PlayOneShot(3);
-
-        ReviewGuidance();
-        /*
-         if (SaveData.i.clearedLevel == 5)
-    {
-        ReviewGuidance();
-    }
-        */
-
         SetActiveShareGroup(isActive: true);
+        // 警告音
+        //AudioManager.i.PlayOneShot(4);
+        ReviewGuidance();
 
-        // if (IsLastLevel()) { return; }
-        //SaveData.i.clearedLevel++;
-        //SaveDataManager.i.Save();
-        nextButtonText.text = "NEXT";
 
     }
 
@@ -169,14 +147,4 @@ public class ResultCanvasManager : MonoBehaviour
                            });
                });
     }
-
-    /*
-        bool IsLastLevel()
-        {
-            int lastLevel = StageLevelData.i.stageLevels.Length;
-            bool isLastLevel = lastLevel == (SaveData.i.clearedLevel + 1);
-            return isLastLevel;
-        }
-    */
-
 }

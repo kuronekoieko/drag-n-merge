@@ -13,9 +13,9 @@ public class GameController : MonoBehaviour
 
     public void OnInitialize()
     {
-        //int level = SaveData.i.clearedLevel;
         timeLimit = 6;
         Variables.timer = timeLimit;
+        Variables.eraseTargetBlockCount = 0;
         blocksManager.OnInitialize();
         Variables.isDragging = false;
     }

@@ -809,7 +809,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &385382573
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1586,7 +1586,7 @@ GameObject:
   - component: {fileID: 892844208}
   - component: {fileID: 892844207}
   m_Layer: 5
-  m_Name: ResultText
+  m_Name: ScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1608,7 +1608,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0025101, y: 116}
+  m_AnchoredPosition: {x: 0.0025101, y: 130}
   m_SizeDelta: {x: 749.99, y: 147.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &892844207
@@ -1642,7 +1642,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CLEAR!!
+  m_Text: 'SCORE : 123'
 --- !u!222 &892844208
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1940,6 +1940,83 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346266561}
+  m_CullTransparentMesh: 0
+--- !u!1 &1412406956
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1412406957}
+  - component: {fileID: 1412406959}
+  - component: {fileID: 1412406958}
+  m_Layer: 5
+  m_Name: HighScoreText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1412406957
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412406956}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2146700551}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.0025101, y: 268}
+  m_SizeDelta: {x: 749.99, y: 147.2}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1412406958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412406956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: f4c99a340a6e6504aa6e992b7a253612, type: 3}
+    m_FontSize: 50
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 100
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'HIGH SCORE : 123'
+--- !u!222 &1412406959
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412406956}
   m_CullTransparentMesh: 0
 --- !u!1 &1424761663
 GameObject:
@@ -2843,7 +2920,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2146700551
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2861,6 +2938,7 @@ RectTransform:
   - {fileID: 800063102}
   - {fileID: 783150948}
   - {fileID: 1958237884}
+  - {fileID: 1412406957}
   m_Father: {fileID: 1176542910}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2881,7 +2959,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eccb8462a74a248b4bf9e03065a49aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resultText: {fileID: 892844207}
+  highScoreText: {fileID: 1412406958}
+  scoreText: {fileID: 892844207}
   nextButton: {fileID: 2118919401}
   nextButtonText: {fileID: 1346266563}
   twitterButton: {fileID: 783150949}
