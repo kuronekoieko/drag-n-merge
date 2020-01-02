@@ -49,6 +49,14 @@ public class ResultCanvasManager : MonoBehaviour
         resultText.text = Variables.resultState == ResultState.WIN ? "CLEAR!!" : "FAILED";
         //levelText.text = "LEVEL  " + (SaveData.i.clearedLevel + 1);
 
+        if (SaveData.i.eraseTargetBlockCount < Variables.eraseTargetBlockCount)
+        {
+            SaveData.i.eraseTargetBlockCount = Variables.eraseTargetBlockCount;
+            SaveDataManager.i.Save();
+        }
+
+
+
         if (Variables.resultState == ResultState.WIN)
         {
             OnClear();

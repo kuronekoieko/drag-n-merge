@@ -9,21 +9,27 @@ public class GameCanvasManager : MonoBehaviour
     [SerializeField] Text timerText;
     [SerializeField] Text targetNumText;
     [SerializeField] Image targetBlockImage;
-    //[SerializeField] Text levelText;
+    [SerializeField] Text scoreText;
+    [SerializeField] Text highScoreNumText;
 
     public void OnStart()
     {
         this.ObserveEveryValueChanged(timer => Variables.timer)
             .Subscribe(timer => { SetTimeCountText(); })
             .AddTo(this.gameObject);
+
+        this.ObserveEveryValueChanged(count => Variables.eraseTargetBlockCount)
+            .Subscribe(count => { scoreText.text = "x " + count; })
+            .AddTo(this.gameObject);
     }
 
     public void OnInitialize()
     {
-        targetNumText.text = Variables.targetNum.ToString();
-        targetNumText.color = BlockColorData.i.blockColors[Variables.targetNum - 1].textColor;
-        targetBlockImage.color = BlockColorData.i.blockColors[Variables.targetNum - 1].color;
-       // levelText.text = "LEVEL  " + (SaveData.i.clearedLevel + 1);
+        targetNumText.text = Values.TARGET_BLOCK_NUM.ToString();
+        targetNumText.color = BlockColorData.i.blockColors[Values.TARGET_BLOCK_NUM - 1].textColor;
+        targetBlockImage.color = BlockColorData.i.blockColors[Values.TARGET_BLOCK_NUM - 1].color;
+        highScoreNumText.text = SaveData.i.eraseTargetBlockCount.ToString();
+        // levelText.text = "LEVEL  " + (SaveData.i.clearedLevel + 1);
     }
 
     void SetTimeCountText()

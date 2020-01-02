@@ -29,9 +29,9 @@ public class StartCanvasManager : MonoBehaviour
 
     public void OnInitialize()
     {
-        targetNumText.text = Variables.targetNum.ToString();
-        targetNumText.color = BlockColorData.i.blockColors[Variables.targetNum - 1].textColor;
-        targetBlockImage.color = BlockColorData.i.blockColors[Variables.targetNum - 1].color;
+        targetNumText.text = Values.TARGET_BLOCK_NUM.ToString();
+        targetNumText.color = BlockColorData.i.blockColors[Values.TARGET_BLOCK_NUM - 1].textColor;
+        targetBlockImage.color = BlockColorData.i.blockColors[Values.TARGET_BLOCK_NUM - 1].color;
         // levelText.text = "LEVEL  " + (SaveData.i.clearedLevel + 1);
     }
 

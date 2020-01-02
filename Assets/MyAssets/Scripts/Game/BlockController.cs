@@ -58,8 +58,8 @@ public class BlockController : MonoBehaviour
     public void SetNewLine()
     {
         blockState = BlockState.STOP;
-        int remainder = Variables.targetNum % 2;
-        int max = (Variables.targetNum + remainder) / 2;
+        int remainder = Values.TARGET_BLOCK_NUM % 2;
+        int max = (Values.TARGET_BLOCK_NUM + remainder) / 2;
         num = Random.Range(1, max);
         BlockController upperBlock = BlocksManager.i.GetBlock(indexX, 1);
         int c = 0;
@@ -323,9 +323,10 @@ public class BlockController : MonoBehaviour
 
     void ClearCheck()
     {
-        if (num != Variables.targetNum) { return; }
-        Variables.screenState = ScreenState.RESULT;
-        Variables.resultState = ResultState.WIN;
+        if (num != Values.TARGET_BLOCK_NUM) { return; }
+        Variables.eraseTargetBlockCount++;
+        //Variables.screenState = ScreenState.RESULT;
+        //Variables.resultState = ResultState.WIN;
     }
 
     public void TransrateBlock(int indexX, int indexY)

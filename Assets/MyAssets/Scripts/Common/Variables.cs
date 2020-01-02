@@ -11,4 +11,5 @@ public class Variables : MonoBehaviour
     public static Vector2 blockLowerLeftPos = new Vector2(-2.0f, -3.6f);
     public static float blockHeight;
     public static bool isDragging;
+    public static int eraseTargetBlockCount;
 }

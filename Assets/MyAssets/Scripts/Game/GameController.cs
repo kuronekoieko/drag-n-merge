@@ -14,7 +14,6 @@ public class GameController : MonoBehaviour
     public void OnInitialize()
     {
         //int level = SaveData.i.clearedLevel;
-        Variables.targetNum = 10;
         timeLimit = 6;
         Variables.timer = timeLimit;
         blocksManager.OnInitialize();
