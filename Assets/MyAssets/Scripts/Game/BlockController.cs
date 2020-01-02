@@ -60,8 +60,7 @@ public class BlockController : MonoBehaviour
     public void SetNewLine()
     {
         blockState = BlockState.STOP;
-        int remainder = Values.TARGET_BLOCK_NUM % 2;
-        int max = (Values.TARGET_BLOCK_NUM + remainder) / 2;
+        int max = Values.RANDOM_RANGE_MAX;
         num = Random.Range(1, max);
         BlockController upperBlock = BlocksManager.i.GetBlock(indexX, 1);
         int c = 0;
@@ -308,7 +307,7 @@ public class BlockController : MonoBehaviour
 
         ClearCheck();
 
-        AudioManager.i.PlayOneShot(0);
+
     }
 
     void FallCheckOnMerge()
@@ -329,7 +328,11 @@ public class BlockController : MonoBehaviour
 
     void ClearCheck()
     {
-        if (num != Values.TARGET_BLOCK_NUM) { return; }
+        if (num != Values.TARGET_BLOCK_NUM)
+        {
+            AudioManager.i.PlayOneShot(0);
+            return;
+        }
 
         Variables.eraseTargetBlockCount++;
         if (SaveData.i.eraseTargetBlockCount < Variables.eraseTargetBlockCount)
@@ -342,6 +345,8 @@ public class BlockController : MonoBehaviour
 
     void MoveFadeOut()
     {
+        //クリア音
+        AudioManager.i.PlayOneShot(3);
         boxCollider.enabled = false;
         transform.DOScale(Vector3.zero, 0.5f)
             .SetEase(Ease.InBack)

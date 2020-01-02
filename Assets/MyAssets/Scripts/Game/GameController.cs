@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     [SerializeField] BlocksManager blocksManager;
-    float timeLimit;
+
     public void OnStart()
     {
         blocksManager.OnStart();
@@ -13,8 +13,7 @@ public class GameController : MonoBehaviour
 
     public void OnInitialize()
     {
-        timeLimit = 7;
-        Variables.timer = timeLimit;
+        Variables.timer = Values.TIME_LIMIT;
         Variables.eraseTargetBlockCount = 0;
         blocksManager.OnInitialize();
         Variables.isDragging = false;
@@ -41,7 +40,7 @@ public class GameController : MonoBehaviour
 
         blocksManager.SetBlocksNewLine(0);
         blocksManager.MoveUpAllBlocks();
-        Variables.timer = timeLimit;
+        Variables.timer = Values.TIME_LIMIT;
 
     }
 

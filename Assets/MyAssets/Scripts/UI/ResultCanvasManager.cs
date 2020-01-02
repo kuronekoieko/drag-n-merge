@@ -57,10 +57,10 @@ public class ResultCanvasManager : MonoBehaviour
         isUpdateHighScore = (highScoreBlockCountBeforeGame < Variables.eraseTargetBlockCount);
 
         //クリア音
-        AudioManager.i.PlayOneShot(3);
+        //AudioManager.i.PlayOneShot(3);
         SetActiveShareGroup(isActive: true);
         // 警告音
-        //AudioManager.i.PlayOneShot(4);
+        AudioManager.i.PlayOneShot(4);
         ReviewGuidance();
     }
 
