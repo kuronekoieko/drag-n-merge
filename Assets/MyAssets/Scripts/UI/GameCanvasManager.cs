@@ -11,6 +11,7 @@ public class GameCanvasManager : MonoBehaviour
     [SerializeField] Image targetBlockImage;
     [SerializeField] Text scoreText;
     [SerializeField] Text highScoreNumText;
+    [SerializeField] Button gameEndButton;
 
     public void OnStart()
     {
@@ -21,6 +22,8 @@ public class GameCanvasManager : MonoBehaviour
         this.ObserveEveryValueChanged(count => Variables.eraseTargetBlockCount)
             .Subscribe(count => { scoreText.text = "x " + count; })
             .AddTo(this.gameObject);
+
+        gameEndButton.onClick.AddListener(OnClickGameEndButton);
     }
 
     public void OnInitialize()
@@ -37,6 +40,11 @@ public class GameCanvasManager : MonoBehaviour
         string timer = Variables.timer.ToString("F2");
         if (Variables.timer < 0) timer = "0.00";
         timerText.text = timer;
+    }
+
+    void OnClickGameEndButton()
+    {
+        Variables.screenState = ScreenState.RESULT;
     }
 
 }
