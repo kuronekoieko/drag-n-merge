@@ -89,6 +89,7 @@ public class ResultCanvasManager : MonoBehaviour
 
     public void OnClickTwitterButton()
     {
+        FirebaseAnalyticsManager.i.LogEvent("ツイッターボタン");
         string text = "";
         if (Utils.IsLanguageJapanese())
         {

@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
         saveDataManager.OnStart();
         Variables.resultState = ResultState.PLAYING;
         Variables.screenState = ScreenState.INITIALIZE;
+        //FirebaseAnalyticsManager.i.LogScreen("レベル:" + SaveData.i.clearedLevel);
     }
 
 
