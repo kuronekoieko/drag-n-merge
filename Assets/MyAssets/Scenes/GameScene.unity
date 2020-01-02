@@ -2402,9 +2402,9 @@ MonoBehaviour:
   - audioClip: {fileID: 8300000, guid: 7cc979677c47f4e2f9d6c8c925b87af2, type: 3}
     soundName: "\u30EA\u30B9\u30BF\u30FC\u30C8"
   - audioClip: {fileID: 8300000, guid: 45d00302ccc3440179132068155be4ea, type: 3}
-    soundName: "\u30AF\u30EA\u30A2"
-  - audioClip: {fileID: 8300000, guid: 7298bf2049ff54536b01e23e04d6a8f3, type: 3}
-    soundName: "\u5931\u6557"
+    soundName: "10\u306E\u30D6\u30ED\u30C3\u30AF\u304C\u3067\u304D\u305F\u3068\u304D"
+  - audioClip: {fileID: 8300000, guid: 3bffd1d4eafa64e9d83e26ecac2a46c7, type: 3}
+    soundName: "\u30EA\u30B6\u30EB\u30C8\u753B\u9762"
 --- !u!4 &1590465346
 Transform:
   m_ObjectHideFlags: 0
