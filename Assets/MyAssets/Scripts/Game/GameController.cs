@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour
 
     public void OnInitialize()
     {
-        timeLimit = 6;
+        timeLimit = 1;
         Variables.timer = timeLimit;
         Variables.eraseTargetBlockCount = 0;
         blocksManager.OnInitialize();

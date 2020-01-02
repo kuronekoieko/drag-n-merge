@@ -22,6 +22,9 @@ public class ResultCanvasManager : MonoBehaviour
     [SerializeField] Button twitterButton;
     [SerializeField] Text shareText;
     //[SerializeField] Text levelText;
+    string tweetText;
+    bool isUpdateHighScore;
+    int highScoreBlockCountBeforeGame;
 
     public void OnStart()
     {
@@ -43,21 +46,15 @@ public class ResultCanvasManager : MonoBehaviour
         gameObject.SetActive(false);
         SetActiveShareGroup(isActive: false);
         //スタート時のハイスコアを結果画面で出す
-        highScoreText.text = "HIGH SCORE : " + SaveData.i.eraseTargetBlockCount;
+        highScoreBlockCountBeforeGame = SaveData.i.eraseTargetBlockCount;
+        highScoreText.text = "HIGH SCORE : " + highScoreBlockCountBeforeGame;
     }
 
     void OnOpen()
     {
         gameObject.SetActive(true);
         scoreText.text = "SCORE : " + Variables.eraseTargetBlockCount;
-
-        if (SaveData.i.eraseTargetBlockCount < Variables.eraseTargetBlockCount)
-        {
-            SaveData.i.eraseTargetBlockCount = Variables.eraseTargetBlockCount;
-            SaveDataManager.i.Save();
-        }
-
-        nextButtonText.text = "RESTART";
+        isUpdateHighScore = (highScoreBlockCountBeforeGame < Variables.eraseTargetBlockCount);
 
         //クリア音
         AudioManager.i.PlayOneShot(3);
@@ -65,8 +62,6 @@ public class ResultCanvasManager : MonoBehaviour
         // 警告音
         //AudioManager.i.PlayOneShot(4);
         ReviewGuidance();
-
-
     }
 
     void OnClickRestartButton()
@@ -77,20 +72,41 @@ public class ResultCanvasManager : MonoBehaviour
 
     }
 
-    public void OnClickTwitterButton()
+    void SetTweetText()
     {
-        string text = "";
+        string a = "";
+        Debug.Log(isUpdateHighScore);
+        if (isUpdateHighScore)
+        {
+            if (Utils.IsLanguageJapanese())
+            {
+                a = "ハイスコア更新!\n";
+
+            }
+            else
+            {
+                a = "You updated high score!\n";
+            }
+        }
+
+
         if (Utils.IsLanguageJapanese())
         {
-            //text = "レベル " + SaveData.i.clearedLevel + " をクリアしました！";
+            tweetText = a + "あなたのスコアは " + Variables.eraseTargetBlockCount + " でした！";
         }
         else
         {
-            //text = "You have cleared this game! - Level " + SaveData.i.clearedLevel;
+            tweetText = a + "Your score is ... " + Variables.eraseTargetBlockCount + " !!";
         }
+        Debug.Log(tweetText);
+    }
 
+
+    public void OnClickTwitterButton()
+    {
+        SetTweetText();
         //urlの作成
-        string esctext = UnityWebRequest.EscapeURL(text + "\n");
+        string esctext = UnityWebRequest.EscapeURL(tweetText + "\n");
         string esctag = UnityWebRequest.EscapeURL("ColorfulMerge\n");
         string hushTag = "&hashtags=" + esctag;
 
