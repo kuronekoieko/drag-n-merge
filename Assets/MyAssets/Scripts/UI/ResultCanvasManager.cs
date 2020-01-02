@@ -53,7 +53,7 @@ public class ResultCanvasManager : MonoBehaviour
     void OnOpen()
     {
         gameObject.SetActive(true);
-        scoreText.text = "SCORE : " + Variables.eraseTargetBlockCount;
+        scoreText.text = "x " + Variables.eraseTargetBlockCount;
         isUpdateHighScore = (highScoreBlockCountBeforeGame < Variables.eraseTargetBlockCount);
 
         //クリア音
