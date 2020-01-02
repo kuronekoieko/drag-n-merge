@@ -44,6 +44,7 @@ public class GameCanvasManager : MonoBehaviour
 
     void OnClickGameEndButton()
     {
+        FirebaseAnalyticsManager.i.LogEvent("ゲーム終了ボタン");
         Variables.screenState = ScreenState.RESULT;
     }
 

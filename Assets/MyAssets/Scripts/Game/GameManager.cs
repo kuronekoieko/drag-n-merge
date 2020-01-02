@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
         startCanvasManager.OnStart();
         audioManager.OnStart();
         saveDataManager.OnStart();
-       // Variables.resultState = ResultState.PLAYING;
+        // Variables.resultState = ResultState.PLAYING;
         Variables.screenState = ScreenState.INITIALIZE;
     }
 
@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
                 gameCanvasManager.OnInitialize();
                 resultCanvasManager.OnInitialize();
                 startCanvasManager.OnInitialize();
+                FirebaseAnalyticsManager.i.LogScreen("ゲーム");
                 break;
             case ScreenState.START:
                 break;

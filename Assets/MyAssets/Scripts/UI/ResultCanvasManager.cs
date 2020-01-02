@@ -55,7 +55,7 @@ public class ResultCanvasManager : MonoBehaviour
         gameObject.SetActive(true);
         scoreText.text = "x " + Variables.eraseTargetBlockCount;
         isUpdateHighScore = (highScoreBlockCountBeforeGame < Variables.eraseTargetBlockCount);
-
+        FirebaseAnalyticsManager.i.LogEvent("スコア:" + Variables.eraseTargetBlockCount);
         //クリア音
         //AudioManager.i.PlayOneShot(3);
         SetActiveShareGroup(isActive: true);
@@ -103,6 +103,7 @@ public class ResultCanvasManager : MonoBehaviour
 
     public void OnClickTwitterButton()
     {
+        FirebaseAnalyticsManager.i.LogEvent("ツイートボタン");
         SetTweetText();
         //urlの作成
         string esctext = UnityWebRequest.EscapeURL(tweetText + "\n");
