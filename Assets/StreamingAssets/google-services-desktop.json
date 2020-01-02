@@ -1,0 +1,37 @@
+{
+  "client": [
+    {
+      "services": {
+        "appinvite_service": {
+          "status": 1
+        }, 
+        "analytics_service": {
+          "status": 0
+        }
+      }, 
+      "oauth_client": [
+        {
+          "client_id": "514749915525-v9338s3qmn678p5l6kps0u9jm0pgku0a.apps.googleusercontent.com"
+        }
+      ], 
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeLergwIcsrjBEMzyysIShPWGZC553Y3Y"
+        }
+      ], 
+      "client_info": {
+        "mobilesdk_app_id": "1:514749915525:ios:689cc763ffd864752b64ec", 
+        "android_client_info": {
+          "package_name": "com.colorfulMerge.games"
+        }
+      }
+    }
+  ], 
+  "configuration_version": "1", 
+  "project_info": {
+    "storage_bucket": "unity-7bca6.appspot.com", 
+    "project_id": "unity-7bca6", 
+    "firebase_url": "https://unity-7bca6.firebaseio.com", 
+    "project_number": "514749915525"
+  }
+}
