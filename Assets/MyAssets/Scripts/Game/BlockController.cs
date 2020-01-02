@@ -22,8 +22,9 @@ public class BlockController : MonoBehaviour
     [SerializeField] TextMesh textMesh;
     [SerializeField] SpriteRenderer spriteRenderer;
     EventTrigger eventTrigger;
-    int num;
+    public int num { get; private set; }
     Rigidbody2D rb;
+    BoxCollider2D boxCollider;
     public BlockState blockState { get; private set; }
     public int indexX
     {
@@ -51,6 +52,7 @@ public class BlockController : MonoBehaviour
                .AddTo(this.gameObject);
 
         rb = GetComponent<Rigidbody2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
         blockState = BlockState.STOP;
         gameObject.SetActive(false);
     }
@@ -72,6 +74,7 @@ public class BlockController : MonoBehaviour
                 if (c == 50) break;
             }
         }
+        boxCollider.enabled = true;
     }
 
     public void OnUpdate()
@@ -280,8 +283,8 @@ public class BlockController : MonoBehaviour
         switch (blockState)
         {
             case BlockState.STOP:
-                BlockController block = col.gameObject.GetComponent<BlockController>();
-                Merge(block);
+                BlockController draggingBlock = col.gameObject.GetComponent<BlockController>();
+                Merge(draggingBlock);
                 break;
             case BlockState.DRAG:
                 break;
@@ -290,18 +293,21 @@ public class BlockController : MonoBehaviour
         }
     }
 
-    void Merge(BlockController block)
+    void Merge(BlockController draggingBlock)
     {
-        float distance = (block.transform.position - transform.position).magnitude;
+        float distance = (draggingBlock.transform.position - transform.position).magnitude;
         if (distance > 0.3f) { return; }
-        if (block.num != num) { return; }
+        if (draggingBlock.num != num) { return; }
         num++;
-        block.gameObject.SetActive(false);
+
         //タイマーが止まるため
         Variables.isDragging = false;
         FallCheckOnMerge();
         FallCheckUpperBlockOnMerge();
+        draggingBlock.gameObject.SetActive(false);
+
         ClearCheck();
+
         AudioManager.i.PlayOneShot(0);
     }
 
@@ -324,12 +330,26 @@ public class BlockController : MonoBehaviour
     void ClearCheck()
     {
         if (num != Values.TARGET_BLOCK_NUM) { return; }
+
         Variables.eraseTargetBlockCount++;
         if (SaveData.i.eraseTargetBlockCount < Variables.eraseTargetBlockCount)
         {
             SaveData.i.eraseTargetBlockCount = Variables.eraseTargetBlockCount;
             SaveDataManager.i.Save();
         }
+        MoveFadeOut();
+    }
+
+    void MoveFadeOut()
+    {
+        boxCollider.enabled = false;
+        transform.DOScale(Vector3.zero, 0.5f)
+            .SetEase(Ease.InBack)
+            .OnComplete(() =>
+            {
+                gameObject.SetActive(false);
+                transform.localScale = Vector3.one;
+            });
     }
 
     public void TransrateBlock(int indexX, int indexY)
@@ -339,11 +359,13 @@ public class BlockController : MonoBehaviour
 
     public void MoveUpAnim()
     {
+        eventTrigger.enabled = false;
         float y = Utils.IndexToPosition(indexX, indexY + 1).y;
         transform.DOMoveY(y, 0.5f)
         .OnComplete(() =>
         {
             FailedCheck();
+            eventTrigger.enabled = true;
         });
     }
 

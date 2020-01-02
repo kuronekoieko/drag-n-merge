@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour
 
     public void OnInitialize()
     {
-        timeLimit = 1;
+        timeLimit = 7;
         Variables.timer = timeLimit;
         Variables.eraseTargetBlockCount = 0;
         blocksManager.OnInitialize();
@@ -26,17 +26,31 @@ public class GameController : MonoBehaviour
 
         if (Variables.timer < 0)
         {
-            if (!Variables.isDragging)
-            {
-                blocksManager.SetBlocksNewLine(0);
-                blocksManager.MoveUpAllBlocks();
-                Variables.timer = timeLimit;
-            }
+            IsUpNewLine();
         }
         else
         {
             Variables.timer -= Time.deltaTime;
+            ResetTimer();
         }
+    }
+
+    void IsUpNewLine()
+    {
+        if (Variables.isDragging) { return; }
+
+        blocksManager.SetBlocksNewLine(0);
+        blocksManager.MoveUpAllBlocks();
+        Variables.timer = timeLimit;
+
+    }
+
+    void ResetTimer()
+    {
+        if (Variables.isDragging) { return; }
+        if (blocksManager.IsDuplicateBlockNum()) { return; }
+        Variables.timer = -1f;
+        //Debug.Log("リセット");
     }
 
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 /// <summary>
 /// 【C#】2次元配列の宣言・初期化・代入
@@ -10,7 +11,7 @@ public class BlocksManager : MonoBehaviour
 {
     [SerializeField] BlockController blockControllerPrefab;
     BlockController[] blockControllers;
-
+    Dictionary<int, bool> isExistNum = new Dictionary<int, bool>();
     public static BlocksManager i;
 
     public void OnStart()
@@ -18,6 +19,10 @@ public class BlocksManager : MonoBehaviour
         i = this;
         Variables.blockHeight = blockControllerPrefab.GetComponent<BoxCollider2D>().size.x;
         BlockGenerator();
+        for (int i = 0; i < Values.TARGET_BLOCK_NUM; i++)
+        {
+            isExistNum[i + 1] = false;
+        }
     }
 
     public void OnInitialize()
@@ -109,5 +114,24 @@ public class BlocksManager : MonoBehaviour
 
 
         return lowestBlock;
+    }
+
+    public bool IsDuplicateBlockNum()
+    {
+
+        for (int i = 0; i < Values.TARGET_BLOCK_NUM; i++)
+        {
+            isExistNum[i + 1] = false;
+        }
+
+        for (int i = 0; i < blockControllers.Length; i++)
+        {
+            BlockController block = blockControllers[i];
+            if (!block.gameObject.activeSelf) { continue; }
+            // if (block.blockState != BlockState.STOP) { continue; }
+            if (isExistNum[block.num]) { return true; }
+            isExistNum[block.num] = true;
+        }
+        return false;
     }
 }
