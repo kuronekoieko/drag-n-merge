@@ -194,67 +194,127 @@ public class BlockController : MonoBehaviour
             worldPos.y = topY;
         }
 
-        worldPos.y = GetCollisionUnderBlockLimit(worldPos.y);
-        worldPos.y = GetCollisionUpperBlockLimit(worldPos.y);
+        // worldPos.y = GetCollisionUnderBlockLimit(worldPos.y, dx: 0, dy: -1);
+        worldPos = GetAdjacentBlockLimit(worldPos, dx: 0, dy: -1);
+        worldPos = GetAdjacentBlockLimit(worldPos, dx: 0, dy: 1);
+        worldPos = GetAdjacentBlockLimit(worldPos, dx: -1, dy: 0);
+        worldPos = GetAdjacentBlockLimit(worldPos, dx: 1, dy: 0);
+        // worldPos = GetAdjacentBlockLimit(worldPos, dx: -1, dy: -1);
+        // worldPos = GetAdjacentBlockLimit(worldPos, dx: 1, dy: -1);
 
-
-        worldPos.x = GetCollisionLeftBlockLimit(worldPos.x);
-        worldPos.x = GetCollisionRightBlockLimit(worldPos.x);
-
+        worldPos = GetCollisionDiagonalBlockLimit(worldPos, -1, -1);
+        worldPos = GetCollisionDiagonalBlockLimit(worldPos, 1, -1);
         transform.position = worldPos;
     }
 
-    float GetCollisionUnderBlockLimit(float worldPosY)
+    Vector2 GetCollisionDiagonalBlockLimit(Vector2 worldPos, int dx, int dy)
     {
-        BlockController underBlock = null;
-        for (int iy = Values.BOARD_LENGTH_Y - 1; iy > 0; iy--)
+        Vector3 pos = worldPos;
+        if (!existAdjacentBlock(dx, dy, out Vector2 limitPos)) { return worldPos; }
+
+        if ((transform.position.x - limitPos.x) * dx > 0 && worldPos.y < limitPos.y)
         {
-            underBlock = BlocksManager.i.GetBlock(indexX, iy);
-            if (underBlock == null) { continue; }
-            if (underBlock.num == num) { continue; }
-            break;
+            pos.y = limitPos.y;
         }
 
-        if (underBlock == null) { return worldPosY; }
-        if (underBlock.num == num) { return worldPosY; }
-        float fixedY = underBlock.transform.position.y + Variables.blockHeight;
-        if (worldPosY > fixedY) { return worldPosY; }
-        return fixedY;
+
+        if (transform.position.y < limitPos.y && (worldPos.x - limitPos.x) * dx >= 0)
+        {
+            pos.x = limitPos.x;
+        }
+
+
+        return pos;
+
     }
 
-    float GetCollisionUpperBlockLimit(float worldPosY)
+    Vector2 GetAdjacentBlockLimit(Vector2 worldPos, int dx, int dy)
     {
-        BlockController upperBlock = BlocksManager.i.GetBlock(indexX, indexY + 1);
-        if (upperBlock == null) { return worldPosY; }
-        if (upperBlock.num == num) { return worldPosY; }
-        float fixedY = upperBlock.transform.position.y - Variables.blockHeight;
-        if (worldPosY < fixedY) { return worldPosY; }
-        return fixedY;
+        if (!existAdjacentBlock(dx, dy, out Vector2 limitPos)) { return worldPos; }
+
+        bool isLimitX = (worldPos.x - limitPos.x) * dx > 0;
+        if (isLimitX)
+        {
+            worldPos.x = limitPos.x;
+        }
+
+        bool isLimitY = (worldPos.y - limitPos.y) * dy > 0;
+        if (isLimitY)
+        {
+            worldPos.y = limitPos.y;
+        }
+
+        return worldPos;
     }
 
-    float GetCollisionLeftBlockLimit(float worldPosX)
+    bool existAdjacentBlock(int dx, int dy, out Vector2 limitPos)
     {
-        int sign = -1;
-        BlockController leftBlock = BlocksManager.i.GetBlock(indexX + sign, indexY);
-        if (leftBlock == null) { return worldPosX; }
-        if (leftBlock.num == num) { return worldPosX; }
-        float leftFixedX = leftBlock.transform.position.x - (Variables.blockHeight * sign);
-        if (worldPosX > leftFixedX) { return worldPosX; }
-        return leftFixedX;
+        limitPos = Vector2.zero;
+        BlockController block = BlocksManager.i.GetBlock(indexX + dx, indexY + dy);
+
+        if (dy == -1 && dx == 0)
+        {
+            block = GetUnderBlock();
+        }
+        if (dx == -1 && dy == 0)
+        {
+            block = GetLeftBlock();
+        }
+        if (dx == 1 && dy == 0)
+        {
+            block = GetRightBlock();
+        }
+
+        if (block == null) { return false; }
+        if (block.num == num) { return false; }
+
+        limitPos.x = block.transform.position.x - (Variables.blockHeight * dx);
+        limitPos.y = block.transform.position.y - (Variables.blockHeight * dy);
+        return true;
     }
 
-    float GetCollisionRightBlockLimit(float worldPosX)
+    BlockController GetLeftBlock()
     {
-        int sign = 1;
+        BlockController dummyBlock = null;
+        //上から下へのワープ対策
+        for (int ix = indexX - 1; ix >= 0; ix--)
+        {
+            dummyBlock = BlocksManager.i.GetBlock(ix, indexY);
+            if (dummyBlock == null) { continue; }
+            if (dummyBlock.num == num) { continue; }
+            return dummyBlock;
+        }
+        return null;
+    }
 
-        BlockController rightBlock = BlocksManager.i.GetBlock(indexX + sign, indexY);
-        if (rightBlock == null) { return worldPosX; }
-        if (rightBlock.num == num) { return worldPosX; }
+    BlockController GetRightBlock()
+    {
+        BlockController dummyBlock = null;
+        //上から下へのワープ対策
+        for (int ix = indexX + 1; ix <= Values.BOARD_LENGTH_X; ix++)
+        {
+            dummyBlock = BlocksManager.i.GetBlock(ix, indexY);
+            if (dummyBlock == null) { continue; }
+            if (dummyBlock.num == num) { continue; }
+            return dummyBlock;
+        }
+        return null;
 
-        float rightFixedX = rightBlock.transform.position.x - (Variables.blockHeight * sign);
-        if (worldPosX < rightFixedX) { return worldPosX; }
+    }
 
-        return rightFixedX;
+    BlockController GetUnderBlock()
+    {
+        BlockController dummyBlock = null;
+        //上から下へのワープ対策
+        for (int iy = indexY - 1; iy > 0; iy--)
+        {
+            dummyBlock = BlocksManager.i.GetBlock(indexX, iy);
+            if (dummyBlock == null) { continue; }
+            if (dummyBlock.num == num) { continue; }
+            return dummyBlock;
+        }
+
+        return null;
     }
 
     void OnCollisionEnter2D(Collision2D col)
