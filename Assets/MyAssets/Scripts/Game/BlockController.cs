@@ -202,8 +202,8 @@ public class BlockController : MonoBehaviour
         // worldPos = GetAdjacentBlockLimit(worldPos, dx: -1, dy: -1);
         // worldPos = GetAdjacentBlockLimit(worldPos, dx: 1, dy: -1);
 
-        // worldPos = GetCollisionDiagonalBlockLimit(worldPos, -1, -1);
-        // worldPos = GetCollisionDiagonalBlockLimit(worldPos, 1, -1);
+        worldPos = GetCollisionDiagonalBlockLimit(worldPos, -1, -1);
+        worldPos = GetCollisionDiagonalBlockLimit(worldPos, 1, -1);
         transform.position = worldPos;
     }
 
@@ -212,13 +212,24 @@ public class BlockController : MonoBehaviour
         Vector3 pos = worldPos;
         if (!existAdjacentBlock(dx, dy, out Vector2 limitPos)) { return worldPos; }
 
-        if ((transform.position.x - limitPos.x) * dx > 0 && worldPos.y < limitPos.y)
+        bool isInsideLimitX = (transform.position.x - limitPos.x) * dx > 0;
+        bool isInsideLimitY = transform.position.y < limitPos.y;
+
+
+
+
+        if (isInsideLimitX && worldPos.y < limitPos.y)
         {
             pos.y = limitPos.y;
         }
 
 
-        if (transform.position.y < limitPos.y && (worldPos.x - limitPos.x) * dx >= 0)
+        if (isInsideLimitY && (worldPos.x - limitPos.x) * dx > 0)
+        {
+            pos.x = limitPos.x;
+        }
+
+        if (!isInsideLimitX && !isInsideLimitY && worldPos.y < limitPos.y && (worldPos.x - limitPos.x) * dx >= 0)
         {
             pos.x = limitPos.x;
         }
