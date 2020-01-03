@@ -98,24 +98,6 @@ public class BlocksManager : MonoBehaviour
         }
     }
 
-    BlockController GetLowestBlock(int indexX)
-    {
-        int indexY = 100;
-        BlockController lowestBlock = null;
-        for (int i = 0; i < blockControllers.Length; i++)
-        {
-            BlockController block = blockControllers[i];
-            if (block.indexX != indexX) { continue; }
-            if (!block.gameObject.activeSelf) { continue; }
-            if (block.indexY >= indexY) { continue; }
-            indexY = block.indexY;
-            lowestBlock = block;
-        }
-
-
-        return lowestBlock;
-    }
-
     public bool IsDuplicateBlockNum()
     {
 
@@ -128,10 +110,22 @@ public class BlocksManager : MonoBehaviour
         {
             BlockController block = blockControllers[i];
             if (!block.gameObject.activeSelf) { continue; }
-            // if (block.blockState != BlockState.STOP) { continue; }
             if (isExistNum[block.num]) { return true; }
             isExistNum[block.num] = true;
         }
         return false;
+    }
+
+    public bool IsAllBlockStopped()
+    {
+        for (int i = 0; i < blockControllers.Length; i++)
+        {
+            BlockController block = blockControllers[i];
+            if (!block.gameObject.activeSelf) { continue; }
+            if (block.blockState == BlockState.STOP) { continue; }
+            return false;
+        }
+        return true;
+
     }
 }

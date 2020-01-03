@@ -202,8 +202,8 @@ public class BlockController : MonoBehaviour
         // worldPos = GetAdjacentBlockLimit(worldPos, dx: -1, dy: -1);
         // worldPos = GetAdjacentBlockLimit(worldPos, dx: 1, dy: -1);
 
-        worldPos = GetCollisionDiagonalBlockLimit(worldPos, -1, -1);
-        worldPos = GetCollisionDiagonalBlockLimit(worldPos, 1, -1);
+        // worldPos = GetCollisionDiagonalBlockLimit(worldPos, -1, -1);
+        // worldPos = GetCollisionDiagonalBlockLimit(worldPos, 1, -1);
         transform.position = worldPos;
     }
 
@@ -432,6 +432,7 @@ public class BlockController : MonoBehaviour
         {
             FailedCheck();
             eventTrigger.enabled = true;
+            Variables.gameState = GameState.IN_PROGRESS_TIMER;
         });
     }
 
