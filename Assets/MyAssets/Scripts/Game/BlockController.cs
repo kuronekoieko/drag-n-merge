@@ -347,11 +347,12 @@ public class BlockController : MonoBehaviour
     {
         //クリア音
         AudioManager.i.PlayOneShot(3);
-        boxCollider.enabled = false;
+
         transform.DOScale(Vector3.zero, 0.5f)
             .SetEase(Ease.InBack)
             .OnComplete(() =>
             {
+                boxCollider.enabled = false;
                 gameObject.SetActive(false);
                 transform.localScale = Vector3.one;
             });
@@ -379,6 +380,5 @@ public class BlockController : MonoBehaviour
         if (indexY != Values.BOARD_LENGTH_Y - 1) { return; }
         if (!gameObject.activeSelf) { return; }
         Variables.screenState = ScreenState.RESULT;
-        //Variables.resultState = ResultState.LOSE;
     }
 }
