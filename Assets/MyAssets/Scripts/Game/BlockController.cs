@@ -106,7 +106,13 @@ public class BlockController : MonoBehaviour
         //ドラッグ中のブロックが落ちるため
         if (blockState != BlockState.STOP) { return; }
         BlockController underBlock = BlocksManager.i.GetBlock(indexX, indexY - 1);
-        if (underBlock == null) { blockState = BlockState.FALL; }
+        if (underBlock == null)
+        {
+            blockState = BlockState.FALL;
+            return;
+        }
+        if (underBlock.num == num) { blockState = BlockState.FALL; }
+
     }
 
     void FallDown()
@@ -155,18 +161,11 @@ public class BlockController : MonoBehaviour
     void OnPointerUp()
     {
         TransrateBlock(indexX, indexY);
-        FallCheckOnPointerUp();
+        blockState = BlockState.STOP;
         Variables.isDragging = false;
     }
 
-    void FallCheckOnPointerUp()
-    {
-        BlockController underBlock = BlocksManager.i.GetBlock(indexX, indexY - 1);
-        blockState = BlockState.FALL;
-        if (underBlock == null) { return; }
-        if (underBlock.num == num) { return; }
-        blockState = BlockState.STOP;
-    }
+
 
     void OnDrag()
     {
@@ -222,7 +221,6 @@ public class BlockController : MonoBehaviour
         {
             pos.y = limitPos.y;
         }
-
 
         if (isInsideLimitY && (worldPos.x - limitPos.x) * dx > 0)
         {
@@ -372,8 +370,6 @@ public class BlockController : MonoBehaviour
 
         //タイマーが止まるため
         Variables.isDragging = false;
-        FallCheckOnMerge();
-        FallCheckUpperBlockOnMerge();
         draggingBlock.gameObject.SetActive(false);
 
         ClearCheck();
@@ -381,21 +377,7 @@ public class BlockController : MonoBehaviour
 
     }
 
-    void FallCheckOnMerge()
-    {
-        BlockController underBlock = BlocksManager.i.GetBlock(indexX, indexY - 1);
-        if (underBlock == null) { return; }
-        if (underBlock.num != num) { return; }
-        blockState = BlockState.FALL;
-    }
 
-    void FallCheckUpperBlockOnMerge()
-    {
-        BlockController upperBlock = BlocksManager.i.GetBlock(indexX, indexY + 1);
-        if (upperBlock == null) { return; }
-        if (upperBlock.num != num) { return; }
-        upperBlock.blockState = BlockState.FALL;
-    }
 
     void ClearCheck()
     {
