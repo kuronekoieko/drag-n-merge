@@ -1,3 +1,4 @@
 {
-    "eraseTargetBlockNum": 0
+    "eraseTargetBlockNum": 0,
+    "sumOfErasedBlockNumbers": 0
 }

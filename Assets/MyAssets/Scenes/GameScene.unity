@@ -587,7 +587,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 64325164}
   scoreText: {fileID: 1811413022}
-  highScoreNumText: {fileID: 531393252}
+  bestTargetBlockCountText: {fileID: 531393252}
+  bestScoreText: {fileID: 723124414}
   gameEndButton: {fileID: 1396594211}
   erasedBlockNumText: {fileID: 1306857563}
 --- !u!114 &372288006
@@ -871,7 +872,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 312.30002, y: 643.7001}
+  m_AnchoredPosition: {x: 291.30002, y: 643.7001}
   m_SizeDelta: {x: 214.5, y: 138.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &453703979
@@ -1221,7 +1222,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 379.33, y: 571.49005}
+  m_AnchoredPosition: {x: 358.33, y: 571.49005}
   m_SizeDelta: {x: 191.56, y: 37.19}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &531393252
@@ -1432,7 +1433,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 390.8, y: 603.5}
+  m_AnchoredPosition: {x: 369.8, y: 603.5}
   m_SizeDelta: {x: 214.5, y: 43.997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &723124414
@@ -1466,7 +1467,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 123456
+  m_Text: 123456789
 --- !u!222 &723124415
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2194,8 +2195,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -154, y: 473}
-  m_SizeDelta: {x: 287.9, y: 138.8}
+  m_AnchoredPosition: {x: -152.00002, y: 473}
+  m_SizeDelta: {x: 353.7, y: 138.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1306857563
 MonoBehaviour:
@@ -2228,7 +2229,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1235456
+  m_Text: 1235456789
 --- !u!222 &1306857564
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2724,7 +2725,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 255.72002, y: 603.5}
+  m_AnchoredPosition: {x: 234.72002, y: 603.5}
   m_SizeDelta: {x: 99.34, y: 38.16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1446861472
@@ -3222,7 +3223,7 @@ PrefabInstance:
     - target: {fileID: 9205403319148911615, guid: a3ddcba645c91448f8d96ec3ac9322ce,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 218
+      value: 197
       objectReference: {fileID: 0}
     - target: {fileID: 9205403319148911615, guid: a3ddcba645c91448f8d96ec3ac9322ce,
         type: 3}

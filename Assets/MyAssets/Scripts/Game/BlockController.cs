@@ -375,6 +375,12 @@ public class BlockController : MonoBehaviour
         ClearCheck();
 
         Variables.sumOfErasedBlockNumbers += num;
+        bool isBestScore = (SaveData.i.sumOfErasedBlockNumbers < Variables.sumOfErasedBlockNumbers);
+        if (isBestScore)
+        {
+            SaveData.i.sumOfErasedBlockNumbers = Variables.sumOfErasedBlockNumbers;
+            SaveDataManager.i.Save();
+        }
     }
 
 

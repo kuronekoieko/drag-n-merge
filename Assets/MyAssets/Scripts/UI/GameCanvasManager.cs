@@ -8,7 +8,8 @@ public class GameCanvasManager : MonoBehaviour
 {
     [SerializeField] Text timerText;
     [SerializeField] Text scoreText;
-    [SerializeField] Text highScoreNumText;
+    [SerializeField] Text bestTargetBlockCountText;
+    [SerializeField] Text bestScoreText;
     [SerializeField] Button gameEndButton;
     [SerializeField] Text erasedBlockNumText;
 
@@ -31,7 +32,8 @@ public class GameCanvasManager : MonoBehaviour
 
     public void OnInitialize()
     {
-        highScoreNumText.text = SaveData.i.eraseTargetBlockCount.ToString();
+        bestTargetBlockCountText.text = "x " + SaveData.i.eraseTargetBlockCount;
+        bestScoreText.text = SaveData.i.sumOfErasedBlockNumbers.ToString();
     }
 
     void SetTimeCountText()
