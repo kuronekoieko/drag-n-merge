@@ -17,8 +17,10 @@ using UnityEngine.iOS;
 /// </summary>
 public class ResultCanvasManager : MonoBehaviour
 {
-    [SerializeField] Text highScoreText;
+    [SerializeField] Text bestScoreText;
     [SerializeField] Text scoreText;
+    [SerializeField] Text bestTargetCountText;
+    [SerializeField] Text targetCountText;
     [SerializeField] Button nextButton;
     [SerializeField] Button twitterButton;
     [SerializeField] Button shareButton;
@@ -50,15 +52,16 @@ public class ResultCanvasManager : MonoBehaviour
         gameObject.SetActive(false);
         SetActiveShareGroup(isActive: false);
         //スタート時のハイスコアを結果画面で出す
-        highScoreBlockCountBeforeGame = SaveData.i.eraseTargetBlockCount;
-        highScoreText.text = "HIGH SCORE : " + highScoreBlockCountBeforeGame;
-       
+
+        bestTargetCountText.text = "x " + SaveData.i.eraseTargetBlockCount.ToString();
+        bestScoreText.text = SaveData.i.sumOfErasedBlockNumbers.ToString();
     }
 
     void OnOpen()
     {
         gameObject.SetActive(true);
-        scoreText.text = "x " + Variables.eraseTargetBlockCount;
+        targetCountText.text = "x " + Variables.eraseTargetBlockCount;
+        scoreText.text = Variables.sumOfErasedBlockNumbers.ToString();
         isUpdateHighScore = (highScoreBlockCountBeforeGame < Variables.eraseTargetBlockCount);
         FirebaseAnalyticsManager.i.LogEvent("スコア:" + Variables.eraseTargetBlockCount);
         //クリア音

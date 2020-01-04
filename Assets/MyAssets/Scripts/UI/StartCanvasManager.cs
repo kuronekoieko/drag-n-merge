@@ -13,7 +13,7 @@ public class StartCanvasManager : MonoBehaviour
     public void OnStart()
     {
         startButton.onClick.AddListener(OnClickStartButton);
-        gameObject.SetActive(true);
+
 
 
         this.ObserveEveryValueChanged(screenState => Variables.screenState)
@@ -26,7 +26,7 @@ public class StartCanvasManager : MonoBehaviour
 
     public void OnInitialize()
     {
-
+        gameObject.SetActive(true);
     }
 
     void Anim()
