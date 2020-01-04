@@ -23,8 +23,7 @@ public class ResultCanvasManager : MonoBehaviour
     [SerializeField] Button twitterButton;
     [SerializeField] Button shareButton;
     [SerializeField] Text shareText;
-    [SerializeField] Text targetNumText;
-    [SerializeField] Image targetBlockImage;
+
     string tweetText;
     bool isUpdateHighScore;
     int highScoreBlockCountBeforeGame;
@@ -53,9 +52,7 @@ public class ResultCanvasManager : MonoBehaviour
         //スタート時のハイスコアを結果画面で出す
         highScoreBlockCountBeforeGame = SaveData.i.eraseTargetBlockCount;
         highScoreText.text = "HIGH SCORE : " + highScoreBlockCountBeforeGame;
-        targetNumText.text = Values.TARGET_BLOCK_NUM.ToString();
-        targetNumText.color = BlockColorData.i.blockColors[Values.TARGET_BLOCK_NUM - 1].textColor;
-        targetBlockImage.color = BlockColorData.i.blockColors[Values.TARGET_BLOCK_NUM - 1].color;
+       
     }
 
     void OnOpen()

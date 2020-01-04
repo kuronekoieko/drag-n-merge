@@ -8,10 +8,7 @@ using DG.Tweening;
 public class StartCanvasManager : MonoBehaviour
 {
     [SerializeField] Button startButton;
-    [SerializeField] Text targetNumText;
-    [SerializeField] Image targetBlockImage;
     [SerializeField] Text startText;
-    // [SerializeField] Text levelText;
 
     public void OnStart()
     {
@@ -29,10 +26,7 @@ public class StartCanvasManager : MonoBehaviour
 
     public void OnInitialize()
     {
-        targetNumText.text = Values.TARGET_BLOCK_NUM.ToString();
-        targetNumText.color = BlockColorData.i.blockColors[Values.TARGET_BLOCK_NUM - 1].textColor;
-        targetBlockImage.color = BlockColorData.i.blockColors[Values.TARGET_BLOCK_NUM - 1].color;
-        // levelText.text = "LEVEL  " + (SaveData.i.clearedLevel + 1);
+
     }
 
     void Anim()

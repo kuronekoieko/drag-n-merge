@@ -374,7 +374,7 @@ public class BlockController : MonoBehaviour
 
         ClearCheck();
 
-
+        Variables.sumOfErasedBlockNumbers += num;
     }
 
 
