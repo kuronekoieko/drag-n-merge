@@ -8,6 +8,9 @@
 
 public enum GameState
 {
+    IN_PROGRESS_TIMER,
+    RESET_TIMER,
+    MOVE_UP_ANIM,
 }
 
 public enum BlockState

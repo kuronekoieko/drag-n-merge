@@ -12,16 +12,20 @@ using UnityEngine.iOS;
 /// https://qiita.com/Kenji__SHIMIZU/items/d907744a977167d89a78
 /// アプリ内でのレビューをUnityで実装(Unity2017.3版)【Unity】【iOS】
 /// http://kan-kikuchi.hatenablog.com/entry/iOS_Device_RequestStoreReview
+/// Social ConnectorでUnityアプリにソーシャル連携ボタンを追加する
+/// https://www.jyuko49.com/entry/2018/04/05/092218
 /// </summary>
 public class ResultCanvasManager : MonoBehaviour
 {
-    [SerializeField] Text highScoreText;
+    [SerializeField] Text bestScoreText;
     [SerializeField] Text scoreText;
+    [SerializeField] Text bestTargetCountText;
+    [SerializeField] Text targetCountText;
     [SerializeField] Button nextButton;
-    [SerializeField] Text nextButtonText;
     [SerializeField] Button twitterButton;
+    [SerializeField] Button shareButton;
     [SerializeField] Text shareText;
-    //[SerializeField] Text levelText;
+
     string tweetText;
     bool isUpdateHighScore;
     int highScoreBlockCountBeforeGame;
@@ -36,9 +40,11 @@ public class ResultCanvasManager : MonoBehaviour
 
         nextButton.onClick.AddListener(OnClickRestartButton);
         twitterButton.onClick.AddListener(OnClickTwitterButton);
+        shareButton.onClick.AddListener(onClickShare);
 
-        Anim();
-        TwitterButtonAnim();
+        Anim(nextButton.transform);
+        Anim(twitterButton.transform);
+        Anim(shareButton.transform);
     }
 
     public void OnInitialize()
@@ -46,14 +52,16 @@ public class ResultCanvasManager : MonoBehaviour
         gameObject.SetActive(false);
         SetActiveShareGroup(isActive: false);
         //スタート時のハイスコアを結果画面で出す
-        highScoreBlockCountBeforeGame = SaveData.i.eraseTargetBlockCount;
-        highScoreText.text = "HIGH SCORE : " + highScoreBlockCountBeforeGame;
+
+        bestTargetCountText.text = "x " + SaveData.i.eraseTargetBlockCount.ToString();
+        bestScoreText.text = SaveData.i.sumOfErasedBlockNumbers.ToString();
     }
 
     void OnOpen()
     {
         gameObject.SetActive(true);
-        scoreText.text = "x " + Variables.eraseTargetBlockCount;
+        targetCountText.text = "x " + Variables.eraseTargetBlockCount;
+        scoreText.text = Variables.sumOfErasedBlockNumbers.ToString();
         isUpdateHighScore = (highScoreBlockCountBeforeGame < Variables.eraseTargetBlockCount);
         FirebaseAnalyticsManager.i.LogEvent("スコア:" + Variables.eraseTargetBlockCount);
         //クリア音
@@ -74,7 +82,6 @@ public class ResultCanvasManager : MonoBehaviour
     void SetTweetText()
     {
         string a = "";
-        Debug.Log(isUpdateHighScore);
         if (isUpdateHighScore)
         {
             if (Utils.IsLanguageJapanese())
@@ -97,7 +104,7 @@ public class ResultCanvasManager : MonoBehaviour
         {
             tweetText = a + "Your score is ... " + Variables.eraseTargetBlockCount + " !!";
         }
-        Debug.Log(tweetText);
+
     }
 
 
@@ -109,7 +116,6 @@ public class ResultCanvasManager : MonoBehaviour
         string esctext = UnityWebRequest.EscapeURL(tweetText + "\n");
         string esctag = UnityWebRequest.EscapeURL("ColorfulMerge\n");
         string hushTag = "&hashtags=" + esctag;
-
         string url = "https://twitter.com/intent/tweet?text=" + esctext + hushTag + Strings.APP_STORE_URL;
 
         //Twitter投稿画面の起動
@@ -136,30 +142,41 @@ public class ResultCanvasManager : MonoBehaviour
 
     }
 
-    void Anim()
+    void Anim(Transform transform)
     {
-        nextButton.transform.DOScale(1.1f, 0.5f)
+        transform.DOScale(1.1f, 0.5f)
                .OnComplete(() =>
                {
-                   nextButton.transform.DOScale(1f, 0.5f)
-                           .OnComplete(() =>
-                           {
-                               Anim();
-                           });
+                   transform.DOScale(1f, 0.5f)
+                            .OnComplete(() =>
+                            {
+                                Anim(transform);
+                            });
                });
     }
 
-
-    void TwitterButtonAnim()
+    public void onClickShare()
     {
-        twitterButton.transform.DOScale(1.1f, 0.5f)
-               .OnComplete(() =>
-               {
-                   twitterButton.transform.DOScale(1f, 0.5f)
-                           .OnComplete(() =>
-                           {
-                               TwitterButtonAnim();
-                           });
-               });
+        StartCoroutine("_share");
+    }
+
+    private IEnumerator _share()
+    {
+        ScreenCapture.CaptureScreenshot(Application.persistentDataPath + "image.png");
+        //Application.CaptureScreenshot("image.png");
+        yield return null;
+
+        SetTweetText();
+        //urlの作成
+        string esctext = tweetText + "\n";
+        string esctag = "ColorfulMerge\n";
+        string hushTag = "#";
+        string text = esctext + hushTag + esctag;
+        var imagePath = Application.persistentDataPath + "/image.png";
+        Debug.Log(imagePath);
+
+#if !UNITY_EDITOR
+        SocialConnector.SocialConnector.Share(text, Strings.APP_STORE_URL, imagePath);
+#endif
     }
 }

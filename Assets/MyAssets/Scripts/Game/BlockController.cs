@@ -26,6 +26,10 @@ public class BlockController : MonoBehaviour
     Rigidbody2D rb;
     BoxCollider2D boxCollider;
     public BlockState blockState { get; private set; }
+    Vector2 wallMaxPos;
+    Vector2 wallMinPos;
+    GridIndex pointerDownIndex;
+
     public int indexX
     {
         get
@@ -41,9 +45,6 @@ public class BlockController : MonoBehaviour
         }
     }
 
-    int pointerDownIndexX;
-    int pointerDownIndexY;
-
     public void OnStart()
     {
         SetEventTriggers();
@@ -55,6 +56,13 @@ public class BlockController : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         blockState = BlockState.STOP;
         gameObject.SetActive(false);
+
+        //壁
+        wallMinPos.x = Variables.blockLowerLeftPos.x;
+        wallMaxPos.x = Variables.blockLowerLeftPos.x * -1;
+        wallMaxPos.y = Variables.blockLowerLeftPos.y + Values.BROCK_DISTANCE * (Values.BOARD_LENGTH_Y - 2);
+        wallMinPos.y = Variables.blockLowerLeftPos.y + Values.BROCK_DISTANCE;
+        pointerDownIndex = new GridIndex();
     }
 
     public void SetNewLine()
@@ -106,7 +114,13 @@ public class BlockController : MonoBehaviour
         //ドラッグ中のブロックが落ちるため
         if (blockState != BlockState.STOP) { return; }
         BlockController underBlock = BlocksManager.i.GetBlock(indexX, indexY - 1);
-        if (underBlock == null) { blockState = BlockState.FALL; }
+        if (underBlock == null)
+        {
+            blockState = BlockState.FALL;
+            return;
+        }
+        if (underBlock.num == num) { blockState = BlockState.FALL; }
+
     }
 
     void FallDown()
@@ -147,114 +161,182 @@ public class BlockController : MonoBehaviour
     {
         blockState = BlockState.DRAG;
         Variables.isDragging = true;
-        pointerDownIndexX = indexX;
-        pointerDownIndexY = indexY;
+        pointerDownIndex.x = indexX;
+        pointerDownIndex.y = indexY;
     }
 
 
     void OnPointerUp()
     {
-        TransrateBlock(indexX, indexY);
-        FallCheckOnPointerUp();
+        //突き抜け対策
+        if (IsOverlapDifferentBlock())
+        {
+            TransrateBlock(pointerDownIndex.x, pointerDownIndex.y);
+        }
+        else
+        {
+            TransrateBlock(indexX, indexY);
+        }
+
+        blockState = BlockState.STOP;
         Variables.isDragging = false;
     }
 
-    void FallCheckOnPointerUp()
-    {
-        BlockController underBlock = BlocksManager.i.GetBlock(indexX, indexY - 1);
-        blockState = BlockState.FALL;
-        if (underBlock == null) { return; }
-        if (underBlock.num == num) { return; }
-        blockState = BlockState.STOP;
-    }
+
 
     void OnDrag()
     {
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if (worldPos.x < Variables.blockLowerLeftPos.x)
-        {
-            worldPos.x = Variables.blockLowerLeftPos.x;
-        }
 
-        float rightX = Variables.blockLowerLeftPos.x * -1;
-        if (worldPos.x > rightX)
-        {
-            worldPos.x = rightX;
-        }
+        Vector2 maxPos = wallMaxPos;
+        Vector2 minPos = wallMinPos;
 
-        float bottomY = Variables.blockLowerLeftPos.y + Values.BROCK_DISTANCE;
-        if (worldPos.y < bottomY)
-        {
-            worldPos.y = bottomY;
-        }
+        minPos.y = GetLimit(minPos, 0, -1).y;
+        maxPos.y = GetLimit(maxPos, 0, 1).y;
+        minPos.x = GetLimit(minPos, -1, 0).x;
+        maxPos.x = GetLimit(maxPos, 1, 0).x;
 
-        float topY = Variables.blockLowerLeftPos.y + Values.BROCK_DISTANCE * (Values.BOARD_LENGTH_Y - 2);
-        if (worldPos.y > topY)
-        {
-            worldPos.y = topY;
-        }
+        worldPos.x = Mathf.Clamp(worldPos.x, minPos.x, maxPos.x);
+        worldPos.y = Mathf.Clamp(worldPos.y, minPos.y, maxPos.y);
 
-        worldPos.y = GetCollisionUnderBlockLimit(worldPos.y);
-        worldPos.y = GetCollisionUpperBlockLimit(worldPos.y);
-
-
-        worldPos.x = GetCollisionLeftBlockLimit(worldPos.x);
-        worldPos.x = GetCollisionRightBlockLimit(worldPos.x);
+        worldPos = GetCollisionDiagonalBlockLimit(worldPos, 1, -1);
+        worldPos = GetCollisionDiagonalBlockLimit(worldPos, -1, -1);
+        worldPos = GetCollisionDiagonalBlockLimit(worldPos, 1, 1);
+        worldPos = GetCollisionDiagonalBlockLimit(worldPos, -1, 1);
 
         transform.position = worldPos;
     }
 
-    float GetCollisionUnderBlockLimit(float worldPosY)
+    bool IsOverlapDifferentBlock()
     {
-        BlockController underBlock = null;
-        for (int iy = Values.BOARD_LENGTH_Y - 1; iy > 0; iy--)
+        BlockController block = BlocksManager.i.GetBlock(indexX, indexY);
+        if (block == null) { return false; }
+        if (block.num == num) { return false; }
+        if (block.blockState == BlockState.DRAG) { return false; }
+        return true;
+    }
+
+    float GetLimitY(float wallLimit, int dy)
+    {
+        BlockController block;
+        if (dy == 1)
         {
-            underBlock = BlocksManager.i.GetBlock(indexX, iy);
-            if (underBlock == null) { continue; }
-            if (underBlock.num == num) { continue; }
-            break;
+            block = BlocksManager.i.GetBlock(indexX, indexY + dy);
+        }
+        else
+        {
+            block = GetUnderBlock();
         }
 
-        if (underBlock == null) { return worldPosY; }
-        if (underBlock.num == num) { return worldPosY; }
-        float fixedY = underBlock.transform.position.y + Variables.blockHeight;
-        if (worldPosY > fixedY) { return worldPosY; }
-        return fixedY;
+        if (block == null)
+        {
+            return wallLimit;
+        }
+        //同じブロックはマージする
+        if (block.num == num)
+        {
+            return block.transform.position.y;
+        }
+        return block.transform.position.y - (Variables.blockHeight * dy);
     }
 
-    float GetCollisionUpperBlockLimit(float worldPosY)
+    Vector2 GetLimit(Vector2 limitPos, int dx, int dy)
     {
-        BlockController upperBlock = BlocksManager.i.GetBlock(indexX, indexY + 1);
-        if (upperBlock == null) { return worldPosY; }
-        if (upperBlock.num == num) { return worldPosY; }
-        float fixedY = upperBlock.transform.position.y - Variables.blockHeight;
-        if (worldPosY < fixedY) { return worldPosY; }
-        return fixedY;
+        BlockController block;
+        if (dx == 1)
+        {
+            block = GetRightBlock();
+        }
+        else if (dx == -1)
+        {
+            block = GetLeftBlock();
+        }
+        else if (dy == 1)
+        {
+            block = BlocksManager.i.GetBlock(indexX, indexY + dy);
+        }
+        else
+        {
+            block = GetUnderBlock();
+        }
+
+        if (block == null) { return limitPos; }
+        //同じブロックはマージする
+        if (block.num == num) { return block.transform.position; }
+        float limitX = block.transform.position.x - (Variables.blockHeight * dx);
+        float limitY = block.transform.position.y - (Variables.blockHeight * dy);
+
+        if (dx == 0) { limitPos.y = limitY; }
+        if (dy == 0) { limitPos.x = limitX; }
+
+        return limitPos;
+
     }
 
-    float GetCollisionLeftBlockLimit(float worldPosX)
+    Vector2 GetCollisionDiagonalBlockLimit(Vector2 worldPos, int dx, int dy)
     {
-        int sign = -1;
-        BlockController leftBlock = BlocksManager.i.GetBlock(indexX + sign, indexY);
-        if (leftBlock == null) { return worldPosX; }
-        if (leftBlock.num == num) { return worldPosX; }
-        float leftFixedX = leftBlock.transform.position.x - (Variables.blockHeight * sign);
-        if (worldPosX > leftFixedX) { return worldPosX; }
-        return leftFixedX;
+        BlockController block = BlocksManager.i.GetBlock(indexX + dx, indexY + dy);
+        if (block == null) { return worldPos; }
+        if (block.num == num) { return worldPos; }
+
+        float distanceX = Mathf.Abs(worldPos.x - block.transform.position.x);
+        float distanceY = Mathf.Abs(worldPos.y - block.transform.position.y);
+
+        if (distanceX > Values.BROCK_DISTANCE / 2) { return worldPos; }
+        if (distanceY > Values.BROCK_DISTANCE / 2) { return worldPos; }
+
+        if (distanceX > distanceY)
+        {
+            worldPos.x = block.transform.position.x - (Variables.blockHeight * dx);
+            return worldPos;
+        }
+        else
+        {
+            worldPos.y = block.transform.position.y - (Variables.blockHeight * dy);
+            return worldPos;
+        }
+
     }
 
-    float GetCollisionRightBlockLimit(float worldPosX)
+    BlockController GetLeftBlock()
     {
-        int sign = 1;
+        BlockController dummyBlock = null;
+        //上から下へのワープ対策
+        for (int ix = indexX - 1; ix >= 0; ix--)
+        {
+            dummyBlock = BlocksManager.i.GetBlock(ix, indexY);
+            if (dummyBlock == null) { continue; }
+            return dummyBlock;
+        }
+        return null;
+    }
 
-        BlockController rightBlock = BlocksManager.i.GetBlock(indexX + sign, indexY);
-        if (rightBlock == null) { return worldPosX; }
-        if (rightBlock.num == num) { return worldPosX; }
+    BlockController GetRightBlock()
+    {
+        BlockController dummyBlock = null;
+        //上から下へのワープ対策
+        for (int ix = indexX + 1; ix <= Values.BOARD_LENGTH_X; ix++)
+        {
+            dummyBlock = BlocksManager.i.GetBlock(ix, indexY);
+            if (dummyBlock == null) { continue; }
+            return dummyBlock;
+        }
+        return null;
 
-        float rightFixedX = rightBlock.transform.position.x - (Variables.blockHeight * sign);
-        if (worldPosX < rightFixedX) { return worldPosX; }
+    }
 
-        return rightFixedX;
+    BlockController GetUnderBlock()
+    {
+        BlockController dummyBlock = null;
+        //上から下へのワープ対策
+        for (int iy = indexY - 1; iy > 0; iy--)
+        {
+            dummyBlock = BlocksManager.i.GetBlock(indexX, iy);
+            if (dummyBlock == null) { continue; }
+            return dummyBlock;
+        }
+
+        return null;
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -301,30 +383,20 @@ public class BlockController : MonoBehaviour
 
         //タイマーが止まるため
         Variables.isDragging = false;
-        FallCheckOnMerge();
-        FallCheckUpperBlockOnMerge();
         draggingBlock.gameObject.SetActive(false);
 
         ClearCheck();
 
-
+        Variables.sumOfErasedBlockNumbers += num;
+        bool isBestScore = (SaveData.i.sumOfErasedBlockNumbers < Variables.sumOfErasedBlockNumbers);
+        if (isBestScore)
+        {
+            SaveData.i.sumOfErasedBlockNumbers = Variables.sumOfErasedBlockNumbers;
+            SaveDataManager.i.Save();
+        }
     }
 
-    void FallCheckOnMerge()
-    {
-        BlockController underBlock = BlocksManager.i.GetBlock(indexX, indexY - 1);
-        if (underBlock == null) { return; }
-        if (underBlock.num != num) { return; }
-        blockState = BlockState.FALL;
-    }
 
-    void FallCheckUpperBlockOnMerge()
-    {
-        BlockController upperBlock = BlocksManager.i.GetBlock(indexX, indexY + 1);
-        if (upperBlock == null) { return; }
-        if (upperBlock.num != num) { return; }
-        upperBlock.blockState = BlockState.FALL;
-    }
 
     void ClearCheck()
     {
@@ -347,11 +419,12 @@ public class BlockController : MonoBehaviour
     {
         //クリア音
         AudioManager.i.PlayOneShot(3);
-        boxCollider.enabled = false;
+
         transform.DOScale(Vector3.zero, 0.5f)
             .SetEase(Ease.InBack)
             .OnComplete(() =>
             {
+                boxCollider.enabled = false;
                 gameObject.SetActive(false);
                 transform.localScale = Vector3.one;
             });
@@ -371,6 +444,7 @@ public class BlockController : MonoBehaviour
         {
             FailedCheck();
             eventTrigger.enabled = true;
+            Variables.gameState = GameState.IN_PROGRESS_TIMER;
         });
     }
 
@@ -379,6 +453,11 @@ public class BlockController : MonoBehaviour
         if (indexY != Values.BOARD_LENGTH_Y - 1) { return; }
         if (!gameObject.activeSelf) { return; }
         Variables.screenState = ScreenState.RESULT;
-        //Variables.resultState = ResultState.LOSE;
     }
+}
+
+public class GridIndex
+{
+    public int x;
+    public int y;
 }

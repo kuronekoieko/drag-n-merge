@@ -6,6 +6,7 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] BlocksManager blocksManager;
 
+
     public void OnStart()
     {
         blocksManager.OnStart();
@@ -15,41 +16,45 @@ public class GameController : MonoBehaviour
     {
         Variables.timer = Values.TIME_LIMIT;
         Variables.eraseTargetBlockCount = 0;
+        Variables.sumOfErasedBlockNumbers = 0;
         blocksManager.OnInitialize();
         Variables.isDragging = false;
+        Variables.gameState = GameState.IN_PROGRESS_TIMER;
     }
 
     public void OnUpdate()
     {
         blocksManager.OnUpdate();
 
-        if (Variables.timer < 0)
+        switch (Variables.gameState)
         {
-            IsUpNewLine();
-        }
-        else
-        {
-            Variables.timer -= Time.deltaTime;
-            ResetTimer();
+            case GameState.IN_PROGRESS_TIMER:
+                Variables.timer -= Time.deltaTime;
+                ForceResetTimer();
+                CheckTimer();
+                break;
+            case GameState.RESET_TIMER:
+                blocksManager.SetBlocksNewLine(0);
+                blocksManager.MoveUpAllBlocks();
+                Variables.timer = Values.TIME_LIMIT;
+                Variables.gameState = GameState.MOVE_UP_ANIM;
+                break;
+            case GameState.MOVE_UP_ANIM:
+                break;
         }
     }
 
-    void IsUpNewLine()
+    void CheckTimer()
     {
-        if (Variables.isDragging) { return; }
-
-        blocksManager.SetBlocksNewLine(0);
-        blocksManager.MoveUpAllBlocks();
-        Variables.timer = Values.TIME_LIMIT;
-
+        if (Variables.timer > 0) { return; }
+        if (!blocksManager.IsAllBlockStopped()) { return; }
+        Variables.gameState = GameState.RESET_TIMER;
     }
 
-    void ResetTimer()
+    void ForceResetTimer()
     {
-        if (Variables.isDragging) { return; }
         if (blocksManager.IsDuplicateBlockNum()) { return; }
         Variables.timer = -1f;
-        //Debug.Log("リセット");
     }
 
 }

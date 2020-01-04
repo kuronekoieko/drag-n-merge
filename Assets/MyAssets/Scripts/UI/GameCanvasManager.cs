@@ -7,11 +7,11 @@ using UniRx;
 public class GameCanvasManager : MonoBehaviour
 {
     [SerializeField] Text timerText;
-    [SerializeField] Text targetNumText;
-    [SerializeField] Image targetBlockImage;
     [SerializeField] Text scoreText;
-    [SerializeField] Text highScoreNumText;
+    [SerializeField] Text bestTargetBlockCountText;
+    [SerializeField] Text bestScoreText;
     [SerializeField] Button gameEndButton;
+    [SerializeField] Text erasedBlockNumText;
 
     public void OnStart()
     {
@@ -23,16 +23,17 @@ public class GameCanvasManager : MonoBehaviour
             .Subscribe(count => { scoreText.text = "x " + count; })
             .AddTo(this.gameObject);
 
+        this.ObserveEveryValueChanged(num => Variables.sumOfErasedBlockNumbers)
+                   .Subscribe(num => { erasedBlockNumText.text = "" + num; })
+                   .AddTo(this.gameObject);
+
         gameEndButton.onClick.AddListener(OnClickGameEndButton);
     }
 
     public void OnInitialize()
     {
-        targetNumText.text = Values.TARGET_BLOCK_NUM.ToString();
-        targetNumText.color = BlockColorData.i.blockColors[Values.TARGET_BLOCK_NUM - 1].textColor;
-        targetBlockImage.color = BlockColorData.i.blockColors[Values.TARGET_BLOCK_NUM - 1].color;
-        highScoreNumText.text = SaveData.i.eraseTargetBlockCount.ToString();
-        // levelText.text = "LEVEL  " + (SaveData.i.clearedLevel + 1);
+        bestTargetBlockCountText.text = "x " + SaveData.i.eraseTargetBlockCount;
+        bestScoreText.text = SaveData.i.sumOfErasedBlockNumbers.ToString();
     }
 
     void SetTimeCountText()
