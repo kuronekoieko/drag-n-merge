@@ -41,8 +41,9 @@ public class ResultCanvasManager : MonoBehaviour
         twitterButton.onClick.AddListener(OnClickTwitterButton);
         shareButton.onClick.AddListener(onClickShare);
 
-        Anim();
-        TwitterButtonAnim();
+        Anim(nextButton.transform);
+        Anim(twitterButton.transform);
+        Anim(shareButton.transform);
     }
 
     public void OnInitialize()
@@ -141,30 +142,16 @@ public class ResultCanvasManager : MonoBehaviour
 
     }
 
-    void Anim()
+    void Anim(Transform transform)
     {
-        nextButton.transform.DOScale(1.1f, 0.5f)
+        transform.DOScale(1.1f, 0.5f)
                .OnComplete(() =>
                {
-                   nextButton.transform.DOScale(1f, 0.5f)
-                           .OnComplete(() =>
-                           {
-                               Anim();
-                           });
-               });
-    }
-
-
-    void TwitterButtonAnim()
-    {
-        twitterButton.transform.DOScale(1.1f, 0.5f)
-               .OnComplete(() =>
-               {
-                   twitterButton.transform.DOScale(1f, 0.5f)
-                           .OnComplete(() =>
-                           {
-                               TwitterButtonAnim();
-                           });
+                   transform.DOScale(1f, 0.5f)
+                            .OnComplete(() =>
+                            {
+                                Anim(transform);
+                            });
                });
     }
 
