@@ -12,6 +12,8 @@ using UnityEngine.iOS;
 /// https://qiita.com/Kenji__SHIMIZU/items/d907744a977167d89a78
 /// アプリ内でのレビューをUnityで実装(Unity2017.3版)【Unity】【iOS】
 /// http://kan-kikuchi.hatenablog.com/entry/iOS_Device_RequestStoreReview
+/// Social ConnectorでUnityアプリにソーシャル連携ボタンを追加する
+/// https://www.jyuko49.com/entry/2018/04/05/092218
 /// </summary>
 public class ResultCanvasManager : MonoBehaviour
 {
@@ -19,6 +21,7 @@ public class ResultCanvasManager : MonoBehaviour
     [SerializeField] Text scoreText;
     [SerializeField] Button nextButton;
     [SerializeField] Button twitterButton;
+    [SerializeField] Button shareButton;
     [SerializeField] Text shareText;
     [SerializeField] Text targetNumText;
     [SerializeField] Image targetBlockImage;
@@ -36,6 +39,7 @@ public class ResultCanvasManager : MonoBehaviour
 
         nextButton.onClick.AddListener(OnClickRestartButton);
         twitterButton.onClick.AddListener(OnClickTwitterButton);
+        shareButton.onClick.AddListener(onClickShare);
 
         Anim();
         TwitterButtonAnim();
@@ -77,7 +81,6 @@ public class ResultCanvasManager : MonoBehaviour
     void SetTweetText()
     {
         string a = "";
-        Debug.Log(isUpdateHighScore);
         if (isUpdateHighScore)
         {
             if (Utils.IsLanguageJapanese())
@@ -100,7 +103,7 @@ public class ResultCanvasManager : MonoBehaviour
         {
             tweetText = a + "Your score is ... " + Variables.eraseTargetBlockCount + " !!";
         }
-        Debug.Log(tweetText);
+
     }
 
 
@@ -112,7 +115,6 @@ public class ResultCanvasManager : MonoBehaviour
         string esctext = UnityWebRequest.EscapeURL(tweetText + "\n");
         string esctag = UnityWebRequest.EscapeURL("ColorfulMerge\n");
         string hushTag = "&hashtags=" + esctag;
-
         string url = "https://twitter.com/intent/tweet?text=" + esctext + hushTag + Strings.APP_STORE_URL;
 
         //Twitter投稿画面の起動
@@ -164,5 +166,30 @@ public class ResultCanvasManager : MonoBehaviour
                                TwitterButtonAnim();
                            });
                });
+    }
+
+    public void onClickShare()
+    {
+        StartCoroutine("_share");
+    }
+
+    private IEnumerator _share()
+    {
+        ScreenCapture.CaptureScreenshot(Application.persistentDataPath + "image.png");
+        //Application.CaptureScreenshot("image.png");
+        yield return null;
+
+        SetTweetText();
+        //urlの作成
+        string esctext = tweetText + "\n";
+        string esctag = "ColorfulMerge\n";
+        string hushTag = "#";
+        string text = esctext + hushTag + esctag;
+        var imagePath = Application.persistentDataPath + "/image.png";
+        Debug.Log(imagePath);
+
+#if !UNITY_EDITOR
+        SocialConnector.SocialConnector.Share(text, Strings.APP_STORE_URL, imagePath);
+#endif
     }
 }
