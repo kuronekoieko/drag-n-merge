@@ -26,6 +26,10 @@ public class BlockController : MonoBehaviour
     Rigidbody2D rb;
     BoxCollider2D boxCollider;
     public BlockState blockState { get; private set; }
+    Vector2 wallMaxPos;
+    Vector2 wallMinPos;
+    GridIndex pointerDownIndex;
+
     public int indexX
     {
         get
@@ -41,9 +45,6 @@ public class BlockController : MonoBehaviour
         }
     }
 
-    int pointerDownIndexX;
-    int pointerDownIndexY;
-
     public void OnStart()
     {
         SetEventTriggers();
@@ -55,6 +56,13 @@ public class BlockController : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         blockState = BlockState.STOP;
         gameObject.SetActive(false);
+
+        //壁
+        wallMinPos.x = Variables.blockLowerLeftPos.x;
+        wallMaxPos.x = Variables.blockLowerLeftPos.x * -1;
+        wallMaxPos.y = Variables.blockLowerLeftPos.y + Values.BROCK_DISTANCE * (Values.BOARD_LENGTH_Y - 2);
+        wallMinPos.y = Variables.blockLowerLeftPos.y + Values.BROCK_DISTANCE;
+        pointerDownIndex = new GridIndex();
     }
 
     public void SetNewLine()
@@ -153,14 +161,23 @@ public class BlockController : MonoBehaviour
     {
         blockState = BlockState.DRAG;
         Variables.isDragging = true;
-        pointerDownIndexX = indexX;
-        pointerDownIndexY = indexY;
+        pointerDownIndex.x = indexX;
+        pointerDownIndex.y = indexY;
     }
 
 
     void OnPointerUp()
     {
-        TransrateBlock(indexX, indexY);
+        //突き抜け対策
+        if (IsOverlapDifferentBlock())
+        {
+            TransrateBlock(pointerDownIndex.x, pointerDownIndex.y);
+        }
+        else
+        {
+            TransrateBlock(indexX, indexY);
+        }
+
         blockState = BlockState.STOP;
         Variables.isDragging = false;
     }
@@ -170,116 +187,127 @@ public class BlockController : MonoBehaviour
     void OnDrag()
     {
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if (worldPos.x < Variables.blockLowerLeftPos.x)
-        {
-            worldPos.x = Variables.blockLowerLeftPos.x;
-        }
 
-        float rightX = Variables.blockLowerLeftPos.x * -1;
-        if (worldPos.x > rightX)
-        {
-            worldPos.x = rightX;
-        }
+        Vector2 maxPos = wallMaxPos;
+        Vector2 minPos = wallMinPos;
 
-        float bottomY = Variables.blockLowerLeftPos.y + Values.BROCK_DISTANCE;
-        if (worldPos.y < bottomY)
-        {
-            worldPos.y = bottomY;
-        }
 
-        float topY = Variables.blockLowerLeftPos.y + Values.BROCK_DISTANCE * (Values.BOARD_LENGTH_Y - 2);
-        if (worldPos.y > topY)
-        {
-            worldPos.y = topY;
-        }
+        BlockController underBlock = GetLimitY(minPos.y, -1, out float minY);
+        minPos.y = minY;
+        BlockController upperBlock = GetLimitY(maxPos.y, 1, out float maxY);
+        maxPos.y = maxY;
 
-        // worldPos.y = GetCollisionUnderBlockLimit(worldPos.y, dx: 0, dy: -1);
-        worldPos = GetAdjacentBlockLimit(worldPos, dx: 0, dy: -1);
-        worldPos = GetAdjacentBlockLimit(worldPos, dx: 0, dy: 1);
-        worldPos = GetAdjacentBlockLimit(worldPos, dx: -1, dy: 0);
-        worldPos = GetAdjacentBlockLimit(worldPos, dx: 1, dy: 0);
-        // worldPos = GetAdjacentBlockLimit(worldPos, dx: -1, dy: -1);
-        // worldPos = GetAdjacentBlockLimit(worldPos, dx: 1, dy: -1);
+        minPos.x = GetLimitX(minPos.x, -1);
+        maxPos.x = GetLimitX(maxPos.x, 1);
+        worldPos.x = Mathf.Clamp(worldPos.x, minPos.x, maxPos.x);
+        worldPos.y = Mathf.Clamp(worldPos.y, minPos.y, maxPos.y);
 
-        worldPos = GetCollisionDiagonalBlockLimit(worldPos, -1, -1);
+
         worldPos = GetCollisionDiagonalBlockLimit(worldPos, 1, -1);
+        worldPos = GetCollisionDiagonalBlockLimit(worldPos, -1, -1);
+        // worldPos = GetCollisionDiagonalBlockLimit(worldPos, 1, 1);
+        //  worldPos = GetCollisionDiagonalBlockLimit(worldPos, -1, 1);
+
+        //突き抜け対策
+        if (IsOverlapDifferentBlock1(worldPos))
+        {
+            //    return;
+        }
+
         transform.position = worldPos;
+    }
+
+    bool IsOverlapDifferentBlock1(Vector2 worldPos)
+    {
+        int x = Utils.PositionToIndexX(worldPos.x);
+        int y = Utils.PositionToIndexY(worldPos.y);
+        BlockController block = BlocksManager.i.GetBlock(x, y);
+        if (block == null) { return false; }
+        if (block.num == num) { return false; }
+        if (block.blockState == BlockState.DRAG) { return false; }
+        Debug.Log(block.num);
+        return true;
+    }
+
+    bool IsOverlapDifferentBlock()
+    {
+        BlockController block = BlocksManager.i.GetBlock(indexX, indexY);
+        if (block == null) { return false; }
+        if (block.num == num) { return false; }
+        if (block.blockState == BlockState.DRAG) { return false; }
+        return true;
+    }
+
+    BlockController GetLimitY(float wallLimit, int dy, out float limitY)
+    {
+        BlockController block;
+        if (dy == 1)
+        {
+            block = BlocksManager.i.GetBlock(indexX, indexY + dy);
+        }
+        else
+        {
+            block = GetUnderBlock();
+        }
+
+        if (block == null)
+        {
+            limitY = wallLimit;
+            return block;
+        }
+        //同じブロックはマージする
+        if (block.num == num)
+        {
+            limitY = block.transform.position.y;
+            return block;
+        }
+        limitY = block.transform.position.y - (Variables.blockHeight * dy);
+        return block;
+    }
+
+    float GetLimitX(float wallLimit, int dx)
+    {
+        BlockController block;
+        if (dx == 1)
+        {
+            block = GetRightBlock();
+        }
+        else
+        {
+            block = GetLeftBlock();
+        }
+
+        if (block == null) { return wallLimit; }
+        //同じブロックはマージする
+        if (block.num == num) { return block.transform.position.x; }
+
+        return block.transform.position.x - (Variables.blockHeight * dx);
+
     }
 
     Vector2 GetCollisionDiagonalBlockLimit(Vector2 worldPos, int dx, int dy)
     {
-        Vector3 pos = worldPos;
-        if (!existAdjacentBlock(dx, dy, out Vector2 limitPos)) { return worldPos; }
-
-        bool isInsideLimitX = (transform.position.x - limitPos.x) * dx > 0;
-        bool isInsideLimitY = transform.position.y < limitPos.y;
-
-
-
-
-        if (isInsideLimitX && worldPos.y < limitPos.y)
-        {
-            pos.y = limitPos.y;
-        }
-
-        if (isInsideLimitY && (worldPos.x - limitPos.x) * dx > 0)
-        {
-            pos.x = limitPos.x;
-        }
-
-        if (!isInsideLimitX && !isInsideLimitY && worldPos.y < limitPos.y && (worldPos.x - limitPos.x) * dx >= 0)
-        {
-            pos.x = limitPos.x;
-        }
-
-
-        return pos;
-
-    }
-
-    Vector2 GetAdjacentBlockLimit(Vector2 worldPos, int dx, int dy)
-    {
-        if (!existAdjacentBlock(dx, dy, out Vector2 limitPos)) { return worldPos; }
-
-        bool isLimitX = (worldPos.x - limitPos.x) * dx > 0;
-        if (isLimitX)
-        {
-            worldPos.x = limitPos.x;
-        }
-
-        bool isLimitY = (worldPos.y - limitPos.y) * dy > 0;
-        if (isLimitY)
-        {
-            worldPos.y = limitPos.y;
-        }
-
-        return worldPos;
-    }
-
-    bool existAdjacentBlock(int dx, int dy, out Vector2 limitPos)
-    {
-        limitPos = Vector2.zero;
         BlockController block = BlocksManager.i.GetBlock(indexX + dx, indexY + dy);
+        if (block == null) { return worldPos; }
+        if (block.num == num) { return worldPos; }
 
-        if (dy == -1 && dx == 0)
+        float distanceX = Mathf.Abs(worldPos.x - block.transform.position.x);
+        float distanceY = Mathf.Abs(worldPos.y - block.transform.position.y);
+
+        if (distanceX > Values.BROCK_DISTANCE / 2) { return worldPos; }
+        if (distanceY > Values.BROCK_DISTANCE / 2) { return worldPos; }
+
+        if (distanceX > distanceY)
         {
-            block = GetUnderBlock();
+            worldPos.x = block.transform.position.x - (Variables.blockHeight * dx);
+            return worldPos;
         }
-        if (dx == -1 && dy == 0)
+        else
         {
-            block = GetLeftBlock();
-        }
-        if (dx == 1 && dy == 0)
-        {
-            block = GetRightBlock();
+            worldPos.y = block.transform.position.y - (Variables.blockHeight * dy);
+            return worldPos;
         }
 
-        if (block == null) { return false; }
-        if (block.num == num) { return false; }
-
-        limitPos.x = block.transform.position.x - (Variables.blockHeight * dx);
-        limitPos.y = block.transform.position.y - (Variables.blockHeight * dy);
-        return true;
     }
 
     BlockController GetLeftBlock()
@@ -290,7 +318,6 @@ public class BlockController : MonoBehaviour
         {
             dummyBlock = BlocksManager.i.GetBlock(ix, indexY);
             if (dummyBlock == null) { continue; }
-            if (dummyBlock.num == num) { continue; }
             return dummyBlock;
         }
         return null;
@@ -304,7 +331,6 @@ public class BlockController : MonoBehaviour
         {
             dummyBlock = BlocksManager.i.GetBlock(ix, indexY);
             if (dummyBlock == null) { continue; }
-            if (dummyBlock.num == num) { continue; }
             return dummyBlock;
         }
         return null;
@@ -319,7 +345,6 @@ public class BlockController : MonoBehaviour
         {
             dummyBlock = BlocksManager.i.GetBlock(indexX, iy);
             if (dummyBlock == null) { continue; }
-            if (dummyBlock.num == num) { continue; }
             return dummyBlock;
         }
 
@@ -441,4 +466,10 @@ public class BlockController : MonoBehaviour
         if (!gameObject.activeSelf) { return; }
         Variables.screenState = ScreenState.RESULT;
     }
+}
+
+public class GridIndex
+{
+    public int x;
+    public int y;
 }
