@@ -91,18 +91,18 @@ public class ResultCanvasManager : MonoBehaviour
             }
             else
             {
-                a = "You updated high score!\n";
+                a = "You updated best score!\n";
             }
         }
 
 
         if (Utils.IsLanguageJapanese())
         {
-            tweetText = a + "あなたのスコアは " + Variables.eraseTargetBlockCount + " でした！";
+            tweetText = a + "結果は...\n\n作った10のブロック : " + Variables.eraseTargetBlockCount + " 個\n総得点 : " + Variables.sumOfErasedBlockNumbers + "\n\nでした！\nみんなもやってみよう！\n";
         }
         else
         {
-            tweetText = a + "Your score is ... " + Variables.eraseTargetBlockCount + " !!";
+            tweetText = a + "Your score is ... \n\nThe number of 10 blocks : " + Variables.eraseTargetBlockCount + " Total Score : " + Variables.sumOfErasedBlockNumbers + "\n\nLet's play this game!";
         }
 
     }
