@@ -191,42 +191,20 @@ public class BlockController : MonoBehaviour
         Vector2 maxPos = wallMaxPos;
         Vector2 minPos = wallMinPos;
 
+        minPos.y = GetLimit(minPos, 0, -1).y;
+        maxPos.y = GetLimit(maxPos, 0, 1).y;
+        minPos.x = GetLimit(minPos, -1, 0).x;
+        maxPos.x = GetLimit(maxPos, 1, 0).x;
 
-        BlockController underBlock = GetLimitY(minPos.y, -1, out float minY);
-        minPos.y = minY;
-        BlockController upperBlock = GetLimitY(maxPos.y, 1, out float maxY);
-        maxPos.y = maxY;
-
-        minPos.x = GetLimitX(minPos.x, -1);
-        maxPos.x = GetLimitX(maxPos.x, 1);
         worldPos.x = Mathf.Clamp(worldPos.x, minPos.x, maxPos.x);
         worldPos.y = Mathf.Clamp(worldPos.y, minPos.y, maxPos.y);
 
-
         worldPos = GetCollisionDiagonalBlockLimit(worldPos, 1, -1);
         worldPos = GetCollisionDiagonalBlockLimit(worldPos, -1, -1);
-        // worldPos = GetCollisionDiagonalBlockLimit(worldPos, 1, 1);
-        //  worldPos = GetCollisionDiagonalBlockLimit(worldPos, -1, 1);
-
-        //突き抜け対策
-        if (IsOverlapDifferentBlock1(worldPos))
-        {
-            //    return;
-        }
+        worldPos = GetCollisionDiagonalBlockLimit(worldPos, 1, 1);
+        worldPos = GetCollisionDiagonalBlockLimit(worldPos, -1, 1);
 
         transform.position = worldPos;
-    }
-
-    bool IsOverlapDifferentBlock1(Vector2 worldPos)
-    {
-        int x = Utils.PositionToIndexX(worldPos.x);
-        int y = Utils.PositionToIndexY(worldPos.y);
-        BlockController block = BlocksManager.i.GetBlock(x, y);
-        if (block == null) { return false; }
-        if (block.num == num) { return false; }
-        if (block.blockState == BlockState.DRAG) { return false; }
-        Debug.Log(block.num);
-        return true;
     }
 
     bool IsOverlapDifferentBlock()
@@ -238,7 +216,7 @@ public class BlockController : MonoBehaviour
         return true;
     }
 
-    BlockController GetLimitY(float wallLimit, int dy, out float limitY)
+    float GetLimitY(float wallLimit, int dy)
     {
         BlockController block;
         if (dy == 1)
@@ -252,36 +230,46 @@ public class BlockController : MonoBehaviour
 
         if (block == null)
         {
-            limitY = wallLimit;
-            return block;
+            return wallLimit;
         }
         //同じブロックはマージする
         if (block.num == num)
         {
-            limitY = block.transform.position.y;
-            return block;
+            return block.transform.position.y;
         }
-        limitY = block.transform.position.y - (Variables.blockHeight * dy);
-        return block;
+        return block.transform.position.y - (Variables.blockHeight * dy);
     }
 
-    float GetLimitX(float wallLimit, int dx)
+    Vector2 GetLimit(Vector2 limitPos, int dx, int dy)
     {
         BlockController block;
         if (dx == 1)
         {
             block = GetRightBlock();
         }
-        else
+        else if (dx == -1)
         {
             block = GetLeftBlock();
         }
+        else if (dy == 1)
+        {
+            block = BlocksManager.i.GetBlock(indexX, indexY + dy);
+        }
+        else
+        {
+            block = GetUnderBlock();
+        }
 
-        if (block == null) { return wallLimit; }
+        if (block == null) { return limitPos; }
         //同じブロックはマージする
-        if (block.num == num) { return block.transform.position.x; }
+        if (block.num == num) { return block.transform.position; }
+        float limitX = block.transform.position.x - (Variables.blockHeight * dx);
+        float limitY = block.transform.position.y - (Variables.blockHeight * dy);
 
-        return block.transform.position.x - (Variables.blockHeight * dx);
+        if (dx == 0) { limitPos.y = limitY; }
+        if (dy == 0) { limitPos.x = limitX; }
+
+        return limitPos;
 
     }
 
