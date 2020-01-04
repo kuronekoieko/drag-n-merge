@@ -16,8 +16,8 @@ public class FirebaseAnalyticsManager
         // Log an event with a string parameter.
         Firebase.Analytics.FirebaseAnalytics
           .LogEvent(
-            Firebase.Analytics.FirebaseAnalytics.EventJoinGroup,
-            Firebase.Analytics.FirebaseAnalytics.ParameterGroupId,
+            parameterValue,
+            parameterValue,
             parameterValue
           );
     }
