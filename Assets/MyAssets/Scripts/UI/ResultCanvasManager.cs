@@ -18,7 +18,6 @@ public class ResultCanvasManager : MonoBehaviour
     [SerializeField] Text highScoreText;
     [SerializeField] Text scoreText;
     [SerializeField] Button nextButton;
-    [SerializeField] Text nextButtonText;
     [SerializeField] Button twitterButton;
     [SerializeField] Text shareText;
     [SerializeField] Text targetNumText;
@@ -51,6 +50,7 @@ public class ResultCanvasManager : MonoBehaviour
         highScoreText.text = "HIGH SCORE : " + highScoreBlockCountBeforeGame;
         targetNumText.text = Values.TARGET_BLOCK_NUM.ToString();
         targetNumText.color = BlockColorData.i.blockColors[Values.TARGET_BLOCK_NUM - 1].textColor;
+        targetBlockImage.color = BlockColorData.i.blockColors[Values.TARGET_BLOCK_NUM - 1].color;
     }
 
     void OnOpen()

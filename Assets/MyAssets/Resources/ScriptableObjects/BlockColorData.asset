@@ -40,8 +40,8 @@ MonoBehaviour:
   - color: {r: 0.30980393, g: 0.4422975, b: 0.83137256, a: 1}
     textColor: {r: 1, g: 1, b: 1, a: 1}
     num: 9
-  - color: {r: 0.9811321, g: 0.9021004, b: 0.46742615, a: 1}
-    textColor: {r: 0, g: 0, b: 0, a: 0.50980395}
+  - color: {r: 0.78431374, g: 0.26666668, b: 0.44705883, a: 1}
+    textColor: {r: 1, g: 1, b: 1, a: 1}
     num: 10
   - color: {r: 0.5529412, g: 0.2, b: 0.81960785, a: 1}
     textColor: {r: 1, g: 1, b: 1, a: 1}
