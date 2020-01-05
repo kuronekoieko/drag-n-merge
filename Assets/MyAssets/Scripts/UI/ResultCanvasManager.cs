@@ -87,7 +87,6 @@ public class ResultCanvasManager : MonoBehaviour
             if (Utils.IsLanguageJapanese())
             {
                 a = "ハイスコア更新!\n";
-
             }
             else
             {
@@ -102,7 +101,7 @@ public class ResultCanvasManager : MonoBehaviour
         }
         else
         {
-            tweetText = a + "Your score is ... \n\nThe number of 10 blocks : " + Variables.eraseTargetBlockCount + " Total Score : " + Variables.sumOfErasedBlockNumbers + "\n\nLet's play this game!";
+            tweetText = a + "Your score is ... \n\nThe number of 10 blocks : " + Variables.eraseTargetBlockCount + "\nTotal Score : " + Variables.sumOfErasedBlockNumbers + "\n\nLet's play this game!";
         }
 
     }
