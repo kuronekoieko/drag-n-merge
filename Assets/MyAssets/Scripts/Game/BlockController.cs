@@ -16,11 +16,14 @@ using DG.Tweening;
 /// https://qiita.com/Tachibana446/items/547a299c8829d1177a4d
 /// EventTriggerType
 /// https://docs.unity3d.com/ja/current/ScriptReference/EventSystems.EventTriggerType.html
+/// ParticleのstartColorをスクリプトで変更する
+/// http://am1tanaka.hatenablog.com/entry/2017/07/01/183619
 /// </summary>
 public class BlockController : MonoBehaviour
 {
     [SerializeField] TextMesh textMesh;
     [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] ParticleSystem hitPS;
     EventTrigger eventTrigger;
     public int num { get; private set; }
     Rigidbody2D rb;
@@ -102,6 +105,9 @@ public class BlockController : MonoBehaviour
         {
             textMesh.color = BlockColorData.i.blockColors[num - 1].textColor;
             spriteRenderer.color = BlockColorData.i.blockColors[num - 1].color;
+
+            ParticleSystem.MainModule par = hitPS.main;
+            par.startColor = BlockColorData.i.blockColors[num - 1].color;
         }
 
         textMesh.text = num.ToString();
@@ -380,7 +386,7 @@ public class BlockController : MonoBehaviour
         if (distance > 0.3f) { return; }
         if (draggingBlock.num != num) { return; }
         num++;
-
+        hitPS.Play();
         //タイマーが止まるため
         Variables.isDragging = false;
         draggingBlock.gameObject.SetActive(false);
