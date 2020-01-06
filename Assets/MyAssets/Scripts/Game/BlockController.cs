@@ -71,20 +71,35 @@ public class BlockController : MonoBehaviour
     public void SetNewLine()
     {
         blockState = BlockState.STOP;
+
+        num = GetRandomNum();
+        boxCollider.enabled = true;
+    }
+
+    public void SetNewBlock(int num)
+    {
+        blockState = BlockState.STOP;
+
+        this.num = num;
+        boxCollider.enabled = true;
+    }
+
+    int GetRandomNum()
+    {
         int max = Values.RANDOM_RANGE_MAX;
-        num = Random.Range(1, max);
+        int n = Random.Range(1, max);
         BlockController upperBlock = BlocksManager.i.GetBlock(indexX, 1);
         int c = 0;
         if (upperBlock)
         {
-            while (upperBlock.num == num)
+            while (upperBlock.num == n)
             {
-                num = Random.Range(1, max);
+                n = Random.Range(1, max);
                 c++;
-                if (c == 50) break;
+                if (c == 50) { return n; }
             }
         }
-        boxCollider.enabled = true;
+        return n;
     }
 
     public void OnUpdate()

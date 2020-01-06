@@ -30,7 +30,7 @@ public class GameController : MonoBehaviour
         {
             case GameState.IN_PROGRESS_TIMER:
                 Variables.timer -= Time.deltaTime;
-                ForceResetTimer();
+                //ForceResetTimer();
                 CheckTimer();
                 break;
             case GameState.RESET_TIMER:

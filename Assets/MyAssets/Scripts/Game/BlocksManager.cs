@@ -13,6 +13,7 @@ public class BlocksManager : MonoBehaviour
     BlockController[] blockControllers;
     Dictionary<int, bool> isExistNum = new Dictionary<int, bool>();
     public static BlocksManager i;
+    int[,] lines;
 
     public void OnStart()
     {
@@ -31,8 +32,25 @@ public class BlocksManager : MonoBehaviour
         {
             blockControllers[i].gameObject.SetActive(false);
         }
-        SetBlocksNewLine(1);
-        SetBlocksNewLine(2);
+
+        lines = new int[,]{
+              {8,0,1,1,0,8,},
+            {7,0,0,0,0,7,},
+            {6,0,0,0,0,6,},
+            {5,0,0,0,0,5,},
+            {4,0,0,0,0,4,},
+            {3,0,0,0,0,3,},
+            {2,0,0,0,0,2,},
+            {1,0,0,0,0,1,},
+        };
+
+        for (int iy = 0; iy < lines.GetLength(0); iy++)
+        {
+            SetBlocksNewLine(iy + 1);
+        }
+
+        // SetBlocksNewLine(1);
+        // SetBlocksNewLine(2);
     }
 
     public BlockController GetBlock(int indexX, int indexY)
@@ -71,18 +89,27 @@ public class BlocksManager : MonoBehaviour
 
     public void SetBlocksNewLine(int indexY)
     {
-        int count = 0;
+        int ix = 0;
 
         for (int i = 0; i < blockControllers.Length; i++)
         {
             BlockController block = blockControllers[i];
             if (block.gameObject.activeSelf) { continue; }
-
-            block.TransrateBlock(indexX: count, indexY: indexY);
+            int num = lines[indexY - 1, ix];
+            if (num == 0)
+            {
+                ix++;
+                if (ix == Values.BOARD_LENGTH_X) { break; }
+                continue;
+            }
+            block.TransrateBlock(indexX: ix, indexY: indexY);
             block.gameObject.SetActive(true);
-            block.SetNewLine();
-            count++;
-            if (count == Values.BOARD_LENGTH_X) { break; }
+            //block.SetNewLine();
+            Debug.Log(indexY + ":" + ix);
+
+            if (num != 0) block.SetNewBlock(num);
+            ix++;
+            if (ix == Values.BOARD_LENGTH_X) { break; }
         }
 
         //MoveUpAllBlocks();
@@ -128,4 +155,15 @@ public class BlocksManager : MonoBehaviour
         return true;
 
     }
+}
+
+
+public class Line
+{
+    public int a;
+    public int b;
+    public int c;
+    public int d;
+    public int e;
+    public int f;
 }
