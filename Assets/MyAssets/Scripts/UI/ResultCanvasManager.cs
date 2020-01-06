@@ -156,6 +156,7 @@ public class ResultCanvasManager : MonoBehaviour
 
     public void onClickShare()
     {
+        FirebaseAnalyticsManager.i.LogEvent("ソーシャル連携ボタン");
         StartCoroutine("_share");
     }
 

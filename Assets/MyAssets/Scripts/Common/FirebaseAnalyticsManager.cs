@@ -24,8 +24,10 @@ public class FirebaseAnalyticsManager
 
     public void LogScreen(string title)
     {
-        Firebase.Analytics.FirebaseAnalytics.SetCurrentScreen(
-          screenName: title,
-          screenClass: title);
+        Firebase.Analytics.FirebaseAnalytics
+          .SetCurrentScreen(
+            screenName: title,
+            screenClass: title
+            );
     }
 }

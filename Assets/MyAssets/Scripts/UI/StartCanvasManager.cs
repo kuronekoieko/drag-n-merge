@@ -49,6 +49,7 @@ public class StartCanvasManager : MonoBehaviour
 
     void OnClickStartButton()
     {
+        FirebaseAnalyticsManager.i.LogEvent("スタートボタン");
         gameObject.SetActive(false);
         Variables.screenState = ScreenState.GAME;
         AudioManager.i.PlayOneShot(1);
