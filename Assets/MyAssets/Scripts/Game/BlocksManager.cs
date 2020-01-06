@@ -10,6 +10,7 @@ using System;
 public class BlocksManager : MonoBehaviour
 {
     [SerializeField] BlockController blockControllerPrefab;
+    [SerializeField] Transform handTF;
     BlockController[] blockControllers;
     Dictionary<int, bool> isExistNum = new Dictionary<int, bool>();
     public static BlocksManager i;
@@ -47,8 +48,8 @@ public class BlocksManager : MonoBehaviour
         if (Variables.stage == 1)
         {
             lines = new int[,]{
-            {7,5,6,8,6,9,},
-            {4,3,4,0,5,7,},
+            {0,5,0,8,6,9,},
+            {4,3,4,0,5,6,},
             {2,0,0,0,4,2,},
             {0,0,0,0,0,0,},
             {0,0,0,0,0,0,},
@@ -88,6 +89,12 @@ public class BlocksManager : MonoBehaviour
         {
             blockControllers[i].OnUpdate();
         }
+
+        if (Input.GetMouseButton(0))
+        {
+            Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            handTF.position = worldPos;
+        }
     }
 
     void BlockGenerator()
@@ -120,7 +127,7 @@ public class BlocksManager : MonoBehaviour
             block.TransrateBlock(indexX: ix, indexY: indexY);
             block.gameObject.SetActive(true);
             //block.SetNewLine();
-            Debug.Log(indexY + ":" + ix);
+            //            Debug.Log(indexY + ":" + ix);
 
             if (num != 0) block.SetNewBlock(num);
             ix++;
