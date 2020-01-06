@@ -44,8 +44,9 @@ public class BlocksManager : MonoBehaviour
             {2,0,0,0,0,2,},
             {1,0,0,0,0,1,},
         };
-
-        lines = new int[,]{
+        if (Variables.stage == 1)
+        {
+            lines = new int[,]{
             {7,5,6,8,6,9,},
             {4,3,4,0,5,7,},
             {2,0,0,0,4,2,},
@@ -55,6 +56,8 @@ public class BlocksManager : MonoBehaviour
             {0,0,0,0,0,0,},
             {0,0,0,0,0,0,},
         };
+        }
+
 
         for (int iy = 0; iy < lines.GetLength(0); iy++)
         {

@@ -12,6 +12,8 @@ public class GameCanvasManager : MonoBehaviour
     [SerializeField] Text bestScoreText;
     [SerializeField] Button gameEndButton;
     [SerializeField] Text erasedBlockNumText;
+    [SerializeField] Button ad0Button;
+    [SerializeField] Button ad1Button;
 
     public void OnStart()
     {
@@ -28,6 +30,16 @@ public class GameCanvasManager : MonoBehaviour
                    .AddTo(this.gameObject);
 
         gameEndButton.onClick.AddListener(OnClickGameEndButton);
+        ad0Button.onClick.AddListener(() =>
+        {
+            Variables.stage = 0;
+            Variables.screenState = ScreenState.INITIALIZE;
+        });
+        ad1Button.onClick.AddListener(() =>
+        {
+            Variables.stage = 1;
+            Variables.screenState = ScreenState.INITIALIZE;
+        });
     }
 
     public void OnInitialize()

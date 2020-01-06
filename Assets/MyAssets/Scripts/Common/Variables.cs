@@ -13,4 +13,5 @@ public class Variables : MonoBehaviour
     public static bool isDragging;
     public static int eraseTargetBlockCount;
     public static int sumOfErasedBlockNumbers;
+    public static int stage;
 }
