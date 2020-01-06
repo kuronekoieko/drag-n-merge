@@ -33,8 +33,9 @@ public class BlocksManager : MonoBehaviour
             blockControllers[i].gameObject.SetActive(false);
         }
 
+        //コンボ用
         lines = new int[,]{
-              {8,0,1,1,0,8,},
+            {8,0,1,1,0,8,},
             {7,0,0,0,0,7,},
             {6,0,0,0,0,6,},
             {5,0,0,0,0,5,},
@@ -42,6 +43,17 @@ public class BlocksManager : MonoBehaviour
             {3,0,0,0,0,3,},
             {2,0,0,0,0,2,},
             {1,0,0,0,0,1,},
+        };
+
+        lines = new int[,]{
+            {7,5,6,8,6,9,},
+            {4,3,4,0,5,7,},
+            {2,0,0,0,4,2,},
+            {0,0,0,0,0,0,},
+            {0,0,0,0,0,0,},
+            {0,0,0,0,0,0,},
+            {0,0,0,0,0,0,},
+            {0,0,0,0,0,0,},
         };
 
         for (int iy = 0; iy < lines.GetLength(0); iy++)
