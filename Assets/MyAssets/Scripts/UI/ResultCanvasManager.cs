@@ -122,7 +122,6 @@ public class ResultCanvasManager : MonoBehaviour
 #if UNITY_EDITOR
         //Debug.Log("レビュー誘導表示");
 #elif UNITY_IOS
-            //IOSReviewRequest.RequestReview();
              Device.RequestStoreReview();
 #elif UNITY_ANDROID
            // Application.OpenURL("market://details?id=com.brick.games");
