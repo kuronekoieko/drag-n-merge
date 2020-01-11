@@ -609,6 +609,49 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 618177152}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &287828028
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 287828030}
+  - component: {fileID: 287828029}
+  m_Layer: 0
+  m_Name: TenjinManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &287828029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287828028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4525c31c97f244fb2a3d2b3212cf0cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &287828030
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287828028}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 433.90128, y: 918.0753, z: -1.8425028}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &372288003
 GameObject:
   m_ObjectHideFlags: 0
@@ -1635,6 +1678,7 @@ MonoBehaviour:
   resultCanvasManager: {fileID: 2146700552}
   audioManager: {fileID: 1590465345}
   saveDataManager: {fileID: 175601353}
+  tenjinManager: {fileID: 287828029}
 --- !u!4 &705103233
 Transform:
   m_ObjectHideFlags: 0

@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
         audioManager.OnStart();
         saveDataManager.OnStart();
         tenjinManager.OnStart();
-        // Variables.resultState = ResultState.PLAYING;
         Variables.screenState = ScreenState.INITIALIZE;
     }
 

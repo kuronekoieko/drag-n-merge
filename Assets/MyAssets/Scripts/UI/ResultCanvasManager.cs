@@ -50,9 +50,7 @@ public class ResultCanvasManager : MonoBehaviour
     public void OnInitialize()
     {
         gameObject.SetActive(false);
-        SetActiveShareGroup(isActive: false);
         //スタート時のハイスコアを結果画面で出す
-
         bestTargetCountText.text = "x " + SaveData.i.eraseTargetBlockCount.ToString();
         bestScoreText.text = SaveData.i.sumOfErasedBlockNumbers.ToString();
     }
@@ -63,11 +61,8 @@ public class ResultCanvasManager : MonoBehaviour
         targetCountText.text = "x " + Variables.eraseTargetBlockCount;
         scoreText.text = Variables.sumOfErasedBlockNumbers.ToString();
         isUpdateHighScore = (highScoreBlockCountBeforeGame < Variables.eraseTargetBlockCount);
-        FirebaseAnalyticsManager.i.LogEvent("スコア:" + Variables.eraseTargetBlockCount);
-        //クリア音
-        //AudioManager.i.PlayOneShot(3);
-        SetActiveShareGroup(isActive: true);
-        // 警告音
+        string text = "スコア:" + Variables.eraseTargetBlockCount;
+        FirebaseAnalyticsManager.i.LogEvent(text);
         AudioManager.i.PlayOneShot(4);
         ReviewGuidance();
     }
@@ -120,12 +115,6 @@ public class ResultCanvasManager : MonoBehaviour
         //Twitter投稿画面の起動
         Application.OpenURL(url);
         //Debug.Log("ツイッター");
-    }
-
-    void SetActiveShareGroup(bool isActive)
-    {
-        twitterButton.gameObject.SetActive(isActive);
-        shareText.gameObject.SetActive(isActive);
     }
 
     void ReviewGuidance()
