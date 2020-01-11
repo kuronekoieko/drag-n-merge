@@ -9,23 +9,25 @@ public class GameManager : MonoBehaviour
     [SerializeField] ResultCanvasManager resultCanvasManager;
     [SerializeField] AudioManager audioManager;
     [SerializeField] SaveDataManager saveDataManager;
+    [SerializeField] TenjinManager tenjinManager;
     GameController gameController;
     void Awake()
     {
         QualitySettings.vSyncCount = 0; // VSyncをOFFにする
         Application.targetFrameRate = 60; // ターゲットフレームレートを60に設定
         Time.fixedDeltaTime = 0.008f;
+        gameController = GetComponent<GameController>();
     }
 
     void Start()
     {
-        gameController = GetComponent<GameController>();
         gameController.OnStart();
         gameCanvasManager.OnStart();
         resultCanvasManager.OnStart();
         startCanvasManager.OnStart();
         audioManager.OnStart();
         saveDataManager.OnStart();
+        tenjinManager.OnStart();
         // Variables.resultState = ResultState.PLAYING;
         Variables.screenState = ScreenState.INITIALIZE;
     }
