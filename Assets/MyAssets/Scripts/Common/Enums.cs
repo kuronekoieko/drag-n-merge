@@ -24,6 +24,6 @@ public enum BlockType
 {
     NUMBER,
     JOKER,
-    ALL_UP,
-    FALL_LINE,
+    ADD_NUMBER_ALL,
+    FALL_LINE = 11,
 }

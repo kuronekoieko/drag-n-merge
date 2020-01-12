@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 【Unity】AudioSourceの同時再生による音割れを防ぐ方法
+/// http://hecres.hatenablog.com/entry/2018/03/10/181127
+/// Unityのオーディオミキサーを使って音声の変換や音量を変更する
+/// https://gametukurikata.com/se/audiomixer
+/// </summary>
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] AudioSource bgmAS;

@@ -19,7 +19,7 @@ public class BlocksManager : MonoBehaviour
         i = this;
         Variables.blockHeight = blockControllerPrefab.GetComponent<BoxCollider2D>().size.x;
         BlockGenerator();
-        for (int i = 0; i < Values.TARGET_BLOCK_NUM; i++)
+        for (int i = 0; i < Values.TARGET_BLOCK_NUM + 1; i++)
         {
             isExistNum[i + 1] = false;
         }
@@ -81,11 +81,10 @@ public class BlocksManager : MonoBehaviour
             block.TransrateBlock(indexX: count, indexY: indexY);
             block.gameObject.SetActive(true);
             block.SetNewLine();
+            block.SetRandomNum();
             count++;
             if (count == Values.BOARD_LENGTH_X) { break; }
         }
-
-        //MoveUpAllBlocks();
     }
 
     public void MoveUpAllBlocks()
@@ -101,7 +100,7 @@ public class BlocksManager : MonoBehaviour
     public bool IsDuplicateBlockNum()
     {
 
-        for (int i = 0; i < Values.TARGET_BLOCK_NUM; i++)
+        for (int i = 0; i < isExistNum.Count; i++)
         {
             isExistNum[i + 1] = false;
         }
@@ -127,5 +126,25 @@ public class BlocksManager : MonoBehaviour
         }
         return true;
 
+    }
+
+    public void ShowBlocksTopLine()
+    {
+        int count = 0;
+
+        for (int i = 0; i < blockControllers.Length; i++)
+        {
+            BlockController block = blockControllers[i];
+            if (block.gameObject.activeSelf) { continue; }
+            if (block.blockState == BlockState.DRAG) { continue; }
+            block.TransrateBlock(indexX: count, indexY: Values.BOARD_LENGTH_Y - 1);
+
+            block.gameObject.SetActive(true);
+            Debug.Log(block.indexX + ";" + block.indexY);
+            block.SetNewLine();
+            block.SetSameNumAsUnderBlock();
+            count++;
+            if (count == Values.BOARD_LENGTH_X) { break; }
+        }
     }
 }

@@ -79,20 +79,41 @@ public class BlockController : MonoBehaviour
     public void SetNewLine()
     {
         blockState = BlockState.STOP;
+        blockType = BlockType.NUMBER;
+        boxCollider.enabled = true;
+    }
+
+    public void SetRandomNum()
+    {
         int max = Values.RANDOM_RANGE_MAX;
-        num = Random.Range(1, max);
+        int num = Random.Range(1, max);
         BlockController upperBlock = BlocksManager.i.GetBlock(indexX, 1);
         int c = 0;
-        if (upperBlock)
+        if (upperBlock == null) { return; }
+
+
+        while (upperBlock.num == num)
         {
-            while (upperBlock.num == num)
-            {
-                num = Random.Range(1, max);
-                c++;
-                if (c == 50) break;
-            }
+            num = Random.Range(1, max);
+            c++;
+            if (c == 50) break;
         }
-        boxCollider.enabled = true;
+
+        int specialBlockProbability = Random.Range(1, 11);
+        if (specialBlockProbability > 2) { return; }
+        if (upperBlock.num == 11) { return; }
+        num = 11;
+        blockType = BlockType.FALL_LINE;
+    }
+
+    public void SetSameNumAsUnderBlock()
+    {
+        BlockController underBlock = GetUnderBlock();
+        num = 1;
+        if (underBlock == null) { return; }
+        if (underBlock.num > Values.TARGET_BLOCK_NUM) { return; }
+        num = underBlock.num;
+
     }
 
     public void OnUpdate()
@@ -117,8 +138,24 @@ public class BlockController : MonoBehaviour
             ParticleSystem.MainModule par = hitPS.main;
             par.startColor = BlockColorData.i.blockColors[num - 1].color;
         }
-
-        textMesh.text = num.ToString();
+        string text = num.ToString();
+        switch (blockType)
+        {
+            case BlockType.NUMBER:
+                break;
+            case BlockType.ADD_NUMBER_ALL:
+                text = "+1";
+                break;
+            case BlockType.JOKER:
+                text = "J";
+                break;
+            case BlockType.FALL_LINE:
+                text = "↓";
+                break;
+            default:
+                break;
+        }
+        textMesh.text = text;
     }
 
     void FallCheckOnUpdate()
@@ -391,47 +428,58 @@ public class BlockController : MonoBehaviour
         float distance = (draggingBlock.transform.position - transform.position).magnitude;
         if (distance > 0.3f) { return; }
         if (draggingBlock.num != num) { return; }
-        num++;
+
+        if (num < Values.TARGET_BLOCK_NUM) { num++; }
         hitPS.Play();
+        SaveBestScore();
+
         //タイマーが止まるため
         Variables.isDragging = false;
         draggingBlock.gameObject.SetActive(false);
 
-        ClearCheck();
 
+        if (num == Values.TARGET_BLOCK_NUM)
+        {   //クリア音
+            AudioManager.i.PlayOneShot(3);
+            SaveBestTargetBlockCount();
+            MoveFadeOut();
+            return;
+        }
+
+        if (num > Values.TARGET_BLOCK_NUM)
+        {
+            AudioManager.i.PlayOneShot(3);
+            MoveFadeOut();
+            BlocksManager.i.ShowBlocksTopLine();
+            return;
+        }
+
+        //マージ音
+        AudioManager.i.PlayOneShot(0);
+    }
+
+    void SaveBestScore()
+    {
         Variables.sumOfErasedBlockNumbers += num;
         bool isBestScore = (SaveData.i.sumOfErasedBlockNumbers < Variables.sumOfErasedBlockNumbers);
-        if (isBestScore)
-        {
-            SaveData.i.sumOfErasedBlockNumbers = Variables.sumOfErasedBlockNumbers;
-            SaveDataManager.i.Save();
-        }
+        if (!isBestScore) { return; }
+        SaveData.i.sumOfErasedBlockNumbers = Variables.sumOfErasedBlockNumbers;
+        SaveDataManager.i.Save();
     }
 
 
 
-    void ClearCheck()
+    void SaveBestTargetBlockCount()
     {
-        if (num != Values.TARGET_BLOCK_NUM)
-        {
-            AudioManager.i.PlayOneShot(0);
-            return;
-        }
-
         Variables.eraseTargetBlockCount++;
-        if (SaveData.i.eraseTargetBlockCount < Variables.eraseTargetBlockCount)
-        {
-            SaveData.i.eraseTargetBlockCount = Variables.eraseTargetBlockCount;
-            SaveDataManager.i.Save();
-        }
-        MoveFadeOut();
+        bool isBest = SaveData.i.eraseTargetBlockCount < Variables.eraseTargetBlockCount;
+        if (!isBest) { return; }
+        SaveData.i.eraseTargetBlockCount = Variables.eraseTargetBlockCount;
+        SaveDataManager.i.Save();
     }
 
     void MoveFadeOut()
     {
-        //クリア音
-        AudioManager.i.PlayOneShot(3);
-
         transform.DOScale(Vector3.zero, 0.5f)
             .SetEase(Ease.InBack)
             .OnComplete(() =>
