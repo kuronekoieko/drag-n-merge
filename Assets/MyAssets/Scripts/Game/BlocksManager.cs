@@ -138,9 +138,7 @@ public class BlocksManager : MonoBehaviour
             if (block.gameObject.activeSelf) { continue; }
             if (block.blockState == BlockState.DRAG) { continue; }
             block.TransrateBlock(indexX: count, indexY: Values.BOARD_LENGTH_Y - 1);
-
             block.gameObject.SetActive(true);
-            Debug.Log(block.indexX + ";" + block.indexY);
             block.SetNewLine();
             block.SetSameNumAsUnderBlock();
             count++;

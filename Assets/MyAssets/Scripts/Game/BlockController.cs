@@ -86,12 +86,11 @@ public class BlockController : MonoBehaviour
     public void SetRandomNum()
     {
         int max = Values.RANDOM_RANGE_MAX;
-        int num = Random.Range(1, max);
+        num = Random.Range(1, max);
         BlockController upperBlock = BlocksManager.i.GetBlock(indexX, 1);
-        int c = 0;
         if (upperBlock == null) { return; }
 
-
+        int c = 0;
         while (upperBlock.num == num)
         {
             num = Random.Range(1, max);
@@ -99,8 +98,8 @@ public class BlockController : MonoBehaviour
             if (c == 50) break;
         }
 
-        int specialBlockProbability = Random.Range(1, 11);
-        if (specialBlockProbability > 2) { return; }
+        int specialBlockProbability = Random.Range(1, 101);
+        if (specialBlockProbability > 10) { return; }
         if (upperBlock.num == 11) { return; }
         num = 11;
         blockType = BlockType.FALL_LINE;
