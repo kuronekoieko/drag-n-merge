@@ -49,6 +49,15 @@ public class BlockController : MonoBehaviour
         }
     }
 
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
+        pointerDownIndex = new GridIndex();
+        eventTrigger = GetComponent<EventTrigger>();
+        eventTrigger.triggers = new List<EventTrigger.Entry>();
+    }
+
     public void OnStart()
     {
         SetEventTriggers();
@@ -56,8 +65,6 @@ public class BlockController : MonoBehaviour
                .Subscribe(num => { SetBlockView(); })
                .AddTo(this.gameObject);
 
-        rb = GetComponent<Rigidbody2D>();
-        boxCollider = GetComponent<BoxCollider2D>();
         blockState = BlockState.STOP;
         blockType = BlockType.NUMBER;
         gameObject.SetActive(false);
@@ -67,7 +74,6 @@ public class BlockController : MonoBehaviour
         wallMaxPos.x = Values.BLOCK_POS_LOWER_LEFT.x * -1;
         wallMaxPos.y = Values.BLOCK_POS_LOWER_LEFT.y + Values.BROCK_DISTANCE * (Values.BOARD_LENGTH_Y - 2);
         wallMinPos.y = Values.BLOCK_POS_LOWER_LEFT.y + Values.BROCK_DISTANCE;
-        pointerDownIndex = new GridIndex();
     }
 
     public void SetNewLine()
@@ -143,8 +149,6 @@ public class BlockController : MonoBehaviour
 
     void SetEventTriggers()
     {//コライダーがアタッチされていないと反応しないので注意
-        eventTrigger = GetComponent<EventTrigger>();
-        eventTrigger.triggers = new List<EventTrigger.Entry>();
         EventTrigger.Entry[] entries = new EventTrigger.Entry[3];
 
         for (int i = 0; i < entries.Length; i++)
