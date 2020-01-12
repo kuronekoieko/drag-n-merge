@@ -19,3 +19,11 @@ public enum BlockState
     FALL,
     DRAG,
 }
+
+public enum BlockType
+{
+    NUMBER,
+    JOKER,
+    ALL_UP,
+    FALL_LINE,
+}

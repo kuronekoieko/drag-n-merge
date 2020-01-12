@@ -29,6 +29,7 @@ public class BlockController : MonoBehaviour
     Rigidbody2D rb;
     BoxCollider2D boxCollider;
     public BlockState blockState { get; private set; }
+    BlockType blockType;
     Vector2 wallMaxPos;
     Vector2 wallMinPos;
     GridIndex pointerDownIndex;
@@ -58,13 +59,14 @@ public class BlockController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         blockState = BlockState.STOP;
+        blockType = BlockType.NUMBER;
         gameObject.SetActive(false);
 
         //壁
-        wallMinPos.x = Variables.blockLowerLeftPos.x;
-        wallMaxPos.x = Variables.blockLowerLeftPos.x * -1;
-        wallMaxPos.y = Variables.blockLowerLeftPos.y + Values.BROCK_DISTANCE * (Values.BOARD_LENGTH_Y - 2);
-        wallMinPos.y = Variables.blockLowerLeftPos.y + Values.BROCK_DISTANCE;
+        wallMinPos.x = Values.BLOCK_POS_LOWER_LEFT.x;
+        wallMaxPos.x = Values.BLOCK_POS_LOWER_LEFT.x * -1;
+        wallMaxPos.y = Values.BLOCK_POS_LOWER_LEFT.y + Values.BROCK_DISTANCE * (Values.BOARD_LENGTH_Y - 2);
+        wallMinPos.y = Values.BLOCK_POS_LOWER_LEFT.y + Values.BROCK_DISTANCE;
         pointerDownIndex = new GridIndex();
     }
 
@@ -132,7 +134,7 @@ public class BlockController : MonoBehaviour
     void FallDown()
     {
         transform.Translate(0, -0.1f, 0);
-        float bottomY = Variables.blockLowerLeftPos.y + Values.BROCK_DISTANCE;
+        float bottomY = Values.BLOCK_POS_LOWER_LEFT.y + Values.BROCK_DISTANCE;
         if (transform.position.y > bottomY) { return; }
         blockState = BlockState.STOP;
         int bottomIndexY = Utils.PositionToIndexY(bottomY);
