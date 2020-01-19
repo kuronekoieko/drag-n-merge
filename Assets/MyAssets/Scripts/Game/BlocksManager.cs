@@ -14,12 +14,15 @@ public class BlocksManager : MonoBehaviour
     Dictionary<int, bool> isExistNum = new Dictionary<int, bool>();
     public static BlocksManager i;
 
-    public void OnStart()
+    void Awake()
     {
         i = this;
-        Variables.blockHeight = blockControllerPrefab.GetComponent<BoxCollider2D>().size.x;
+    }
+
+    public void OnStart()
+    {
         BlockGenerator();
-        for (int i = 0; i < Values.TARGET_BLOCK_NUM + 1; i++)
+        for (int i = 0; i < Values.TARGET_BLOCK_NUM + 2; i++)
         {
             isExistNum[i + 1] = false;
         }
@@ -144,5 +147,32 @@ public class BlocksManager : MonoBehaviour
             count++;
             if (count == Values.BOARD_LENGTH_X) { break; }
         }
+    }
+
+    public void MakeNumbersConsecutive(int indexX)
+    {
+        BlockController[] blocks = GetBlocksArrayColumn(indexX);
+        int num = 0;
+        for (int i = blocks.Length - 1; i > -1; i--)
+        {
+            BlockController block = blocks[i];
+            if (block == null) { continue; }
+            block.num = num;//バリデーションで0が1になる
+            num++;
+        }
+    }
+
+    BlockController[] GetBlocksArrayColumn(int indexX)
+    {
+        BlockController[] blocks = new BlockController[Values.BOARD_LENGTH_Y];
+
+        for (int i = 0; i < blockControllers.Length; i++)
+        {
+            BlockController block = blockControllers[i];
+            if (block.indexX != indexX) { continue; }
+            if (!block.gameObject.activeSelf) { continue; }
+            blocks[block.indexY] = block;
+        }
+        return blocks;
     }
 }

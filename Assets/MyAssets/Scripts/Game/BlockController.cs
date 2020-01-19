@@ -25,7 +25,12 @@ public class BlockController : MonoBehaviour
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] ParticleSystem hitPS;
     EventTrigger eventTrigger;
-    public int num { get; private set; }
+    public int num
+    {
+        set { _num = (value < 1) ? 1 : value; }
+        get { return _num; }
+    }
+    private int _num;
     Rigidbody2D rb;
     BoxCollider2D boxCollider;
     public BlockState blockState { get; private set; }
@@ -33,6 +38,7 @@ public class BlockController : MonoBehaviour
     Vector2 wallMaxPos;
     Vector2 wallMinPos;
     GridIndex pointerDownIndex;
+    float blockHeight;
 
     public int indexX
     {
@@ -60,13 +66,15 @@ public class BlockController : MonoBehaviour
 
     public void OnStart()
     {
+        num = 1;
+        blockHeight = boxCollider.size.x;
         SetEventTriggers();
-        this.ObserveEveryValueChanged(num => this.num)
+        this.ObserveEveryValueChanged(num => this._num)
                .Subscribe(num => { SetBlockView(); })
                .AddTo(this.gameObject);
-
         blockState = BlockState.STOP;
         blockType = BlockType.NUMBER;
+
         gameObject.SetActive(false);
 
         //壁
@@ -98,11 +106,19 @@ public class BlockController : MonoBehaviour
             if (c == 50) break;
         }
 
+        blockType = GetBlockType();
+        if (blockType == BlockType.NUMBER) { return; }
+        int tmpNum = (int)blockType;
+        if (upperBlock.num == tmpNum) { return; }
+        num = tmpNum;
+    }
+
+    BlockType GetBlockType()
+    {
         int specialBlockProbability = Random.Range(1, 101);
-        if (specialBlockProbability > 10) { return; }
-        if (upperBlock.num == 11) { return; }
-        num = 11;
-        blockType = BlockType.FALL_LINE;
+        if (specialBlockProbability < 10) { return BlockType.FALL_LINE; }
+        if (specialBlockProbability < 20) { return BlockType.CHANGE_NUMBER_COLUMN; }
+        return BlockType.NUMBER;
     }
 
     public void SetSameNumAsUnderBlock()
@@ -128,16 +144,17 @@ public class BlockController : MonoBehaviour
 
     void SetBlockView()
     {
+        textMesh.color = BlockColorData.i.blockColors[num - 1].textColor;
+        spriteRenderer.color = BlockColorData.i.blockColors[num - 1].color;
+        ParticleSystem.MainModule par = hitPS.main;
+        par.startColor = BlockColorData.i.blockColors[num - 1].color;
 
-        if (num > 0)
-        {
-            textMesh.color = BlockColorData.i.blockColors[num - 1].textColor;
-            spriteRenderer.color = BlockColorData.i.blockColors[num - 1].color;
-
-            ParticleSystem.MainModule par = hitPS.main;
-            par.startColor = BlockColorData.i.blockColors[num - 1].color;
-        }
         string text = num.ToString();
+        if (num <= Values.TARGET_BLOCK_NUM)
+        {
+            blockType = BlockType.NUMBER;
+        }
+
         switch (blockType)
         {
             case BlockType.NUMBER:
@@ -149,7 +166,10 @@ public class BlockController : MonoBehaviour
                 text = "J";
                 break;
             case BlockType.FALL_LINE:
-                text = "↓";
+                text = "F";
+                break;
+            case BlockType.CHANGE_NUMBER_COLUMN:
+                text = "C";
                 break;
             default:
                 break;
@@ -285,7 +305,7 @@ public class BlockController : MonoBehaviour
         {
             return block.transform.position.y;
         }
-        return block.transform.position.y - (Variables.blockHeight * dy);
+        return block.transform.position.y - (blockHeight * dy);
     }
 
     Vector2 GetLimit(Vector2 limitPos, int dx, int dy)
@@ -311,8 +331,8 @@ public class BlockController : MonoBehaviour
         if (block == null) { return limitPos; }
         //同じブロックはマージする
         if (block.num == num) { return block.transform.position; }
-        float limitX = block.transform.position.x - (Variables.blockHeight * dx);
-        float limitY = block.transform.position.y - (Variables.blockHeight * dy);
+        float limitX = block.transform.position.x - (blockHeight * dx);
+        float limitY = block.transform.position.y - (blockHeight * dy);
 
         if (dx == 0) { limitPos.y = limitY; }
         if (dy == 0) { limitPos.x = limitX; }
@@ -335,12 +355,12 @@ public class BlockController : MonoBehaviour
 
         if (distanceX > distanceY)
         {
-            worldPos.x = block.transform.position.x - (Variables.blockHeight * dx);
+            worldPos.x = block.transform.position.x - (blockHeight * dx);
             return worldPos;
         }
         else
         {
-            worldPos.y = block.transform.position.y - (Variables.blockHeight * dy);
+            worldPos.y = block.transform.position.y - (blockHeight * dy);
             return worldPos;
         }
 
@@ -449,7 +469,15 @@ public class BlockController : MonoBehaviour
         {
             AudioManager.i.PlayOneShot(3);
             MoveFadeOut();
-            BlocksManager.i.ShowBlocksTopLine();
+            if (num == 11)
+            {
+                BlocksManager.i.ShowBlocksTopLine();
+            }
+            if (num == 12)
+            {
+                BlocksManager.i.MakeNumbersConsecutive(indexX);
+            }
+
             return;
         }
 

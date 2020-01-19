@@ -26,4 +26,7 @@ public enum BlockType
     JOKER,
     ADD_NUMBER_ALL,
     FALL_LINE = 11,
+    CHANGE_NUMBER_COLUMN = 12,
+    ADD_TIME,
+
 }

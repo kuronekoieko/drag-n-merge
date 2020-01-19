@@ -8,7 +8,6 @@ public class Variables : MonoBehaviour
     public static GameState gameState;
     public static float timer;
     public static int targetNum;
-    public static float blockHeight;
     public static bool isDragging;
     public static int eraseTargetBlockCount;
     public static int sumOfErasedBlockNumbers;
