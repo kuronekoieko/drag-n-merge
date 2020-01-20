@@ -5,6 +5,10 @@ using UnityEngine.UI;
 using UniRx;
 using DG.Tweening;
 
+/// <summary>
+/// uGUIでボタンの邪魔をするタッチ判定を消すスクリプト
+/// http://kohki.hatenablog.jp/entry/uGUI-IgnoreTouch
+/// </summary>
 public class GameCanvasManager : MonoBehaviour
 {
     [SerializeField] Text timerText;
@@ -58,16 +62,16 @@ public class GameCanvasManager : MonoBehaviour
 
     void ShowComboCount()
     {
-        comboCountText.text = "Combo x " + Variables.comboCount;
-        comboCountText.gameObject.SetActive(Variables.comboCount > 1);
 
+        comboCountText.gameObject.SetActive(Variables.comboCount > 1);
+        comboCountText.text = "Combo x " + Variables.comboCount;
         if (Variables.comboCount != 2) { return; }
         comboCountText.rectTransform.localScale = Vector3.zero;
         comboCountText.rectTransform.DOScale(Vector3.one, 0.5f)
             .SetEase(Ease.OutBack)
             .OnComplete(() =>
             {
-                //comboCountText.gameObject.SetActive(false);
+
             });
     }
 

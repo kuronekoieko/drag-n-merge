@@ -105,7 +105,7 @@ public class BlockController : MonoBehaviour
             c++;
             if (c == 50) break;
         }
-
+        return;
         blockType = GetBlockType();
         if (blockType == BlockType.NUMBER) { return; }
         int tmpNum = (int)blockType;
