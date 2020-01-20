@@ -484,6 +484,31 @@ public class BlockController : MonoBehaviour
 
         //マージ音
         AudioManager.i.PlayOneShot(0);
+        MergeAnim();
+    }
+
+    void MergeAnim()
+    {
+        float scale = 0.7f;
+        transform.DOScale(Vector3.one * scale, 0.02f)
+           //.SetEase(Ease.InBack)
+           .OnComplete(() =>
+           {
+               scale = 1.2f;
+               //  scale = 1;
+               transform.DOScale(Vector3.one * scale, 0.04f)
+                          // .SetEase(Ease.InBack)
+                          .OnComplete(() =>
+                          {
+                              transform.DOScale(Vector3.one, 0.02f)
+                                                                      // .SetEase(Ease.InBack)
+                                                                      .OnComplete(() =>
+                                                                      {
+
+                                                                      });
+
+                          });
+           });
     }
 
     void SaveBestScore()
