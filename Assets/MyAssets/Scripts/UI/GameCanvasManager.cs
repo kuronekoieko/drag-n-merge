@@ -55,14 +55,20 @@ public class GameCanvasManager : MonoBehaviour
         Variables.screenState = ScreenState.RESULT;
     }
 
+
     void ShowComboCount()
     {
         comboCountText.text = "Combo x " + Variables.comboCount;
         comboCountText.gameObject.SetActive(Variables.comboCount > 1);
-        DOVirtual.DelayedCall(1.0f, () =>
-        {
-            // comboCountText.gameObject.SetActive(false);
-        });
+
+        if (Variables.comboCount != 2) { return; }
+        comboCountText.rectTransform.localScale = Vector3.zero;
+        comboCountText.rectTransform.DOScale(Vector3.one, 0.5f)
+            .SetEase(Ease.OutBack)
+            .OnComplete(() =>
+            {
+                //comboCountText.gameObject.SetActive(false);
+            });
     }
 
 }
