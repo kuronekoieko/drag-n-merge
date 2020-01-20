@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
         Variables.timer = Values.TIME_LIMIT;
         Variables.eraseTargetBlockCount = 0;
         Variables.sumOfErasedBlockNumbers = 0;
+        Variables.comboCount = 0;
         blocksManager.OnInitialize();
         Variables.isDragging = false;
         Variables.gameState = GameState.IN_PROGRESS_TIMER;

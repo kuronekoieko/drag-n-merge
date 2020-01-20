@@ -231,6 +231,7 @@ public class BlockController : MonoBehaviour
         Variables.isDragging = true;
         pointerDownIndex.x = indexX;
         pointerDownIndex.y = indexY;
+        Variables.comboCount = 0;
     }
 
 
@@ -455,7 +456,7 @@ public class BlockController : MonoBehaviour
         //タイマーが止まるため
         Variables.isDragging = false;
         draggingBlock.gameObject.SetActive(false);
-
+        Variables.comboCount++;
 
         if (num == Values.TARGET_BLOCK_NUM)
         {   //クリア音

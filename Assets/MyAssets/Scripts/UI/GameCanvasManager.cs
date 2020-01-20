@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using DG.Tweening;
 
 public class GameCanvasManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class GameCanvasManager : MonoBehaviour
     [SerializeField] Text bestScoreText;
     [SerializeField] Button gameEndButton;
     [SerializeField] Text erasedBlockNumText;
+    [SerializeField] Text comboCountText;
 
     public void OnStart()
     {
@@ -24,8 +26,12 @@ public class GameCanvasManager : MonoBehaviour
             .AddTo(this.gameObject);
 
         this.ObserveEveryValueChanged(num => Variables.sumOfErasedBlockNumbers)
-                   .Subscribe(num => { erasedBlockNumText.text = "" + num; })
-                   .AddTo(this.gameObject);
+                .Subscribe(num => { erasedBlockNumText.text = "" + num; })
+                .AddTo(this.gameObject);
+
+        this.ObserveEveryValueChanged(comboCount => Variables.comboCount)
+            .Subscribe(comboCount => { ShowComboCount(); })
+            .AddTo(this.gameObject);
 
         gameEndButton.onClick.AddListener(OnClickGameEndButton);
     }
@@ -47,6 +53,16 @@ public class GameCanvasManager : MonoBehaviour
     {
         FirebaseAnalyticsManager.i.LogEvent("ゲーム終了ボタン");
         Variables.screenState = ScreenState.RESULT;
+    }
+
+    void ShowComboCount()
+    {
+        comboCountText.text = "Combo x " + Variables.comboCount;
+        comboCountText.gameObject.SetActive(Variables.comboCount > 1);
+        DOVirtual.DelayedCall(1.0f, () =>
+        {
+            // comboCountText.gameObject.SetActive(false);
+        });
     }
 
 }
