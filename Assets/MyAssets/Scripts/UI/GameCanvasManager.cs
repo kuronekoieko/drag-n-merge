@@ -8,6 +8,8 @@ using DG.Tweening;
 /// <summary>
 /// uGUIでボタンの邪魔をするタッチ判定を消すスクリプト
 /// http://kohki.hatenablog.jp/entry/uGUI-IgnoreTouch
+/// [Unity][DoTween]DoTweenで調べまくって辿りついた いくつかの事
+/// https://qiita.com/3panda/items/0a8c93645087b6b6d728
 /// </summary>
 public class GameCanvasManager : MonoBehaviour
 {
@@ -18,6 +20,9 @@ public class GameCanvasManager : MonoBehaviour
     [SerializeField] Button gameEndButton;
     [SerializeField] Text erasedBlockNumText;
     [SerializeField] Text comboCountText;
+
+    Sequence sequence;
+    Color defaultColor;
 
     public void OnStart()
     {
@@ -34,10 +39,12 @@ public class GameCanvasManager : MonoBehaviour
             .AddTo(this.gameObject);
 
         this.ObserveEveryValueChanged(comboCount => Variables.comboCount)
+            .Where(comboCount => comboCount > 1)
             .Subscribe(comboCount => { ShowComboCount(); })
             .AddTo(this.gameObject);
 
         gameEndButton.onClick.AddListener(OnClickGameEndButton);
+        defaultColor = comboCountText.color;
     }
 
     public void OnInitialize()
@@ -63,17 +70,20 @@ public class GameCanvasManager : MonoBehaviour
 
     void ShowComboCount()
     {
-        if (Variables.comboCount < 2) { return; }
-        comboCountText.gameObject.SetActive(Variables.comboCount > 1);
-        comboCountText.text = "Combo x " + Variables.comboCount;
-        if (Variables.comboCount != 2) { return; }
-        comboCountText.rectTransform.localScale = Vector3.zero;
-        comboCountText.rectTransform.DOScale(Vector3.one, 0.5f)
-            .SetEase(Ease.OutBack)
-            .OnComplete(() =>
-            {
 
-            });
+        //if (Variables.comboCount != 2) { return; }
+
+        sequence.Kill();
+        sequence = DOTween.Sequence()
+            .OnStart(() =>
+            {
+                comboCountText.gameObject.SetActive(true);
+                comboCountText.text = "Combo\nx " + Variables.comboCount;
+                comboCountText.rectTransform.localScale = Vector3.zero;
+                comboCountText.color = defaultColor;
+            })
+            .Append(comboCountText.rectTransform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack))
+            .Append(DOTween.ToAlpha(() => comboCountText.color, color => comboCountText.color = color, 0f, 2f));
     }
 
 }
