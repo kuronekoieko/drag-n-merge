@@ -487,12 +487,20 @@ public class BlockController : MonoBehaviour
 
     void MergeAnim()
     {
-        Sequence sequence = DOTween.Sequence()
-            .Append(transform.DOScale(Vector3.one * 0.7f, 0.2f))
-            .Append(transform.DOScale(Vector3.one * 1.2f, 0.4f))
+        Sequence sequence0 = DOTween.Sequence()
+            .Append(transform.DOScale(Vector3.one * 1.4f, 0.05f))
             .Append(transform.DOScale(Vector3.one * 1.0f, 0.2f));
 
-        sequence.Play();
+        //sequence0.Play();
+
+
+        Sequence sequence1 = DOTween.Sequence()
+            .Append(transform.DOScale(Vector3.one * 1.2f, 0f))
+            .Append(transform.DOScale(Vector3.one * 0.7f, 0.05f))
+            .Append(transform.DOScale(Vector3.one * 1.0f, 0.2f));
+
+        
+        sequence1.Play();
     }
 
     void SaveBestScore()
