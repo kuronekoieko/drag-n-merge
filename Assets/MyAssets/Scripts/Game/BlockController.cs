@@ -497,9 +497,9 @@ public class BlockController : MonoBehaviour
         Sequence sequence1 = DOTween.Sequence()
             .Append(transform.DOScale(Vector3.one * 1.2f, 0f))
             .Append(transform.DOScale(Vector3.one * 0.7f, 0.05f))
-            .Append(transform.DOScale(Vector3.one * 1.0f, 0.2f));
+            .Append(transform.DOScale(Vector3.one * 1.0f, 0.05f));
 
-        
+
         sequence1.Play();
     }
 
