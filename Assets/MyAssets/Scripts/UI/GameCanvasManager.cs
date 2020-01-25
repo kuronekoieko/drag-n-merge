@@ -30,8 +30,8 @@ public class GameCanvasManager : MonoBehaviour
             .AddTo(this.gameObject);
 
         this.ObserveEveryValueChanged(num => Variables.sumOfErasedBlockNumbers)
-                .Subscribe(num => { erasedBlockNumText.text = "" + num; })
-                .AddTo(this.gameObject);
+            .Subscribe(num => { erasedBlockNumText.text = "" + num; })
+            .AddTo(this.gameObject);
 
         this.ObserveEveryValueChanged(comboCount => Variables.comboCount)
             .Subscribe(comboCount => { ShowComboCount(); })
@@ -44,6 +44,7 @@ public class GameCanvasManager : MonoBehaviour
     {
         bestTargetBlockCountText.text = "x " + SaveData.i.eraseTargetBlockCount;
         bestScoreText.text = SaveData.i.sumOfErasedBlockNumbers.ToString();
+        comboCountText.gameObject.SetActive(false);
     }
 
     void SetTimeCountText()
@@ -62,7 +63,7 @@ public class GameCanvasManager : MonoBehaviour
 
     void ShowComboCount()
     {
-
+        if (Variables.comboCount < 2) { return; }
         comboCountText.gameObject.SetActive(Variables.comboCount > 1);
         comboCountText.text = "Combo x " + Variables.comboCount;
         if (Variables.comboCount != 2) { return; }
