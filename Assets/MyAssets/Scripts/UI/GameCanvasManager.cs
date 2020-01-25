@@ -11,7 +11,7 @@ using DG.Tweening;
 /// [Unity][DoTween]DoTweenで調べまくって辿りついた いくつかの事
 /// https://qiita.com/3panda/items/0a8c93645087b6b6d728
 /// </summary>
-public class GameCanvasManager : MonoBehaviour
+public class GameCanvasManager : BaseCanvasManager
 {
     [SerializeField] Text timerText;
     [SerializeField] Text scoreText;
@@ -23,9 +23,10 @@ public class GameCanvasManager : MonoBehaviour
 
     Sequence sequence;
     Color defaultColor;
-
-    public void OnStart()
+    public override void OnStart()
     {
+        base.SetScreenAction(thisScreen: ScreenState.GAME);
+
         this.ObserveEveryValueChanged(timer => Variables.timer)
             .Subscribe(timer => { SetTimeCountText(); })
             .AddTo(this.gameObject);
@@ -47,11 +48,19 @@ public class GameCanvasManager : MonoBehaviour
         defaultColor = comboCountText.color;
     }
 
-    public void OnInitialize()
+    public override void OnInitialize()
     {
         bestTargetBlockCountText.text = "x " + SaveData.i.eraseTargetBlockCount;
         bestScoreText.text = SaveData.i.sumOfErasedBlockNumbers.ToString();
         comboCountText.gameObject.SetActive(false);
+    }
+
+    protected override void OnOpen()
+    {
+    }
+
+    protected override void OnClose()
+    {
     }
 
     void SetTimeCountText()
@@ -70,9 +79,6 @@ public class GameCanvasManager : MonoBehaviour
 
     void ShowComboCount()
     {
-
-        //if (Variables.comboCount != 2) { return; }
-
         sequence.Kill();
         sequence = DOTween.Sequence()
             .OnStart(() =>
