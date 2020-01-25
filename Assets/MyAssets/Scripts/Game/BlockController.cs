@@ -156,25 +156,19 @@ public class BlockController : MonoBehaviour
             blockType = BlockType.NUMBER;
         }
 
-        switch (blockType)
+        Dictionary<BlockType, string> t = new Dictionary<BlockType, string>()
         {
-            case BlockType.NUMBER:
-                break;
-            case BlockType.ADD_NUMBER_ALL:
-                text = "+1";
-                break;
-            case BlockType.JOKER:
-                text = "J";
-                break;
-            case BlockType.FALL_LINE:
-                text = "F";
-                break;
-            case BlockType.CHANGE_NUMBER_COLUMN:
-                text = "C";
-                break;
-            default:
-                break;
+            {BlockType.ADD_NUMBER_ALL,"+1"},
+            {BlockType.JOKER,"J"},
+            {BlockType.FALL_LINE,"F"},
+            {BlockType.CHANGE_NUMBER_COLUMN,"C"}
+        };
+
+        if (t.TryGetValue(blockType, out string val))
+        {
+            text = val;
         }
+
         textMesh.text = text;
     }
 
