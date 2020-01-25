@@ -64,8 +64,9 @@ public class BlockController : MonoBehaviour
         eventTrigger.triggers = new List<EventTrigger.Entry>();
     }
 
-    public void OnStart()
+    public void OnStart(string name)
     {
+        this.name = name;
         num = 1;
         blockHeight = boxCollider.size.x;
         SetEventTriggers();
@@ -452,6 +453,9 @@ public class BlockController : MonoBehaviour
         if (num < Values.TARGET_BLOCK_NUM) { num++; }
         hitPS.Play();
         SaveBestScore();
+        ScoreNumTextManager.i.ShowScoreNum(
+            scoreNum: num,
+            pos: transform.position);
 
         //タイマーが止まるため
         Variables.isDragging = false;

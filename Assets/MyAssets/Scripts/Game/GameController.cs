@@ -5,11 +5,12 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     [SerializeField] BlocksManager blocksManager;
-
+    [SerializeField] ScoreNumTextManager scoreNumTextManager;
 
     public void OnStart()
     {
         blocksManager.OnStart();
+        scoreNumTextManager.OnStart();
     }
 
     public void OnInitialize()

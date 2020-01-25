@@ -67,8 +67,8 @@ public class BlocksManager : MonoBehaviour
         for (int i = 0; i < blockControllers.Length; i++)
         {
             blockControllers[i] = Instantiate(blockControllerPrefab, Vector2.zero, Quaternion.identity, transform);
-            blockControllers[i].OnStart();
-            blockControllers[i].name = "block" + i;
+            string name = "block_" + i;
+            blockControllers[i].OnStart(name);
         }
     }
 
