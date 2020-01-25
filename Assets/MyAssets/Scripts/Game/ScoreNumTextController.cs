@@ -30,6 +30,7 @@ public class ScoreNumTextController : MonoBehaviour
 
     public void ShowScoreNum(int scoreNum, Vector3 pos)
     {
+        pos.y += 0.3f;
         transform.position = pos;
         scoreNumTMP.text = "+" + scoreNum;
         Anim();
