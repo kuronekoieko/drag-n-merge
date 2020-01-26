@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
-
+using DG.Tweening;
 /// <summary>
 /// 【C#】2次元配列の宣言・初期化・代入
 /// https://algorithm.joho.info/programming/csharp/2d-array-cs/
 /// 【C#,LINQ】Select,SelectMany～配列やリスト内の要素の形を変形したいとき～
 /// https://www.urablog.xyz/entry/2018/05/28/070000
+/// 配列で渡された要素をグループに分ける
+/// https://qiita.com/masaru/items/aaf39f5b1b31ee53bd23
+/// 【C#,LINQ】GroupBy～配列やリストをグループ化したいとき～
+/// https://www.urablog.xyz/entry/2018/07/07/070000
+/// 配列やコレクションをシャッフルする（ランダムに並び替える）
+/// https://dobon.net/vb/dotnet/programing/arrayshuffle.html
 /// </summary>
 public class BlocksManager : MonoBehaviour
 {
@@ -207,9 +213,48 @@ public class BlocksManager : MonoBehaviour
             index++;
         }
     }
-
-    public void AutoMerge()
+    Tween tween;
+    public void AutoMergeBlocks()
     {
+        Variables.gameState = GameState.PAUSE;
+
+        tween = DOVirtual.DelayedCall(0.1f, () =>
+        {
+            AutoMerge();
+        })
+        .SetLoops(-1);
 
     }
+
+    void AutoMerge()
+    {
+        List<BlockController> blocks = blockControllers
+            .Where(block => block.gameObject.activeSelf)
+            .ToList();
+
+        var group = blocks
+            .GroupBy(block => block.num)
+            .OrderBy(g => g.Key)
+            .Where(g => g.Count() > 1)
+            .FirstOrDefault();
+
+        if (group == null)
+        {
+            tween.Kill();
+            Variables.gameState = GameState.IN_PROGRESS_TIMER;
+            return;
+        }
+
+        List<BlockController> duplicateBlocks = group
+            .Select(b => b)
+            .ToList();
+
+        if (duplicateBlocks.Count < 2) { return; }
+
+        int x = duplicateBlocks[1].indexX;
+        int y = duplicateBlocks[1].indexY;
+        duplicateBlocks[0].TransrateBlock(x, y);
+
+    }
+
 }
