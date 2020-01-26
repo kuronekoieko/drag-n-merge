@@ -54,6 +54,15 @@ public class BlocksManager : MonoBehaviour
         return null;
     }
 
+    public BlockController GetDragBlock()
+    {
+        return blockControllers
+            .Where(block => block.gameObject.activeSelf)
+            .Where(block => block.blockState == BlockState.DRAG)
+            .FirstOrDefault();
+    }
+
+
 
     public void OnUpdate()
     {

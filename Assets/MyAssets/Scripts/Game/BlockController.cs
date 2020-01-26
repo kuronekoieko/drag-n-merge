@@ -135,12 +135,19 @@ public class BlockController : MonoBehaviour
     public void OnUpdate()
     {
 
-        FallCheckOnUpdate();
 
-        if (blockState == BlockState.FALL)
+        switch (blockState)
         {
-            FallDown();
-            StopFall();
+            case BlockState.STOP:
+                //ドラッグ中のブロックが落ちるため
+                FallCheck();
+                break;
+            case BlockState.DRAG:
+                break;
+            case BlockState.FALL:
+                FallDown();
+                StopFall();
+                break;
         }
     }
 
@@ -186,13 +193,12 @@ public class BlockController : MonoBehaviour
         textMesh.text = text;
     }
 
-    void FallCheckOnUpdate()
+    void FallCheck()
     {
         //一列目でバグるため
         if (indexY <= 1) { return; }
-        //ドラッグ中のブロックが落ちるため
-        if (blockState != BlockState.STOP) { return; }
         BlockController underBlock = BlocksManager.i.GetBlock(indexX, indexY - 1);
+
         if (underBlock == null)
         {
             blockState = BlockState.FALL;
