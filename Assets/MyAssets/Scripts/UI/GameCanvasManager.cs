@@ -129,7 +129,7 @@ public class GameCanvasManager : BaseCanvasManager
     void OnClickAutoMergeButton()
     {
         if (!BlocksManager.i.IsAllBlockStopped()) { return; }
-
+        BlocksManager.i.AutoMerge();
     }
 
 }

@@ -140,7 +140,21 @@ public class BlockController : MonoBehaviour
         if (blockState == BlockState.FALL)
         {
             FallDown();
+            StopFall();
         }
+    }
+
+    void StopFall()
+    {
+        BlockController underBlock = BlocksManager.i.GetBlock(indexX: indexX, indexY: indexY - 1);
+        if (underBlock == null) { return; }
+
+        float limitY = underBlock.transform.position.y + Values.BROCK_DISTANCE;
+        if (transform.position.y > limitY) { return; }
+        if (underBlock.num == num) { return; }
+
+        TransrateBlock(indexX, underBlock.indexY + 1);
+        blockState = BlockState.STOP;
     }
 
     void SetBlockView()
@@ -401,26 +415,6 @@ public class BlockController : MonoBehaviour
         }
 
         return null;
-    }
-
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        BlockController block;
-        switch (blockState)
-        {
-            case BlockState.STOP:
-                break;
-            case BlockState.DRAG:
-                break;
-            case BlockState.FALL:
-                block = col.gameObject.GetComponent<BlockController>();
-                if (block.num != num)
-                {
-                    blockState = BlockState.STOP;
-                    TransrateBlock(indexX, block.indexY + 1);
-                }
-                break;
-        }
     }
 
     void OnCollisionStay2D(Collision2D col)

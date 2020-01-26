@@ -197,8 +197,10 @@ public class BlocksManager : MonoBehaviour
             block.num = shuffleNumbers[index];
             index++;
         }
+    }
 
-
+    public void AutoMerge()
+    {
 
     }
 }
