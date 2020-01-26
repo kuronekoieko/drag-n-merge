@@ -20,9 +20,12 @@ public class GameCanvasManager : BaseCanvasManager
     [SerializeField] Button gameEndButton;
     [SerializeField] Text erasedBlockNumText;
     [SerializeField] Text comboCountText;
+    [SerializeField] Transform itemButtonsParent;
 
     Sequence sequence;
     Color defaultColor;
+    Button[] itemButtons;
+
     public override void OnStart()
     {
         base.SetScreenAction(thisScreen: ScreenState.GAME);
@@ -43,6 +46,17 @@ public class GameCanvasManager : BaseCanvasManager
             .Where(comboCount => comboCount > 1)
             .Subscribe(comboCount => { ShowComboCount(); })
             .AddTo(this.gameObject);
+
+        itemButtons = new Button[itemButtonsParent.childCount];
+
+        for (int i = 0; i < itemButtons.Length; i++)
+        {
+            itemButtons[i] = itemButtonsParent.GetChild(i).GetComponent<Button>();
+        }
+        itemButtons[0].onClick.AddListener(OnClickAddTimeButton);
+        itemButtons[1].onClick.AddListener(OnClickFallBlockButton);
+        itemButtons[2].onClick.AddListener(OnClickShuffleButton);
+        itemButtons[3].onClick.AddListener(OnClickAutoMergeButton);
 
         gameEndButton.onClick.AddListener(OnClickGameEndButton);
         defaultColor = comboCountText.color;
@@ -90,6 +104,32 @@ public class GameCanvasManager : BaseCanvasManager
             })
             .Append(comboCountText.rectTransform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack))
             .Append(DOTween.ToAlpha(() => comboCountText.color, color => comboCountText.color = color, 0f, 2f));
+    }
+
+    void OnClickAddTimeButton()
+    {
+        if (!BlocksManager.i.IsAllBlockStopped()) { return; }
+        Variables.timer += 5;
+    }
+
+    void OnClickFallBlockButton()
+    {
+        if (!BlocksManager.i.IsAllBlockStopped()) { return; }
+        BlocksManager.i.ShowBlocksTopLine();
+    }
+
+
+
+    void OnClickShuffleButton()
+    {
+        if (!BlocksManager.i.IsAllBlockStopped()) { return; }
+        BlocksManager.i.ShuffleBlocks();
+    }
+
+    void OnClickAutoMergeButton()
+    {
+        if (!BlocksManager.i.IsAllBlockStopped()) { return; }
+
     }
 
 }

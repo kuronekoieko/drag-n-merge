@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using System;
 
 /// <summary>
 /// 【C#】2次元配列の宣言・初期化・代入
 /// https://algorithm.joho.info/programming/csharp/2d-array-cs/
+/// 【C#,LINQ】Select,SelectMany～配列やリスト内の要素の形を変形したいとき～
+/// https://www.urablog.xyz/entry/2018/05/28/070000
 /// </summary>
 public class BlocksManager : MonoBehaviour
 {
@@ -120,15 +123,9 @@ public class BlocksManager : MonoBehaviour
 
     public bool IsAllBlockStopped()
     {
-        for (int i = 0; i < blockControllers.Length; i++)
-        {
-            BlockController block = blockControllers[i];
-            if (!block.gameObject.activeSelf) { continue; }
-            if (block.blockState == BlockState.STOP) { continue; }
-            return false;
-        }
-        return true;
-
+        return blockControllers
+            .Where(b => b.gameObject.activeSelf)
+            .All(b => b.blockState == BlockState.STOP);
     }
 
     public void ShowBlocksTopLine()
@@ -173,6 +170,35 @@ public class BlocksManager : MonoBehaviour
             if (!block.gameObject.activeSelf) { continue; }
             blocks[block.indexY] = block;
         }
+
+
+
+
         return blocks;
+    }
+
+
+    public void ShuffleBlocks()
+    {
+        List<int> numbers = blockControllers
+                .Where(block => block.gameObject.activeSelf)
+                .Select(block => block.num)
+                .ToList();
+
+        List<int> shuffleNumbers = numbers
+            .OrderBy(i => Guid.NewGuid())
+            .ToList();
+
+        int index = 0;
+        for (int i = 0; i < blockControllers.Length; i++)
+        {
+            BlockController block = blockControllers[i];
+            if (block.gameObject.activeSelf == false) { continue; }
+            block.num = shuffleNumbers[index];
+            index++;
+        }
+
+
+
     }
 }
