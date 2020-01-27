@@ -8,4 +8,5 @@ public class SaveData
     private static SaveData _i = new SaveData();
     public int eraseTargetBlockCount;
     public int sumOfErasedBlockNumbers;
+    public int[] itemCount;
 }

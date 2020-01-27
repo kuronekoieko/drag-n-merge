@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 using DG.Tweening;
+using UnityEngine.Events;
 
 /// <summary>
 /// uGUIでボタンの邪魔をするタッチ判定を消すスクリプト
@@ -21,11 +22,12 @@ public class GameCanvasManager : BaseCanvasManager
     [SerializeField] Text erasedBlockNumText;
     [SerializeField] Text comboCountText;
     [SerializeField] Transform itemButtonsParent;
-    [SerializeField] Button itemButtonPrefab;
+    [SerializeField] ItemButtonController itemButtonPrefab;
     [SerializeField] Sprite[] itemSprites;
     Sequence sequence;
     Color defaultColor;
-    Button[] itemButtons;
+    ItemButtonController[] itemButtons;
+    UnityAction[] itemButtonUAs;
 
     public override void OnStart()
     {
@@ -48,19 +50,21 @@ public class GameCanvasManager : BaseCanvasManager
             .Subscribe(comboCount => { ShowComboCount(); })
             .AddTo(this.gameObject);
 
-        itemButtons = new Button[4];
+        itemButtonUAs = new UnityAction[4];
+        itemButtonUAs[0] = OnClickAddTimeButton;
+        itemButtonUAs[1] = OnClickFallBlockButton;
+        itemButtonUAs[2] = OnClickShuffleButton;
+        itemButtonUAs[3] = OnClickAutoMergeButton;
+
+        itemButtons = new ItemButtonController[4];
 
         Vector3 pos = new Vector3(-140, 130, 0);
         for (int i = 0; i < itemButtons.Length; i++)
         {
             itemButtons[i] = Instantiate(itemButtonPrefab, Vector3.zero, Quaternion.identity, itemButtonsParent);
-            itemButtons[i].GetComponent<RectTransform>().anchoredPosition = pos;
+            itemButtons[i].OnStart(itemSprites[i], pos, itemButtonUAs[i]);
             pos.x += 140;
         }
-        itemButtons[0].onClick.AddListener(OnClickAddTimeButton);
-        itemButtons[1].onClick.AddListener(OnClickFallBlockButton);
-        itemButtons[2].onClick.AddListener(OnClickShuffleButton);
-        itemButtons[3].onClick.AddListener(OnClickAutoMergeButton);
 
         gameEndButton.onClick.AddListener(OnClickGameEndButton);
         defaultColor = comboCountText.color;

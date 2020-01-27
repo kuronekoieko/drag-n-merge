@@ -43,7 +43,7 @@ public class SaveDataManager : MonoBehaviour
         //※このとき、新しく追加された変数は消されずマージされる
         JsonUtility.FromJsonOverwrite(jsonStr, SaveData.i);
         //アプデ対応
-        //AddUserDataInstance();
+        AddUserDataInstance();
         //ユーザーデータ保存
         Save();
     }
@@ -59,5 +59,10 @@ public class SaveDataManager : MonoBehaviour
         //デフォルトのユーザーデータを作成
         string defaultJsonStr = JsonUtility.ToJson(SaveData.i);
         return defaultJsonStr;
+    }
+
+    void AddUserDataInstance()
+    {
+
     }
 }
