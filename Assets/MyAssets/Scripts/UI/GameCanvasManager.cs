@@ -21,7 +21,8 @@ public class GameCanvasManager : BaseCanvasManager
     [SerializeField] Text erasedBlockNumText;
     [SerializeField] Text comboCountText;
     [SerializeField] Transform itemButtonsParent;
-
+    [SerializeField] Button itemButtonPrefab;
+    [SerializeField] Sprite[] itemSprites;
     Sequence sequence;
     Color defaultColor;
     Button[] itemButtons;
@@ -47,11 +48,14 @@ public class GameCanvasManager : BaseCanvasManager
             .Subscribe(comboCount => { ShowComboCount(); })
             .AddTo(this.gameObject);
 
-        itemButtons = new Button[itemButtonsParent.childCount];
+        itemButtons = new Button[4];
 
+        Vector3 pos = new Vector3(-140, 130, 0);
         for (int i = 0; i < itemButtons.Length; i++)
         {
-            itemButtons[i] = itemButtonsParent.GetChild(i).GetComponent<Button>();
+            itemButtons[i] = Instantiate(itemButtonPrefab, Vector3.zero, Quaternion.identity, itemButtonsParent);
+            itemButtons[i].GetComponent<RectTransform>().anchoredPosition = pos;
+            pos.x += 140;
         }
         itemButtons[0].onClick.AddListener(OnClickAddTimeButton);
         itemButtons[1].onClick.AddListener(OnClickFallBlockButton);
