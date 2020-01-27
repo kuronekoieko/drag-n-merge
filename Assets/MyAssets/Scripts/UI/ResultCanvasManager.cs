@@ -5,7 +5,9 @@ using UnityEngine.UI;
 using UniRx;
 using DG.Tweening;
 using UnityEngine.Networking;
+#if UNITY_IOS
 using UnityEngine.iOS;
+#endif
 
 /// <summary>
 /// 【Unity】Twitterボタン設置とツイートの報酬付与
