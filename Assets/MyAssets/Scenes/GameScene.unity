@@ -714,7 +714,7 @@ MonoBehaviour:
   erasedBlockNumText: {fileID: 1306857563}
   comboCountText: {fileID: 1899375969}
   itemButtonsParent: {fileID: 879657768}
-  itemButtonPrefab: {fileID: 1275384421287929042, guid: b5ce0806d02a9472d9765b0638209766,
+  itemButtonPrefab: {fileID: 114323220087936478, guid: b5ce0806d02a9472d9765b0638209766,
     type: 3}
   itemSprites:
   - {fileID: 21300000, guid: ea4fcfc6c39de3047a90ef3617f5e431, type: 3}

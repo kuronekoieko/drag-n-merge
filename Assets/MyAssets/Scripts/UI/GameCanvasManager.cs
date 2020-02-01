@@ -56,15 +56,7 @@ public class GameCanvasManager : BaseCanvasManager
         itemButtonUAs[2] = OnClickShuffleButton;
         itemButtonUAs[3] = OnClickAutoMergeButton;
 
-        itemButtons = new ItemButtonController[4];
-
-        Vector3 pos = new Vector3(-140, 130, 0);
-        for (int i = 0; i < itemButtons.Length; i++)
-        {
-            itemButtons[i] = Instantiate(itemButtonPrefab, Vector3.zero, Quaternion.identity, itemButtonsParent);
-            itemButtons[i].OnStart(itemSprites[i], pos, itemButtonUAs[i]);
-            pos.x += 140;
-        }
+        //ItemButtonGenerator();
 
         gameEndButton.onClick.AddListener(OnClickGameEndButton);
         defaultColor = comboCountText.color;
@@ -138,6 +130,19 @@ public class GameCanvasManager : BaseCanvasManager
     {
         if (!BlocksManager.i.IsAllBlockStopped()) { return; }
         BlocksManager.i.AutoMergeBlocks();
+    }
+
+    void ItemButtonGenerator()
+    {
+        itemButtons = new ItemButtonController[4];
+
+        Vector3 pos = new Vector3(-140, 130, 0);
+        for (int i = 0; i < itemButtons.Length; i++)
+        {
+            itemButtons[i] = Instantiate(itemButtonPrefab, Vector3.zero, Quaternion.identity, itemButtonsParent);
+            itemButtons[i].OnStart(itemSprites[i], pos, itemButtonUAs[i]);
+            pos.x += 140;
+        }
     }
 
 }
