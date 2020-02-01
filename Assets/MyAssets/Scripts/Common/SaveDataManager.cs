@@ -63,6 +63,10 @@ public class SaveDataManager : MonoBehaviour
 
     void AddUserDataInstance()
     {
-
+        SaveData.i.itemCount = new int[4];
+        for (int i = 0; i < SaveData.i.itemCount.Length; i++)
+        {
+            SaveData.i.itemCount[i] = 0;
+        }
     }
 }
