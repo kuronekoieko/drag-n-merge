@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TenjinManager : MonoBehaviour
 {
-    string API_KEY = "HP5CZFEUJXMZVU4ZSOZSHLZTFWJ5WAI5";
+    string API_KEY = "EDZBXKASDVB6NXDGYBPZUSZYNX1HJKUW";
     public void OnStart()
     {
 #if !UNITY_EDITOR
