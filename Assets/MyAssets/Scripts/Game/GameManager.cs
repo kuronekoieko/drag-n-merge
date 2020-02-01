@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
         audioManager.OnStart();
         saveDataManager.OnStart();
         tenjinManager.OnStart();
+        FirebaseAnalyticsManager.i.OnStart();
         Variables.screenState = ScreenState.INITIALIZE;
     }
 
