@@ -4,6 +4,7 @@
     START,
     GAME,
     RESULT,
+    CONTINUE,
 }
 
 public enum GameState
