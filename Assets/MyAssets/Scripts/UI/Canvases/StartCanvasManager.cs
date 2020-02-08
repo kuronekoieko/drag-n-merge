@@ -5,26 +5,21 @@ using UnityEngine.UI;
 using UniRx;
 using DG.Tweening;
 
-public class StartCanvasManager : MonoBehaviour
+public class StartCanvasManager : BaseCanvasManager
 {
     [SerializeField] Button startButton;
     [SerializeField] Text startText;
 
-    public void OnStart()
+    public override void OnStart()
     {
         startButton.onClick.AddListener(OnClickStartButton);
 
-
-
-        this.ObserveEveryValueChanged(screenState => Variables.screenState)
-           .Where(screenState => screenState == ScreenState.START)
-           .Subscribe(timer => { OnOpen(); })
-           .AddTo(this.gameObject);
+        base.SetScreenAction(thisScreen: ScreenState.START);
 
         Anim();
     }
 
-    public void OnInitialize()
+    public override void OnInitialize()
     {
         gameObject.SetActive(true);
     }
@@ -42,9 +37,13 @@ public class StartCanvasManager : MonoBehaviour
                });
     }
 
-    void OnOpen()
+    protected override void OnOpen()
     {
         gameObject.SetActive(true);
+    }
+
+    protected override void OnClose()
+    {
     }
 
     void OnClickStartButton()

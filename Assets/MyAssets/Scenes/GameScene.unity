@@ -716,11 +716,6 @@ MonoBehaviour:
   itemButtonsParent: {fileID: 879657768}
   itemButtonPrefab: {fileID: 114323220087936478, guid: b5ce0806d02a9472d9765b0638209766,
     type: 3}
-  itemSprites:
-  - {fileID: 21300000, guid: ea4fcfc6c39de3047a90ef3617f5e431, type: 3}
-  - {fileID: 21300000, guid: f4e49bb7005427c4fac854d6d05fcb4e, type: 3}
-  - {fileID: 21300000, guid: 2b744a79a99b945d9b9ede7514928a9d, type: 3}
-  - {fileID: 21300000, guid: ed8ef41e0593c444f89985400bb18768, type: 3}
 --- !u!114 &372288006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1685,6 +1680,7 @@ GameObject:
   - component: {fileID: 705103233}
   - component: {fileID: 705103232}
   - component: {fileID: 705103231}
+  - component: {fileID: 705103234}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1718,9 +1714,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce52469939b642a4816c176851da323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startCanvasManager: {fileID: 385382574}
-  gameCanvasManager: {fileID: 372288005}
-  resultCanvasManager: {fileID: 2146700552}
   audioManager: {fileID: 1590465345}
   saveDataManager: {fileID: 175601353}
   tenjinManager: {fileID: 287828029}
@@ -1738,6 +1731,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &705103234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705103230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a083b2a3149ed496eb354e286b5de289, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasesParent: {fileID: 1176542910}
 --- !u!1 &723124412
 GameObject:
   m_ObjectHideFlags: 0

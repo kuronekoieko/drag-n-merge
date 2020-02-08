@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] StartCanvasManager startCanvasManager;
-    [SerializeField] GameCanvasManager gameCanvasManager;
-    [SerializeField] ResultCanvasManager resultCanvasManager;
+
     [SerializeField] AudioManager audioManager;
     [SerializeField] SaveDataManager saveDataManager;
     [SerializeField] TenjinManager tenjinManager;
     GameController gameController;
+    UIManager uIManager;
     void Awake()
     {
         QualitySettings.vSyncCount = 0; // VSyncをOFFにする
         Application.targetFrameRate = 60; // ターゲットフレームレートを60に設定
         Time.fixedDeltaTime = 0.008f;
         gameController = GetComponent<GameController>();
+        uIManager = GetComponent<UIManager>();
     }
 
     void Start()
@@ -26,9 +26,7 @@ public class GameManager : MonoBehaviour
         FirebaseAnalyticsManager.i.OnStart();
 
         gameController.OnStart();
-        gameCanvasManager.OnStart();
-        resultCanvasManager.OnStart();
-        startCanvasManager.OnStart();
+        uIManager.OnStart();
         audioManager.OnStart();
 
         Variables.screenState = ScreenState.INITIALIZE;
@@ -42,9 +40,7 @@ public class GameManager : MonoBehaviour
             case ScreenState.INITIALIZE:
                 Variables.screenState = ScreenState.START;
                 gameController.OnInitialize();
-                gameCanvasManager.OnInitialize();
-                resultCanvasManager.OnInitialize();
-                startCanvasManager.OnInitialize();
+                uIManager.OnInitialize();
                 FirebaseAnalyticsManager.i.LogScreen("ゲーム");
                 break;
             case ScreenState.START:

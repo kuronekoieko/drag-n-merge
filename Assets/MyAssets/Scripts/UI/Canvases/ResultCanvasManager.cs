@@ -17,7 +17,7 @@ using UnityEngine.iOS;
 /// Social ConnectorでUnityアプリにソーシャル連携ボタンを追加する
 /// https://www.jyuko49.com/entry/2018/04/05/092218
 /// </summary>
-public class ResultCanvasManager : MonoBehaviour
+public class ResultCanvasManager : BaseCanvasManager
 {
     [SerializeField] Text bestScoreText;
     [SerializeField] Text scoreText;
@@ -32,13 +32,10 @@ public class ResultCanvasManager : MonoBehaviour
     bool isUpdateHighScore;
     int highScoreBlockCountBeforeGame;
 
-    public void OnStart()
+    public override void OnStart()
     {
 
-        this.ObserveEveryValueChanged(screenState => Variables.screenState)
-            .Where(screenState => screenState == ScreenState.RESULT)
-            .Subscribe(timer => { OnOpen(); })
-            .AddTo(this.gameObject);
+        base.SetScreenAction(thisScreen: ScreenState.RESULT);
 
         nextButton.onClick.AddListener(OnClickRestartButton);
         twitterButton.onClick.AddListener(OnClickTwitterButton);
@@ -49,7 +46,7 @@ public class ResultCanvasManager : MonoBehaviour
         Anim(shareButton.transform);
     }
 
-    public void OnInitialize()
+    public override void OnInitialize()
     {
         gameObject.SetActive(false);
         //スタート時のハイスコアを結果画面で出す
@@ -57,7 +54,7 @@ public class ResultCanvasManager : MonoBehaviour
         bestScoreText.text = SaveData.i.sumOfErasedBlockNumbers.ToString();
     }
 
-    void OnOpen()
+    protected override void OnOpen()
     {
         gameObject.SetActive(true);
         targetCountText.text = "x " + Variables.eraseTargetBlockCount;
@@ -67,6 +64,10 @@ public class ResultCanvasManager : MonoBehaviour
         FirebaseAnalyticsManager.i.LogEvent(text);
         AudioManager.i.PlayOneShot(4);
         ReviewGuidance();
+    }
+
+    protected override void OnClose()
+    {
     }
 
     void OnClickRestartButton()
