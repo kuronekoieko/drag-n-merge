@@ -12,4 +12,5 @@ public class Variables : MonoBehaviour
     public static int eraseTargetBlockCount;
     public static int sumOfErasedBlockNumbers;
     public static int comboCount;
+    public static List<MasterData> masterDatas;
 }

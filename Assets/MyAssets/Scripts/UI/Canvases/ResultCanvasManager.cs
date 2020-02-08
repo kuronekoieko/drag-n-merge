@@ -64,6 +64,13 @@ public class ResultCanvasManager : BaseCanvasManager
         FirebaseAnalyticsManager.i.LogEvent(text);
         AudioManager.i.PlayOneShot(4);
         ReviewGuidance();
+
+        for (int i = 0; i < Variables.eraseTargetBlockCount; i++)
+        {
+            SaveData.i.coinCount += Variables.masterDatas[i].coinCount;
+            Debug.Log(Variables.masterDatas[i].coinCount);
+        }
+        SaveDataManager.i.Save();
     }
 
     protected override void OnClose()

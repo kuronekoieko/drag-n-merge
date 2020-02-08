@@ -2062,6 +2062,7 @@ MonoBehaviour:
   audioManager: {fileID: 1590465345}
   saveDataManager: {fileID: 175601353}
   tenjinManager: {fileID: 287828029}
+  cSVManagr: {fileID: 840447356}
 --- !u!4 &705103233
 Transform:
   m_ObjectHideFlags: 0
@@ -2474,6 +2475,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 800063101}
   m_CullTransparentMesh: 0
+--- !u!1 &840447355
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 840447357}
+  - component: {fileID: 840447356}
+  m_Layer: 0
+  m_Name: CSVManagr
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &840447356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840447355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31913c47e64e6488dbe219d97445d1d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masterDataCSV: {fileID: 4900000, guid: 2bf718c1ad5c84d748a749e0569092d1, type: 3}
+--- !u!4 &840447357
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840447355}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 568.8752, y: 1106.702, z: -12.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &870622101
 GameObject:
   m_ObjectHideFlags: 0
