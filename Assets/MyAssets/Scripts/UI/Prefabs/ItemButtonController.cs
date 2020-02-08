@@ -12,6 +12,8 @@ public class ItemButtonController : MonoBehaviour
     [SerializeField] Text countText;
     [SerializeField] Image badgeImage;
     [SerializeField] Sprite[] itemSprites;
+    [SerializeField] RectTransform coinCountRT;
+    [SerializeField] Text coinCountText;
     Button button;
     RectTransform rectTransform;
     int index;
@@ -25,7 +27,7 @@ public class ItemButtonController : MonoBehaviour
         button = GetComponent<Button>();
 
         this.ObserveEveryValueChanged(itemCount => SaveData.i.itemCounts[index])
-            .Subscribe(itemCount => { countText.text = itemCount.ToString(); })
+            .Subscribe(itemCount => ShowCounts(itemCount))
             .AddTo(this.gameObject);
 
         var buttonActions = new List<UnityAction>()
@@ -40,6 +42,14 @@ public class ItemButtonController : MonoBehaviour
         {
             UseItem(() => { buttonActions[index](); });
         });
+    }
+
+    void ShowCounts(int itemCount)
+    {
+        countText.text = itemCount.ToString();
+        bool isShowCoin = (itemCount == 0);
+        badgeImage.gameObject.SetActive(!isShowCoin);
+        coinCountRT.gameObject.SetActive(isShowCoin);
     }
 
     void OnClickAddTimeButton()
