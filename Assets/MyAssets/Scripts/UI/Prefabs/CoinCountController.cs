@@ -20,6 +20,7 @@ public class CoinCountController : MonoBehaviour
 
     void OnClickShopButton()
     {
-
+        SaveData.i.coinCount += 100;
+        SaveDataManager.i.Save();
     }
 }
