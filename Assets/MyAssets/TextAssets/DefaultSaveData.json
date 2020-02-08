@@ -1,5 +1,6 @@
 {
     "eraseTargetBlockNum": 0,
     "sumOfErasedBlockNumbers": 0,
+    "coinCount": 500,
     "itemCounts": []
 }

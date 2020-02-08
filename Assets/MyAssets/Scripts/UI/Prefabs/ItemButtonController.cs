@@ -17,6 +17,7 @@ public class ItemButtonController : MonoBehaviour
     Button button;
     RectTransform rectTransform;
     int index;
+    int coinCount;
 
     public void OnStart(int index, Vector3 pos)
     {
@@ -42,6 +43,9 @@ public class ItemButtonController : MonoBehaviour
         {
             UseItem(() => { buttonActions[index](); });
         });
+
+        coinCount = ItemDataSO.i.itemDatas[index].coinCount;
+        coinCountText.text = coinCount.ToString();
     }
 
     void ShowCounts(int itemCount)
@@ -74,11 +78,29 @@ public class ItemButtonController : MonoBehaviour
 
     void UseItem(Action ItemAction)
     {
-        if (SaveData.i.itemCounts[index] < 1) { return; }
-        if (!BlocksManager.i.IsAllBlockStopped()) { return; }
-        ItemAction();
-        SaveData.i.itemCounts[index]--;
-        SaveDataManager.i.Save();
+        bool isNotEnoughItem = (SaveData.i.itemCounts[index] < 1);
+        bool isNotEnoughCoin = (SaveData.i.coinCount < coinCount);
+
+        if (isNotEnoughItem == false)
+        {
+            if (!BlocksManager.i.IsAllBlockStopped()) { return; }
+            ItemAction();
+            SaveData.i.itemCounts[index]--;
+            SaveDataManager.i.Save();
+            return;
+        }
+
+        if (isNotEnoughCoin == false)
+        {
+            if (!BlocksManager.i.IsAllBlockStopped()) { return; }
+            ItemAction();
+            SaveData.i.coinCount -= coinCount;
+            SaveDataManager.i.Save();
+            return;
+        }
+
     }
+
+
 
 }

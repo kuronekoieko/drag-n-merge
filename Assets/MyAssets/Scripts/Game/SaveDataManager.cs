@@ -56,10 +56,10 @@ public class SaveDataManager : MonoBehaviour
             json: defaultSaveDataJson.text,
             objectToOverwrite: SaveData.i);
 
-        SaveData.i.itemCounts = new int[3];
+        SaveData.i.itemCounts = new int[ItemDataSO.i.itemDatas.Length];
         for (int i = 0; i < SaveData.i.itemCounts.Length; i++)
         {
-            SaveData.i.itemCounts[i] = 10;
+            SaveData.i.itemCounts[i] = 3;
         }
 
         //デフォルトのユーザーデータを作成
