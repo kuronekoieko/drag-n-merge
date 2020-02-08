@@ -98,35 +98,11 @@ public class GameCanvasManager : BaseCanvasManager
             .Append(DOTween.ToAlpha(() => comboCountText.color, color => comboCountText.color = color, 0f, 2f));
     }
 
-    void OnClickAddTimeButton()
-    {
-        if (!BlocksManager.i.IsAllBlockStopped()) { return; }
-        Variables.timer += 5;
-    }
 
-    void OnClickFallBlockButton()
-    {
-        if (!BlocksManager.i.IsAllBlockStopped()) { return; }
-        BlocksManager.i.ShowBlocksTopLine();
-    }
-
-
-
-    void OnClickShuffleButton()
-    {
-        if (!BlocksManager.i.IsAllBlockStopped()) { return; }
-        BlocksManager.i.ShuffleBlocks();
-    }
-
-    void OnClickAutoMergeButton()
-    {
-        if (!BlocksManager.i.IsAllBlockStopped()) { return; }
-        BlocksManager.i.AutoMergeBlocks();
-    }
 
     void ItemButtonGenerator()
     {
-        itemButtons = new ItemButtonController[4];
+        itemButtons = new ItemButtonController[SaveData.i.itemCounts.Length];
 
         Vector3 pos = new Vector3(-140, 130, 0);
         for (int i = 0; i < itemButtons.Length; i++)
@@ -135,11 +111,6 @@ public class GameCanvasManager : BaseCanvasManager
             itemButtons[i].OnStart(index: i, pos: pos);
             pos.x += 140;
         }
-
-        itemButtons[0].SetButtonAction(OnClickAddTimeButton);
-        itemButtons[1].SetButtonAction(OnClickFallBlockButton);
-        itemButtons[2].SetButtonAction(OnClickShuffleButton);
-        itemButtons[3].SetButtonAction(OnClickAutoMergeButton);
     }
 
 }

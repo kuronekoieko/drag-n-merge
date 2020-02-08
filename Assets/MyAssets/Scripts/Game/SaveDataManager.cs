@@ -56,6 +56,12 @@ public class SaveDataManager : MonoBehaviour
             json: defaultSaveDataJson.text,
             objectToOverwrite: SaveData.i);
 
+        SaveData.i.itemCounts = new int[3];
+        for (int i = 0; i < SaveData.i.itemCounts.Length; i++)
+        {
+            SaveData.i.itemCounts[i] = 10;
+        }
+
         //デフォルトのユーザーデータを作成
         string defaultJsonStr = JsonUtility.ToJson(SaveData.i);
         return defaultJsonStr;
@@ -63,10 +69,6 @@ public class SaveDataManager : MonoBehaviour
 
     void AddUserDataInstance()
     {
-        SaveData.i.itemCounts = new int[4];
-        for (int i = 0; i < SaveData.i.itemCounts.Length; i++)
-        {
-            SaveData.i.itemCounts[i] = 1;
-        }
+
     }
 }
