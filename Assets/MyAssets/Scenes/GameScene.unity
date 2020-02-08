@@ -3333,12 +3333,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c6a262551f9246ed93a9a64ddd3dfd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinButton: {fileID: 0}
-  videoButton: {fileID: 0}
-  cancelButton: {fileID: 0}
-  countText: {fileID: 0}
-  coinCountText: {fileID: 0}
-  circleImage: {fileID: 0}
+  coinButton: {fileID: 1933021498}
+  videoButton: {fileID: 559184185}
+  cancelButton: {fileID: 1574306844}
+  countText: {fileID: 37793098}
+  coinCountText: {fileID: 509145606}
+  circleImage: {fileID: 1566381705}
 --- !u!114 &1331885322
 MonoBehaviour:
   m_ObjectHideFlags: 0

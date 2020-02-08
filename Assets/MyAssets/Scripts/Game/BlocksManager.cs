@@ -257,4 +257,17 @@ public class BlocksManager : MonoBehaviour
 
     }
 
+    public void EraseLine(int indexY)
+    {
+        var blocks = blockControllers
+            .Where(b => b.indexY == indexY)
+            .Where(b => b.gameObject.activeSelf)
+            .ToList();
+
+        for (int i = 0; i < blocks.Count; i++)
+        {
+            blocks[i].gameObject.SetActive(false);
+        }
+    }
+
 }
