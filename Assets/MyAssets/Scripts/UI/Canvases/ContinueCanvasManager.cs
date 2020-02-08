@@ -15,6 +15,7 @@ public class ContinueCanvasManager : BaseCanvasManager
 
     float timer;
     float startTime = 9;
+    int coinCount = 200;
 
     public override void OnStart()
     {
@@ -23,9 +24,8 @@ public class ContinueCanvasManager : BaseCanvasManager
         coinButton.onClick.AddListener(OnClickCoinButton);
         videoButton.onClick.AddListener(OnClickVideoButton);
         cancelButton.onClick.AddListener(OnClickCancelButton);
+        coinCountText.text = coinCount.ToString();
     }
-
-
 
     public override void OnInitialize()
     {
@@ -59,6 +59,9 @@ public class ContinueCanvasManager : BaseCanvasManager
 
     void OnClickCoinButton()
     {
+        if (SaveData.i.coinCount < coinCount) { return; }
+        SaveData.i.coinCount -= coinCount;
+        SaveDataManager.i.Save();
         Continue();
     }
 
