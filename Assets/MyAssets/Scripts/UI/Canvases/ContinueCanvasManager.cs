@@ -14,6 +14,7 @@ public class ContinueCanvasManager : BaseCanvasManager
     [SerializeField] Image circleImage;
 
     float timer;
+    float startTime = 9;
 
     public override void OnStart()
     {
@@ -29,7 +30,7 @@ public class ContinueCanvasManager : BaseCanvasManager
     public override void OnInitialize()
     {
         gameObject.SetActive(false);
-        timer = 9;
+        timer = startTime;
     }
 
     void Update()
@@ -43,6 +44,7 @@ public class ContinueCanvasManager : BaseCanvasManager
         }
         timer -= Time.deltaTime;
         countText.text = Mathf.CeilToInt(timer).ToString();
+        circleImage.fillAmount = timer / startTime;
     }
 
     protected override void OnOpen()
