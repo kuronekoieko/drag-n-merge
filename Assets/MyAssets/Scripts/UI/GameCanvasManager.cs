@@ -23,11 +23,9 @@ public class GameCanvasManager : BaseCanvasManager
     [SerializeField] Text comboCountText;
     [SerializeField] Transform itemButtonsParent;
     [SerializeField] ItemButtonController itemButtonPrefab;
-    [SerializeField] Sprite[] itemSprites;
     Sequence sequence;
     Color defaultColor;
     ItemButtonController[] itemButtons;
-    UnityAction[] itemButtonUAs;
 
     public override void OnStart()
     {
@@ -50,13 +48,7 @@ public class GameCanvasManager : BaseCanvasManager
             .Subscribe(comboCount => { ShowComboCount(); })
             .AddTo(this.gameObject);
 
-        itemButtonUAs = new UnityAction[4];
-        itemButtonUAs[0] = OnClickAddTimeButton;
-        itemButtonUAs[1] = OnClickFallBlockButton;
-        itemButtonUAs[2] = OnClickShuffleButton;
-        itemButtonUAs[3] = OnClickAutoMergeButton;
-
-        //ItemButtonGenerator();
+        ItemButtonGenerator();
 
         gameEndButton.onClick.AddListener(OnClickGameEndButton);
         defaultColor = comboCountText.color;
@@ -140,9 +132,14 @@ public class GameCanvasManager : BaseCanvasManager
         for (int i = 0; i < itemButtons.Length; i++)
         {
             itemButtons[i] = Instantiate(itemButtonPrefab, Vector3.zero, Quaternion.identity, itemButtonsParent);
-            itemButtons[i].OnStart(itemSprites[i], pos, itemButtonUAs[i]);
+            itemButtons[i].OnStart(index: i, pos: pos);
             pos.x += 140;
         }
+
+        itemButtons[0].SetButtonAction(OnClickAddTimeButton);
+        itemButtons[1].SetButtonAction(OnClickFallBlockButton);
+        itemButtons[2].SetButtonAction(OnClickShuffleButton);
+        itemButtons[3].SetButtonAction(OnClickAutoMergeButton);
     }
 
 }

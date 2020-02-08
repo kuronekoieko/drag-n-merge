@@ -21,14 +21,16 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        saveDataManager.OnStart();
+        tenjinManager.OnStart();
+        FirebaseAnalyticsManager.i.OnStart();
+
         gameController.OnStart();
         gameCanvasManager.OnStart();
         resultCanvasManager.OnStart();
         startCanvasManager.OnStart();
         audioManager.OnStart();
-        saveDataManager.OnStart();
-        tenjinManager.OnStart();
-        FirebaseAnalyticsManager.i.OnStart();
+
         Variables.screenState = ScreenState.INITIALIZE;
     }
 

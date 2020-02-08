@@ -1,4 +1,5 @@
 {
     "eraseTargetBlockNum": 0,
-    "sumOfErasedBlockNumbers": 0
+    "sumOfErasedBlockNumbers": 0,
+    "itemCounts": []
 }
