@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour
 
     public void OnInitialize()
     {
-        Variables.timer = Values.TIME_LIMIT;
+        Variables.timer = Variables.masterDatas[0].timeLimit;
         Variables.eraseTargetBlockCount = 0;
         Variables.sumOfErasedBlockNumbers = 0;
         Variables.comboCount = 0;
@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
             case GameState.RESET_TIMER:
                 blocksManager.SetBlocksNewLine(0);
                 blocksManager.MoveUpAllBlocks();
-                Variables.timer = Values.TIME_LIMIT;
+                Variables.timer = Variables.masterDatas[Variables.eraseTargetBlockCount].timeLimit;
                 Variables.gameState = GameState.MOVE_UP_ANIM;
                 break;
             case GameState.MOVE_UP_ANIM:

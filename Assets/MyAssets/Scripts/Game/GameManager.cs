@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioManager audioManager;
     [SerializeField] SaveDataManager saveDataManager;
     [SerializeField] TenjinManager tenjinManager;
+    [SerializeField] CSVManagr cSVManagr;
     GameController gameController;
     UIManager uIManager;
     void Awake()
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
         tenjinManager.OnStart();
         FirebaseAnalyticsManager.i.OnStart();
 
+        cSVManagr.OnStart();
         gameController.OnStart();
         uIManager.OnStart();
         audioManager.OnStart();
