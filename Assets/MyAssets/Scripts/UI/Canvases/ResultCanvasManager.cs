@@ -27,10 +27,12 @@ public class ResultCanvasManager : BaseCanvasManager
     [SerializeField] Button twitterButton;
     [SerializeField] Button shareButton;
     [SerializeField] Text shareText;
+    [SerializeField] Text coinCountText;
 
     string tweetText;
     bool isUpdateHighScore;
     int highScoreBlockCountBeforeGame;
+    int coinCount;
 
     public override void OnStart()
     {
@@ -65,12 +67,14 @@ public class ResultCanvasManager : BaseCanvasManager
         AudioManager.i.PlayOneShot(4);
         ReviewGuidance();
 
+        coinCount = 0;
         for (int i = 0; i < Variables.eraseTargetBlockCount; i++)
         {
-            SaveData.i.coinCount += Variables.masterDatas[i].coinCount;
-            Debug.Log(Variables.masterDatas[i].coinCount);
+            coinCount += Variables.masterDatas[i].coinCount;
         }
+        SaveData.i.coinCount += coinCount;
         SaveDataManager.i.Save();
+        coinCountText.text = "+ " + coinCount;
     }
 
     protected override void OnClose()
