@@ -447,6 +447,7 @@ public class BlockController : MonoBehaviour
         if (num < Values.TARGET_BLOCK_NUM) { num++; }
         hitPS.Play();
         SaveBestScore();
+        Variables.autoMergePoint += num;
         ScoreNumTextManager.i.ShowScoreNum(
             scoreNum: num,
             pos: transform.position);

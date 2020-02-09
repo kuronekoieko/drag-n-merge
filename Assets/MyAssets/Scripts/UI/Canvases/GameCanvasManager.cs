@@ -23,9 +23,15 @@ public class GameCanvasManager : BaseCanvasManager
     [SerializeField] Text comboCountText;
     [SerializeField] Transform itemButtonsParent;
     [SerializeField] ItemButtonController itemButtonPrefab;
+    [SerializeField] Button autoMergeButton;
+    [SerializeField] Text autoMergeCountText;
+    [SerializeField] Image autoMergeCircleImage;
+    [SerializeField] Image autoMergeBadgeImage;
+
     Sequence sequence;
     Color defaultColor;
     ItemButtonController[] itemButtons;
+    int autoMergeCount;
 
     public override void OnStart()
     {
@@ -48,7 +54,17 @@ public class GameCanvasManager : BaseCanvasManager
             .Subscribe(comboCount => { ShowComboCount(); })
             .AddTo(this.gameObject);
 
+        this.ObserveEveryValueChanged(autoMergeCount => this.autoMergeCount)
+            .Subscribe(autoMergeCount => { autoMergeCountView(); })
+            .AddTo(this.gameObject);
+
+        this.ObserveEveryValueChanged(autoMergePoint => Variables.autoMergePoint)
+            .Subscribe(autoMergePoint => { AutoMergeCircleView(); })
+            .AddTo(this.gameObject);
+
         ItemButtonGenerator();
+
+        autoMergeButton.onClick.AddListener(OnClickAutoMergeButton);
 
         gameEndButton.onClick.AddListener(OnClickGameEndButton);
         defaultColor = comboCountText.color;
@@ -104,7 +120,7 @@ public class GameCanvasManager : BaseCanvasManager
     {
         itemButtons = new ItemButtonController[SaveData.i.itemCounts.Length];
 
-        Vector3 pos = new Vector3(-140, 130, 0);
+        Vector3 pos = new Vector3(0, 130, 0);
         for (int i = 0; i < itemButtons.Length; i++)
         {
             itemButtons[i] = Instantiate(itemButtonPrefab, Vector3.zero, Quaternion.identity, itemButtonsParent);
@@ -113,4 +129,25 @@ public class GameCanvasManager : BaseCanvasManager
         }
     }
 
+    void OnClickAutoMergeButton()
+    {
+        if (autoMergeCount < 1) { return; }
+        autoMergeCount--;
+        BlocksManager.i.AutoMergeBlocks();
+    }
+
+    void AutoMergeCircleView()
+    {
+        autoMergeCircleImage.fillAmount = Variables.autoMergePoint / 800f;
+        if (autoMergeCircleImage.fillAmount < 1) { return; }
+        autoMergeCount++;
+        Variables.autoMergePoint = 0;
+    }
+
+
+    void autoMergeCountView()
+    {
+        autoMergeBadgeImage.gameObject.SetActive(autoMergeCount != 0);
+        autoMergeCountText.text = autoMergeCount.ToString();
+    }
 }
