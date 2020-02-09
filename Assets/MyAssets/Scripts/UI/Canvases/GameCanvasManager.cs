@@ -75,6 +75,8 @@ public class GameCanvasManager : BaseCanvasManager
         bestTargetBlockCountText.text = "x " + SaveData.i.eraseTargetBlockCount;
         bestScoreText.text = SaveData.i.sumOfErasedBlockNumbers.ToString();
         comboCountText.gameObject.SetActive(false);
+        Variables.autoMergePoint = 0;
+        autoMergeCount = 0;
     }
 
     protected override void OnOpen()
