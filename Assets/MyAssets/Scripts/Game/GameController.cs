@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour
     public void OnUpdate()
     {
         blocksManager.OnUpdate();
-
+        // Debug.Log(Variables.gameState);
         switch (Variables.gameState)
         {
             case GameState.IN_PROGRESS_TIMER:
@@ -42,6 +42,10 @@ public class GameController : MonoBehaviour
                 Variables.gameState = GameState.MOVE_UP_ANIM;
                 break;
             case GameState.MOVE_UP_ANIM:
+                break;
+            case GameState.PAUSE:
+                break;
+            case GameState.AUTO_MERGE:
                 break;
         }
     }

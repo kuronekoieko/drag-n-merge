@@ -13,6 +13,7 @@ public enum GameState
     RESET_TIMER,
     MOVE_UP_ANIM,
     PAUSE,
+    AUTO_MERGE,
 }
 
 public enum BlockState

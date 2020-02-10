@@ -216,7 +216,7 @@ public class BlocksManager : MonoBehaviour
     Tween tween;
     public void AutoMergeBlocks()
     {
-        Variables.gameState = GameState.PAUSE;
+        Variables.gameState = GameState.AUTO_MERGE;
 
         tween = DOVirtual.DelayedCall(0.1f, () =>
         {

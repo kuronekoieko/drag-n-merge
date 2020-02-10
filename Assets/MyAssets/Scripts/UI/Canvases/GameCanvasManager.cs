@@ -108,7 +108,7 @@ public class GameCanvasManager : BaseCanvasManager
             .OnStart(() =>
             {
                 comboCountText.gameObject.SetActive(true);
-                comboCountText.text = "Combo\nx " + Variables.comboCount;
+                comboCountText.text = "COMBO\nx " + Variables.comboCount;
                 comboCountText.rectTransform.localScale = Vector3.zero;
                 comboCountText.color = defaultColor;
             })
@@ -134,13 +134,16 @@ public class GameCanvasManager : BaseCanvasManager
     void OnClickAutoMergeButton()
     {
         if (autoMergeCount < 1) { return; }
+        //無限オートマージ対策
+        if (Variables.gameState != GameState.IN_PROGRESS_TIMER) { return; }
+
         autoMergeCount--;
         BlocksManager.i.AutoMergeBlocks();
     }
 
     void AutoMergeCircleView()
     {
-        autoMergeCircleImage.fillAmount = Variables.autoMergePoint / 800f;
+        autoMergeCircleImage.fillAmount = Variables.autoMergePoint / 1000f;
         if (autoMergeCircleImage.fillAmount < 1) { return; }
         autoMergeCount++;
         Variables.autoMergePoint = 0;
