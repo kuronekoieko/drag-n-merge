@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using DG.Tweening;
 
 public class ContinueCanvasManager : BaseCanvasManager
 {
@@ -12,6 +13,7 @@ public class ContinueCanvasManager : BaseCanvasManager
     [SerializeField] Text countText;
     [SerializeField] Text coinCountText;
     [SerializeField] Image circleImage;
+    [SerializeField] Text cancelText;
 
     float timer;
     float startTime = 9;
@@ -50,6 +52,22 @@ public class ContinueCanvasManager : BaseCanvasManager
     protected override void OnOpen()
     {
         gameObject.SetActive(true);
+        cancelButton.gameObject.SetActive(false);
+        DOVirtual.DelayedCall(1, () =>
+        {
+            cancelButton.gameObject.SetActive(true);
+
+            Color c = cancelText.color;
+            c.a = 0;
+            cancelText.color = c;
+
+            DOTween.ToAlpha(
+                () => cancelText.color,
+                color => cancelText.color = color,
+                1f, // 目標値
+                0.5f // 所要時間
+                );
+        });
     }
 
     protected override void OnClose()
