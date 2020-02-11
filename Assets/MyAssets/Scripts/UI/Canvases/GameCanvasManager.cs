@@ -27,8 +27,10 @@ public class GameCanvasManager : BaseCanvasManager
     [SerializeField] Text autoMergeCountText;
     [SerializeField] Image autoMergeCircleImage;
     [SerializeField] Image autoMergeBadgeImage;
+    [SerializeField] Text addTimeText;
 
     Sequence sequence;
+    Sequence addTimeTextSequence;
     Color defaultColor;
     ItemButtonController[] itemButtons;
     int autoMergeCount;
@@ -120,15 +122,56 @@ public class GameCanvasManager : BaseCanvasManager
 
     void ItemButtonGenerator()
     {
+
+        var buttonActions = new List<UnityAction>()
+        {
+            OnClickAddTimeButton,
+            OnClickFallBlockButton,
+            OnClickShuffleButton,
+            OnClickAutoMergeButton,
+        };
+
         itemButtons = new ItemButtonController[SaveData.i.itemCounts.Length];
 
         Vector3 pos = new Vector3(0, 130, 0);
         for (int i = 0; i < itemButtons.Length; i++)
         {
             itemButtons[i] = Instantiate(itemButtonPrefab, Vector3.zero, Quaternion.identity, itemButtonsParent);
-            itemButtons[i].OnStart(index: i, pos: pos);
+            itemButtons[i].OnStart(index: i, pos: pos, buttonActions[i]);
             pos.x += 140;
         }
+    }
+
+
+    void OnClickAddTimeButton()
+    {
+        float addSec = 10;
+        Variables.timer += addSec;
+
+        addTimeText.text = "+" + addSec;
+
+        addTimeTextSequence.Kill();
+        addTimeTextSequence = DOTween.Sequence()
+                .OnStart(() =>
+                {
+                    addTimeText.gameObject.SetActive(true);
+                    addTimeText.rectTransform.localScale = Vector3.zero;
+                    Color color = addTimeText.color;
+                    color.a = 1;
+                    addTimeText.color = color;
+                })
+                .Append(addTimeText.rectTransform.DOScale(Vector3.one, 1f).SetEase(Ease.OutElastic))
+                .Append(DOTween.ToAlpha(() => addTimeText.color, color => addTimeText.color = color, 0f, 2f));
+    }
+
+    void OnClickFallBlockButton()
+    {
+        BlocksManager.i.ShowBlocksTopLine();
+    }
+
+    void OnClickShuffleButton()
+    {
+        BlocksManager.i.ShuffleBlocks();
     }
 
     void OnClickAutoMergeButton()

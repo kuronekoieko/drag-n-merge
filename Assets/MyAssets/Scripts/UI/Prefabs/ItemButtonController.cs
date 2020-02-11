@@ -19,7 +19,7 @@ public class ItemButtonController : MonoBehaviour
     int index;
     int coinCount;
 
-    public void OnStart(int index, Vector3 pos)
+    public void OnStart(int index, Vector3 pos, UnityAction ButtonAction)
     {
         this.index = index;
         bgImage.sprite = itemSprites[index];
@@ -31,17 +31,11 @@ public class ItemButtonController : MonoBehaviour
             .Subscribe(itemCount => ShowCounts(itemCount))
             .AddTo(this.gameObject);
 
-        var buttonActions = new List<UnityAction>()
-        {
-            OnClickAddTimeButton,
-            OnClickFallBlockButton,
-            OnClickShuffleButton,
-            OnClickAutoMergeButton,
-        };
+
 
         button.onClick.AddListener(() =>
         {
-            UseItem(() => { buttonActions[index](); });
+            UseItem(() => { ButtonAction(); });
         });
 
         coinCount = ItemDataSO.i.itemDatas[index].coinCount;
@@ -56,25 +50,7 @@ public class ItemButtonController : MonoBehaviour
         coinCountRT.gameObject.SetActive(isShowCoin);
     }
 
-    void OnClickAddTimeButton()
-    {
-        Variables.timer += 5;
-    }
 
-    void OnClickFallBlockButton()
-    {
-        BlocksManager.i.ShowBlocksTopLine();
-    }
-
-    void OnClickShuffleButton()
-    {
-        BlocksManager.i.ShuffleBlocks();
-    }
-
-    void OnClickAutoMergeButton()
-    {
-        BlocksManager.i.AutoMergeBlocks();
-    }
 
     void UseItem(Action ItemAction)
     {

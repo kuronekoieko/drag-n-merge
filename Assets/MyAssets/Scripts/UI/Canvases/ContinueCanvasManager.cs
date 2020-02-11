@@ -5,6 +5,10 @@ using UnityEngine.UI;
 using UniRx;
 using DG.Tweening;
 
+/// <summary>
+/// 【Unity】[TIPS] DoTweenで画像のalpha値をアニメーションさせたい
+/// https://ghoul-life.hatenablog.com/entry/2018/02/01/201750
+/// </summary>
 public class ContinueCanvasManager : BaseCanvasManager
 {
     [SerializeField] Button coinButton;
