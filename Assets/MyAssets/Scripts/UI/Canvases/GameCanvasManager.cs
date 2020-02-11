@@ -145,6 +145,8 @@ public class GameCanvasManager : BaseCanvasManager
 
     void OnClickAddTimeButton()
     {
+        AudioManager.i.PlayOneShot(3);
+
         float addSec = 10;
         Variables.timer += addSec;
 
@@ -166,11 +168,15 @@ public class GameCanvasManager : BaseCanvasManager
 
     void OnClickFallBlockButton()
     {
+        AudioManager.i.PlayOneShot(3);
+
         BlocksManager.i.ShowBlocksTopLine();
     }
 
     void OnClickShuffleButton()
     {
+        AudioManager.i.PlayOneShot(3);
+
         BlocksManager.i.ShuffleBlocks();
     }
 
@@ -182,6 +188,7 @@ public class GameCanvasManager : BaseCanvasManager
 
         autoMergeCount--;
         BlocksManager.i.AutoMergeBlocks();
+        AudioManager.i.PlayOneShot(3);
     }
 
     void AutoMergeCircleView()
