@@ -193,7 +193,7 @@ public class GameCanvasManager : BaseCanvasManager
 
     void AutoMergeCircleView()
     {
-        autoMergeCircleImage.fillAmount = Variables.autoMergePoint / 1000f;
+        autoMergeCircleImage.fillAmount = Variables.autoMergePoint / 3000f;
         if (autoMergeCircleImage.fillAmount < 1) { return; }
         autoMergeCount++;
         Variables.autoMergePoint = 0;
