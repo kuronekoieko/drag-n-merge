@@ -85,6 +85,7 @@ public class ContinueCanvasManager : BaseCanvasManager
         SaveData.i.coinCount -= coinCount;
         SaveDataManager.i.Save();
         Continue();
+        AudioManager.i.PlayOneShot(3);
     }
 
     void OnClickVideoButton()
