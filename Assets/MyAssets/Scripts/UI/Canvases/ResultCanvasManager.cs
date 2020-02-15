@@ -65,7 +65,10 @@ public class ResultCanvasManager : BaseCanvasManager
         string text = "スコア:" + Variables.eraseTargetBlockCount;
         FirebaseAnalyticsManager.i.LogEvent(text);
         AudioManager.i.PlayOneShot(4);
-        ReviewGuidance();
+        if (SaveData.i.launchCount == 1 || SaveData.i.launchCount == 10)
+        {
+            ReviewGuidance();
+        }
 
         coinCount = 0;
         for (int i = 0; i < Variables.eraseTargetBlockCount; i++)
@@ -138,7 +141,7 @@ public class ResultCanvasManager : BaseCanvasManager
 #elif UNITY_IOS
              Device.RequestStoreReview();
 #elif UNITY_ANDROID
-           // Application.OpenURL("market://details?id=com.brick.games");
+            Application.OpenURL("market://details?id="+Application.productName);
 #endif
 
     }

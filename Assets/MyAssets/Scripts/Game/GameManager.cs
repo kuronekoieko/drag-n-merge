@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour
         uIManager.OnStart();
         audioManager.OnStart();
 
+        SaveData.i.launchCount += 1;
+        saveDataManager.Save();
+
         Variables.screenState = ScreenState.INITIALIZE;
     }
 

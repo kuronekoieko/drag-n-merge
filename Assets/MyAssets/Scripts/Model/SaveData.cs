@@ -10,4 +10,5 @@ public class SaveData
     public int sumOfErasedBlockNumbers;
     public int coinCount;
     public int[] itemCounts;
+    public int launchCount;
 }
