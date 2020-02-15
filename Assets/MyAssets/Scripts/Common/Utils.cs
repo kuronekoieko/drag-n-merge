@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public class Utils : MonoBehaviour
 {
@@ -29,5 +30,13 @@ public class Utils : MonoBehaviour
     {
         string deviceLanguage = Application.systemLanguage.ToString();
         return deviceLanguage.Equals("Japanese");
+    }
+
+    public static MasterData GetMasterData(int targetBlockCount)
+    {
+        MasterData lastMasterData = Variables.masterDatas.Last();
+        int lastIndex = Variables.masterDatas.LastIndexOf(lastMasterData);
+        if (lastIndex < targetBlockCount) { return lastMasterData; }
+        return Variables.masterDatas[targetBlockCount];
     }
 }

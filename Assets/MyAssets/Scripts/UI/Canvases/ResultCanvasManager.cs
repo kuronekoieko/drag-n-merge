@@ -70,10 +70,11 @@ public class ResultCanvasManager : BaseCanvasManager
             ReviewGuidance();
         }
 
+
         coinCount = 0;
         for (int i = 0; i < Variables.eraseTargetBlockCount; i++)
         {
-            coinCount += Variables.masterDatas[i].coinCount;
+            coinCount += Utils.GetMasterData(targetBlockCount: i).coinCount;
         }
         SaveData.i.coinCount += coinCount;
         SaveDataManager.i.Save();

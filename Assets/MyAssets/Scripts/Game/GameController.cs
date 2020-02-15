@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
             case GameState.RESET_TIMER:
                 blocksManager.SetBlocksNewLine(0);
                 blocksManager.MoveUpAllBlocks();
-                Variables.timer = Variables.masterDatas[Variables.eraseTargetBlockCount].timeLimit;
+                Variables.timer = Utils.GetMasterData(Variables.eraseTargetBlockCount).timeLimit;
                 Variables.gameState = GameState.MOVE_UP_ANIM;
                 break;
             case GameState.MOVE_UP_ANIM:
