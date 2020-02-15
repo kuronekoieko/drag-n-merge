@@ -57,7 +57,7 @@ public class ContinueCanvasManager : BaseCanvasManager
     {
         gameObject.SetActive(true);
         cancelButton.gameObject.SetActive(false);
-        DOVirtual.DelayedCall(1, () =>
+        DOVirtual.DelayedCall(2, () =>
         {
             cancelButton.gameObject.SetActive(true);
 
