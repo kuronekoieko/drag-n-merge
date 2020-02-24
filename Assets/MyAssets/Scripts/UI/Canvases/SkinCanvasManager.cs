@@ -15,6 +15,7 @@ public class SkinCanvasManager : BaseCanvasManager
     [SerializeField] Button closeButton;
     [SerializeField] ToggleGroup toggleGroup;
     [SerializeField] BackgroundToggleController backgroundToggleControllerPrefab;
+    [SerializeField] SpriteRenderer bGSpriteRenderer;
     BackgroundToggleController[] bGToggleControllers;
 
     public override void OnStart()
@@ -43,6 +44,14 @@ public class SkinCanvasManager : BaseCanvasManager
     protected override void OnClose()
     {
         gameObject.SetActive(false);
+        for (int i = 0; i < bGToggleControllers.Length; i++)
+        {
+            var bGToggle = bGToggleControllers[i];
+            if (bGToggle.isOn)
+            {
+                bGSpriteRenderer.sprite = bGToggle.backgroundData.sprite;
+            }
+        }
     }
 
     void OnClickCloseButton()

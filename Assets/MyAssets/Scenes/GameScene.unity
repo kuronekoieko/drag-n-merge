@@ -825,6 +825,7 @@ GameObject:
   - component: {fileID: 273831208}
   - component: {fileID: 273831209}
   - component: {fileID: 273831210}
+  - component: {fileID: 273831211}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -889,6 +890,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &273831211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273831207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1184210157, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowSwitchOff: 0
 --- !u!1 &287828028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2014,7 +2028,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1545020651}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99999976
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4811,9 +4825,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closeButton: {fileID: 1415628730}
-  content: {fileID: 273831208}
+  toggleGroup: {fileID: 273831211}
   backgroundToggleControllerPrefab: {fileID: 1037291320728125715, guid: 5fb87a2b1d254433bbcfd8f3bdb235c0,
     type: 3}
+  bGSpriteRenderer: {fileID: 0}
 --- !u!1 &1239078593
 GameObject:
   m_ObjectHideFlags: 0
