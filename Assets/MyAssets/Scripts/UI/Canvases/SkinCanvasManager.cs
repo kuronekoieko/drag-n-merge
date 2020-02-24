@@ -19,7 +19,8 @@ public class SkinCanvasManager : BaseCanvasManager
 
     public override void OnStart()
     {
-        base.SetScreenAction(thisScreen: ScreenState.SKIN);
+        base.screenState = ScreenState.SKIN;
+        //  base.SetScreenAction(thisScreen: ScreenState.SKIN);
         closeButton.onClick.AddListener(OnClickCloseButton);
 
         ToggleGanarator();
@@ -31,7 +32,7 @@ public class SkinCanvasManager : BaseCanvasManager
         gameObject.SetActive(false);
     }
 
-    protected override void OnOpen()
+    public override void Open()
     {
         gameObject.SetActive(true);
         for (int i = 0; i < bGToggleControllers.Length; i++)
@@ -40,14 +41,15 @@ public class SkinCanvasManager : BaseCanvasManager
         }
     }
 
-    protected override void OnClose()
+    public override void Close()
     {
         gameObject.SetActive(false);
     }
 
     void OnClickCloseButton()
     {
-        Variables.screenState = ScreenState.START;
+        // Variables.screenState = ScreenState.START;
+        GameManager.i.uIManager.Change(open: ScreenState.NONE, close: base.screenState);
     }
 
     void ToggleGanarator()

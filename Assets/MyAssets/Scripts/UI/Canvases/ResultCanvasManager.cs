@@ -37,8 +37,8 @@ public class ResultCanvasManager : BaseCanvasManager
 
     public override void OnStart()
     {
-
-        base.SetScreenAction(thisScreen: ScreenState.RESULT);
+        base.screenState = ScreenState.RESULT;
+        // base.SetScreenAction(thisScreen: ScreenState.RESULT);
 
         nextButton.onClick.AddListener(OnClickRestartButton);
         twitterButton.onClick.AddListener(OnClickTwitterButton);
@@ -58,7 +58,7 @@ public class ResultCanvasManager : BaseCanvasManager
         bestScoreText.text = SaveData.i.sumOfErasedBlockNumbers.ToString();
     }
 
-    protected override void OnOpen()
+    public override void Open()
     {
         gameObject.SetActive(true);
         targetCountText.text = "x " + Variables.eraseTargetBlockCount;
@@ -83,20 +83,21 @@ public class ResultCanvasManager : BaseCanvasManager
         coinCountText.text = "+ " + coinCount;
     }
 
-    protected override void OnClose()
+    public override void Close()
     {
     }
 
     void OnClickRestartButton()
     {
         AudioManager.i.PlayOneShot(2);
-        Variables.screenState = ScreenState.INITIALIZE;
+        GameManager.i.uIManager.Change(open: ScreenState.INITIALIZE, close: base.screenState);
         gameObject.SetActive(false);
     }
 
     void OnClickSkinButton()
     {
-        Variables.screenState = ScreenState.SKIN;
+        // Variables.screenState = ScreenState.SKIN;
+        GameManager.i.uIManager.Change(open: ScreenState.SKIN);
     }
 
     void SetTweetText()

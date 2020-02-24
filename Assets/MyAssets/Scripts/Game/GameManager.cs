@@ -10,7 +10,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] TenjinManager tenjinManager;
     [SerializeField] CSVManagr cSVManagr;
     GameController gameController;
-    UIManager uIManager;
+    public UIManager uIManager { get; private set; }
+    public static GameManager i;
+
     void Awake()
     {
         QualitySettings.vSyncCount = 0; // VSyncをOFFにする
@@ -22,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        i = this;
         saveDataManager.OnStart();
         tenjinManager.OnStart();
         FirebaseAnalyticsManager.i.OnStart();
@@ -40,6 +43,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(Variables.screenState);
         switch (Variables.screenState)
         {
             case ScreenState.INITIALIZE:

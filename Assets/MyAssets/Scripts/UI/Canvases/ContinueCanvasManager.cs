@@ -25,7 +25,8 @@ public class ContinueCanvasManager : BaseCanvasManager
 
     public override void OnStart()
     {
-        base.SetScreenAction(thisScreen: ScreenState.CONTINUE);
+        base.screenState = ScreenState.CONTINUE;
+        //base.SetScreenAction(thisScreen: ScreenState.CONTINUE);
 
         coinButton.onClick.AddListener(OnClickCoinButton);
         videoButton.onClick.AddListener(OnClickVideoButton);
@@ -53,7 +54,7 @@ public class ContinueCanvasManager : BaseCanvasManager
         circleImage.fillAmount = timer / startTime;
     }
 
-    protected override void OnOpen()
+    public override void Open()
     {
         gameObject.SetActive(true);
         cancelButton.gameObject.SetActive(false);
@@ -74,7 +75,7 @@ public class ContinueCanvasManager : BaseCanvasManager
         });
     }
 
-    protected override void OnClose()
+    public override void Close()
     {
         gameObject.SetActive(false);
     }
@@ -95,7 +96,8 @@ public class ContinueCanvasManager : BaseCanvasManager
 
     void OnClickCancelButton()
     {
-        Variables.screenState = ScreenState.RESULT;
+        //Variables.screenState = ScreenState.RESULT;
+        GameManager.i.uIManager.Change(open: ScreenState.RESULT, close: base.screenState);
     }
 
     void Continue()
@@ -105,7 +107,8 @@ public class ContinueCanvasManager : BaseCanvasManager
             BlocksManager.i.EraseLine(i);
         }
 
-        Variables.screenState = ScreenState.GAME;
+        // Variables.screenState = ScreenState.GAME;
+        GameManager.i.uIManager.Change(open: ScreenState.GAME, close: base.screenState);
     }
 
 }

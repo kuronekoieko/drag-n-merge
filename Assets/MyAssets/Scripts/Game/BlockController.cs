@@ -558,7 +558,8 @@ public class BlockController : MonoBehaviour
     {
         if (indexY != Values.BOARD_LENGTH_Y - 1) { return; }
         if (!gameObject.activeSelf) { return; }
-        Variables.screenState = ScreenState.CONTINUE;
+        // Variables.screenState = ScreenState.CONTINUE;
+        GameManager.i.uIManager.Change(open: ScreenState.CONTINUE);
     }
 }
 

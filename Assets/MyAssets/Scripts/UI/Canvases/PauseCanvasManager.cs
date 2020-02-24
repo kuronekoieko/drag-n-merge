@@ -10,7 +10,8 @@ public class PauseCanvasManager : BaseCanvasManager
     [SerializeField] Button closeButton;
     public override void OnStart()
     {
-        base.SetScreenAction(thisScreen: ScreenState.PAUSE);
+        base.screenState = ScreenState.PAUSE;
+        // base.SetScreenAction(thisScreen: ScreenState.PAUSE);
         gameObject.SetActive(false);
 
         shopButton.onClick.AddListener(OnClickSkinButton);
@@ -22,29 +23,32 @@ public class PauseCanvasManager : BaseCanvasManager
     {
     }
 
-    protected override void OnOpen()
+    public override void Open()
     {
         gameObject.SetActive(true);
     }
 
-    protected override void OnClose()
+    public override void Close()
     {
         gameObject.SetActive(false);
     }
 
     void OnClickSkinButton()
     {
-        Variables.screenState = ScreenState.SKIN;
+        // Variables.screenState = ScreenState.SKIN;
+        GameManager.i.uIManager.Change(open: ScreenState.SKIN);
     }
 
     void OnClickResultButton()
     {
-        Variables.screenState = ScreenState.RESULT;
+        // Variables.screenState = ScreenState.RESULT;
+        GameManager.i.uIManager.Change(open: ScreenState.RESULT, close: base.screenState);
         FirebaseAnalyticsManager.i.LogEvent("ゲーム終了ボタン");
     }
 
     void OnClickCloseButton()
     {
-        Variables.screenState = ScreenState.GAME;
+        //   Variables.screenState = ScreenState.GAME;
+        GameManager.i.uIManager.Change(open: ScreenState.GAME, close: base.screenState);
     }
 }

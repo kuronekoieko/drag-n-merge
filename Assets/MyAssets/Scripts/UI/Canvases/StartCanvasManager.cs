@@ -10,14 +10,15 @@ public class StartCanvasManager : BaseCanvasManager
 {
     [SerializeField] Button startButton;
     [SerializeField] Text startText;
-   
+
     [SerializeField] SpriteRenderer bGSpriteRenderer;
 
     public override void OnStart()
     {
+        base.screenState = ScreenState.START;
         startButton.onClick.AddListener(OnClickStartButton);
-      
-        base.SetScreenAction(thisScreen: ScreenState.START);
+
+        // base.SetScreenAction(thisScreen: ScreenState.START);
 
         Anim();
     }
@@ -40,7 +41,7 @@ public class StartCanvasManager : BaseCanvasManager
                });
     }
 
-    protected override void OnOpen()
+    public override void Open()
     {
         gameObject.SetActive(true);
 
@@ -53,7 +54,7 @@ public class StartCanvasManager : BaseCanvasManager
         }
     }
 
-    protected override void OnClose()
+    public override void Close()
     {
     }
 
@@ -61,7 +62,9 @@ public class StartCanvasManager : BaseCanvasManager
     {
         FirebaseAnalyticsManager.i.LogEvent("スタートボタン");
         gameObject.SetActive(false);
-        Variables.screenState = ScreenState.GAME;
+        // Variables.screenState = ScreenState.GAME;
+        GameManager.i.uIManager.Change(open: ScreenState.GAME, close: base.screenState);
+
         AudioManager.i.PlayOneShot(1);
     }
 }

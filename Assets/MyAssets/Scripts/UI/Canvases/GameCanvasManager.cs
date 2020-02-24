@@ -37,7 +37,8 @@ public class GameCanvasManager : BaseCanvasManager
 
     public override void OnStart()
     {
-        base.SetScreenAction(thisScreen: ScreenState.GAME);
+        base.screenState = ScreenState.GAME;
+        // base.SetScreenAction(thisScreen: ScreenState.GAME);
 
         this.ObserveEveryValueChanged(timer => Variables.timer)
             .Subscribe(timer => { SetTimeCountText(); })
@@ -81,11 +82,11 @@ public class GameCanvasManager : BaseCanvasManager
         autoMergeCount = 0;
     }
 
-    protected override void OnOpen()
+    public override void Open()
     {
     }
 
-    protected override void OnClose()
+    public override void Close()
     {
     }
 
@@ -99,7 +100,8 @@ public class GameCanvasManager : BaseCanvasManager
     void OnClickGameEndButton()
     {
         FirebaseAnalyticsManager.i.LogEvent("ポーズボタン");
-        Variables.screenState = ScreenState.PAUSE;
+        //Variables.screenState = ScreenState.PAUSE;
+        GameManager.i.uIManager.Change(open: ScreenState.PAUSE);
     }
 
 

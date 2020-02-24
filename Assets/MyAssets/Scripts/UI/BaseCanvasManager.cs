@@ -5,23 +5,15 @@ using UniRx;
 
 public class BaseCanvasManager : MonoBehaviour
 {
-    /// <summary>
-    /// OnOpenとOnCloseのイベント発火タイミングを設定する
-    /// </summary>
-    /// <param name="thisScreen">セットする画面のenumを入れてください</param>
-    protected void SetScreenAction(ScreenState thisScreen)
-    {
-        this.ObserveEveryValueChanged(screenState => Variables.screenState)
-            .Where(screenState => screenState == thisScreen)
-            .Subscribe(screenState => { OnOpen(); })
-            .AddTo(this.gameObject);
+    public ScreenState screenState { get; set; }
 
-        this.ObserveEveryValueChanged(screenState => Variables.screenState)
-            .Buffer(2, 1)
-            .Where(screenState => screenState[0] == thisScreen)
-            .Where(screenState => screenState[1] != thisScreen)
-            .Subscribe(screenState => { OnClose(); })
-            .AddTo(this.gameObject);
+    public virtual void Open()
+    {
+    }
+
+    public virtual void Close()
+    {
+
     }
 
     public virtual void OnStart()
@@ -29,20 +21,6 @@ public class BaseCanvasManager : MonoBehaviour
     }
 
     public virtual void OnInitialize()
-    {
-    }
-
-    /// <summary>
-    /// 画面が開かれる瞬間だけ呼ばれる
-    /// </summary>
-    protected virtual void OnOpen()
-    {
-    }
-
-    /// <summary>
-    /// 画面が閉じられる瞬間だけ呼ばれる
-    /// </summary>
-    protected virtual void OnClose()
     {
     }
 
@@ -57,11 +35,11 @@ public class BaseCanvasManager : MonoBehaviour
         {
         }
 
-        protected override void OnOpen()
+        public override void Open()
         {
         }
 
-        protected override void OnClose()
+        public override void Close()
         {
         }
         
