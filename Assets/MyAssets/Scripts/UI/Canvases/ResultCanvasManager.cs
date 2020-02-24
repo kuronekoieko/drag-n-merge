@@ -48,6 +48,7 @@ public class ResultCanvasManager : BaseCanvasManager
         Anim(nextButton.transform);
         Anim(twitterButton.transform);
         Anim(shareButton.transform);
+        Anim(shopButton.transform);
     }
 
     public override void OnInitialize()
@@ -91,12 +92,13 @@ public class ResultCanvasManager : BaseCanvasManager
 
     void OnClickRestartButton()
     {
-        AudioManager.i.PlayOneShot(2);
+        AudioManager.i.PlayOneShot(1);
         Variables.screenState = ScreenState.INITIALIZE;
     }
 
     void OnClickSkinButton()
     {
+        AudioManager.i.PlayOneShot(1);
         Variables.screenState = ScreenState.SKIN;
     }
 

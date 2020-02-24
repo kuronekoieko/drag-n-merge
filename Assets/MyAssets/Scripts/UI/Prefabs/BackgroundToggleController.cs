@@ -40,6 +40,8 @@ public class BackgroundToggleController : MonoBehaviour
     {
         SaveData.i.possessedBackgrounds[index].isSelected = isOn;
         SaveDataManager.i.Save();
+
+        AudioManager.i.PlayOneShot(6);
     }
 
     public void OnOpen()

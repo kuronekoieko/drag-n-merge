@@ -98,6 +98,7 @@ public class GameCanvasManager : BaseCanvasManager
 
     void OnClickGameEndButton()
     {
+        AudioManager.i.PlayOneShot(1);
         FirebaseAnalyticsManager.i.LogEvent("ポーズボタン");
         Variables.screenState = ScreenState.PAUSE;
     }

@@ -7238,6 +7238,10 @@ MonoBehaviour:
     soundName: "10\u306E\u30D6\u30ED\u30C3\u30AF\u304C\u3067\u304D\u305F\u3068\u304D"
   - audioClip: {fileID: 8300000, guid: 3bffd1d4eafa64e9d83e26ecac2a46c7, type: 3}
     soundName: "\u30EA\u30B6\u30EB\u30C8\u753B\u9762"
+  - audioClip: {fileID: 8300000, guid: ef4e1fb4a4e434f57a97ab3698419b05, type: 3}
+    soundName: "\u30AD\u30E3\u30F3\u30BB\u30EB"
+  - audioClip: {fileID: 8300000, guid: 32d4b1811dda14a6cb9e059ee8ad17d2, type: 3}
+    soundName: "\u5207\u308A\u66FF\u3048"
 --- !u!4 &1590465346
 Transform:
   m_ObjectHideFlags: 0

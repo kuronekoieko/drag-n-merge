@@ -49,6 +49,7 @@ public class SkinCanvasManager : BaseCanvasManager
     {
         Variables.screenState = Variables.lastScreenState;
         GameManager.i.gameController.SetBackground();
+        AudioManager.i.PlayOneShot(5);
     }
 
     void ToggleGanarator()

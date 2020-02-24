@@ -35,6 +35,7 @@ public class PauseCanvasManager : BaseCanvasManager
     void OnClickSkinButton()
     {
         Variables.screenState = ScreenState.SKIN;
+        AudioManager.i.PlayOneShot(1);
     }
 
     void OnClickResultButton()
@@ -45,6 +46,7 @@ public class PauseCanvasManager : BaseCanvasManager
 
     void OnClickCloseButton()
     {
+        AudioManager.i.PlayOneShot(5);
         Variables.screenState = ScreenState.GAME;
     }
 }
