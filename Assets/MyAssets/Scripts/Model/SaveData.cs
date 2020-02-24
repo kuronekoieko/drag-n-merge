@@ -11,4 +11,12 @@ public class SaveData
     public int coinCount;
     public int[] itemCounts;
     public int launchCount;
+    public List<PossessedBackground> possessedBackgrounds;
+}
+
+[System.Serializable]
+public class PossessedBackground
+{
+    public bool isPossessed;
+    public bool isSelected;
 }

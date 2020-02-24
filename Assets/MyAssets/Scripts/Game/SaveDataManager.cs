@@ -62,6 +62,22 @@ public class SaveDataManager : MonoBehaviour
             SaveData.i.itemCounts[i] = 3;
         }
 
+        SaveData.i.possessedBackgrounds = new List<PossessedBackground>();
+        for (int i = 0; i < BackgroundDataSO.i.backgroundDatas.Length; i++)
+        {
+            var possessedBackground = new PossessedBackground
+            {
+                isSelected = false,
+                isPossessed = false,
+            };
+            if (i == 0)
+            {
+                possessedBackground.isPossessed = true;
+                possessedBackground.isSelected = true;
+            }
+            SaveData.i.possessedBackgrounds.Add(possessedBackground);
+        }
+
         //デフォルトのユーザーデータを作成
         string defaultJsonStr = JsonUtility.ToJson(SaveData.i);
         return defaultJsonStr;

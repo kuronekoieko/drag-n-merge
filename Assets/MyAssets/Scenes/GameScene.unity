@@ -1402,6 +1402,7 @@ MonoBehaviour:
   startButton: {fileID: 110317929}
   startText: {fileID: 2025266813}
   shopButton: {fileID: 1925185991}
+  bGSpriteRenderer: {fileID: 752639497}
 --- !u!114 &385382575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4828,7 +4829,6 @@ MonoBehaviour:
   toggleGroup: {fileID: 273831211}
   backgroundToggleControllerPrefab: {fileID: 1037291320728125715, guid: 5fb87a2b1d254433bbcfd8f3bdb235c0,
     type: 3}
-  bGSpriteRenderer: {fileID: 0}
 --- !u!1 &1239078593
 GameObject:
   m_ObjectHideFlags: 0

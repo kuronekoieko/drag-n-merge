@@ -15,7 +15,6 @@ public class SkinCanvasManager : BaseCanvasManager
     [SerializeField] Button closeButton;
     [SerializeField] ToggleGroup toggleGroup;
     [SerializeField] BackgroundToggleController backgroundToggleControllerPrefab;
-    [SerializeField] SpriteRenderer bGSpriteRenderer;
     BackgroundToggleController[] bGToggleControllers;
 
     public override void OnStart()
@@ -37,21 +36,13 @@ public class SkinCanvasManager : BaseCanvasManager
         gameObject.SetActive(true);
         for (int i = 0; i < bGToggleControllers.Length; i++)
         {
-            bGToggleControllers[i].isOn = (i == 0);
+            bGToggleControllers[i].isOn = SaveData.i.possessedBackgrounds[i].isSelected;
         }
     }
 
     protected override void OnClose()
     {
         gameObject.SetActive(false);
-        for (int i = 0; i < bGToggleControllers.Length; i++)
-        {
-            var bGToggle = bGToggleControllers[i];
-            if (bGToggle.isOn)
-            {
-                bGSpriteRenderer.sprite = bGToggle.backgroundData.sprite;
-            }
-        }
     }
 
     void OnClickCloseButton()
@@ -66,7 +57,10 @@ public class SkinCanvasManager : BaseCanvasManager
         for (int i = 0; i < bGToggleControllers.Length; i++)
         {
             bGToggleControllers[i] = Instantiate(backgroundToggleControllerPrefab, Vector3.zero, Quaternion.identity, content);
-            bGToggleControllers[i].OnStart(BackgroundDataSO.i.backgroundDatas[i], toggleGroup);
+            bGToggleControllers[i].OnStart(
+                backgroundData: BackgroundDataSO.i.backgroundDatas[i],
+                toggleGroup: toggleGroup,
+                index: i);
         }
     }
 }

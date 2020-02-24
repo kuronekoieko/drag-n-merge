@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 using DG.Tweening;
+using System.Linq;
 
 public class StartCanvasManager : BaseCanvasManager
 {
     [SerializeField] Button startButton;
     [SerializeField] Text startText;
     [SerializeField] Button shopButton;
+    [SerializeField] SpriteRenderer bGSpriteRenderer;
 
     public override void OnStart()
     {
@@ -44,6 +46,14 @@ public class StartCanvasManager : BaseCanvasManager
     protected override void OnOpen()
     {
         gameObject.SetActive(true);
+
+        for (int i = 0; i < SaveData.i.possessedBackgrounds.Count; i++)
+        {
+            if (SaveData.i.possessedBackgrounds[i].isSelected)
+            {
+                bGSpriteRenderer.sprite = BackgroundDataSO.i.backgroundDatas[i].sprite;
+            }
+        }
     }
 
     protected override void OnClose()
