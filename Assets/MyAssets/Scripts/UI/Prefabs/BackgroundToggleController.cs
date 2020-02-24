@@ -6,6 +6,10 @@ using UniRx;
 
 public class BackgroundToggleController : MonoBehaviour
 {
+    /*
+    【uGUI】ToggleのON/OFF時にToggleの色を変える
+    https://qiita.com/daria_sieben/items/920c42c9046678baa971
+    */
     [SerializeField] Image bGImage;
     [SerializeField] Text coinCountText;
     [SerializeField] RectTransform coinCountRT;
@@ -40,17 +44,12 @@ public class BackgroundToggleController : MonoBehaviour
 
     public void OnOpen()
     {
-        /*  bool isPossessed = SaveData.i.possessedBackgrounds[index].isPossessed;
-        coinCountRT.gameObject.SetActive(!isPossessed);
-        toggleRT.gameObject.SetActive(isPossessed);
-        toggle.interactable = isPossessed;*/
-
-
         toggle.isOn = SaveData.i.possessedBackgrounds[index].isSelected;
     }
 
     void OnClickGetButton()
     {
+        if (SaveData.i.coinCount < backgroundData.coinCount) { return; }
         SaveData.i.possessedBackgrounds[index].isPossessed = true;
         SaveData.i.coinCount -= backgroundData.coinCount;
         SaveDataManager.i.Save();
@@ -63,5 +62,4 @@ public class BackgroundToggleController : MonoBehaviour
         toggleRT.gameObject.SetActive(isPossessed);
         toggle.interactable = isPossessed;
     }
-
 }
