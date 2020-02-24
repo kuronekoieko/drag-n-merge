@@ -58,7 +58,6 @@ public class SkinCanvasManager : BaseCanvasManager
         {
             bGToggleControllers[i] = Instantiate(backgroundToggleControllerPrefab, Vector3.zero, Quaternion.identity, content);
             bGToggleControllers[i].OnStart(
-                backgroundData: BackgroundDataSO.i.backgroundDatas[i],
                 toggleGroup: toggleGroup,
                 index: i);
         }
