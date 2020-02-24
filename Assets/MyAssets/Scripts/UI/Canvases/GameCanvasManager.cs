@@ -98,8 +98,8 @@ public class GameCanvasManager : BaseCanvasManager
 
     void OnClickGameEndButton()
     {
-        FirebaseAnalyticsManager.i.LogEvent("ゲーム終了ボタン");
-        Variables.screenState = ScreenState.RESULT;
+        FirebaseAnalyticsManager.i.LogEvent("ポーズボタン");
+        Variables.screenState = ScreenState.PAUSE;
     }
 
 

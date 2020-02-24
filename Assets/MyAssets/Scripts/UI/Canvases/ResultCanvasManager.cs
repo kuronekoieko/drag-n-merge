@@ -28,6 +28,7 @@ public class ResultCanvasManager : BaseCanvasManager
     [SerializeField] Button shareButton;
     [SerializeField] Text shareText;
     [SerializeField] Text coinCountText;
+    [SerializeField] Button shopButton;
 
     string tweetText;
     bool isUpdateHighScore;
@@ -42,6 +43,7 @@ public class ResultCanvasManager : BaseCanvasManager
         nextButton.onClick.AddListener(OnClickRestartButton);
         twitterButton.onClick.AddListener(OnClickTwitterButton);
         shareButton.onClick.AddListener(onClickShare);
+        shopButton.onClick.AddListener(OnClickSkinButton);
 
         Anim(nextButton.transform);
         Anim(twitterButton.transform);
@@ -92,6 +94,11 @@ public class ResultCanvasManager : BaseCanvasManager
         gameObject.SetActive(false);
     }
 
+    void OnClickSkinButton()
+    {
+        Variables.screenState = ScreenState.SKIN;
+    }
+
     void SetTweetText()
     {
         string a = "";
@@ -118,6 +125,7 @@ public class ResultCanvasManager : BaseCanvasManager
         }
 
     }
+
 
 
     public void OnClickTwitterButton()
