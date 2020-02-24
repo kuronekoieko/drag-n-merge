@@ -8,14 +8,11 @@ public class BackgroundToggleController : MonoBehaviour
 {
     [SerializeField] Image bGImage;
     [SerializeField] Text coinCountText;
+    [SerializeField] RectTransform coinCountRT;
+    [SerializeField] RectTransform toggleRT;
+
     Toggle toggle;
     int index;
-
-    public bool isOn
-    {
-        set { toggle.isOn = value; }
-        get { return toggle.isOn; }
-    }
 
     public BackgroundData backgroundData { get; private set; }
 
@@ -34,6 +31,16 @@ public class BackgroundToggleController : MonoBehaviour
     {
         SaveData.i.possessedBackgrounds[index].isSelected = isOn;
         SaveDataManager.i.Save();
+    }
+
+    public void OnOpen()
+    {
+        bool isPossessed = SaveData.i.possessedBackgrounds[index].isPossessed;
+        coinCountRT.gameObject.SetActive(!isPossessed);
+        toggleRT.gameObject.SetActive(isPossessed);
+        toggle.interactable = isPossessed;
+
+        toggle.isOn = SaveData.i.possessedBackgrounds[index].isSelected;
     }
 
 }

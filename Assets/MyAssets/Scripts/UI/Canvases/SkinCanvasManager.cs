@@ -36,7 +36,7 @@ public class SkinCanvasManager : BaseCanvasManager
         gameObject.SetActive(true);
         for (int i = 0; i < bGToggleControllers.Length; i++)
         {
-            bGToggleControllers[i].isOn = SaveData.i.possessedBackgrounds[i].isSelected;
+            bGToggleControllers[i].OnOpen();
         }
     }
 
