@@ -4,7 +4,17 @@ using UnityEngine;
 
 public class Variables : MonoBehaviour
 {
-    public static ScreenState screenState;
+    public static ScreenState screenState
+    {
+        set
+        {
+            lastScreenState = _screenState;
+            _screenState = value;
+        }
+        get { return _screenState; }
+    }
+    private static ScreenState _screenState;
+    public static ScreenState lastScreenState { get; private set; }
     public static GameState gameState;
     public static float timer;
     public static int targetNum;

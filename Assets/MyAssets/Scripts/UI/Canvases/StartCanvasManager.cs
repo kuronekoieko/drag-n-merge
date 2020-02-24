@@ -10,13 +10,11 @@ public class StartCanvasManager : BaseCanvasManager
 {
     [SerializeField] Button startButton;
     [SerializeField] Text startText;
-   
-    [SerializeField] SpriteRenderer bGSpriteRenderer;
 
     public override void OnStart()
     {
         startButton.onClick.AddListener(OnClickStartButton);
-      
+
         base.SetScreenAction(thisScreen: ScreenState.START);
 
         Anim();
@@ -43,14 +41,7 @@ public class StartCanvasManager : BaseCanvasManager
     protected override void OnOpen()
     {
         gameObject.SetActive(true);
-
-        for (int i = 0; i < SaveData.i.possessedBackgrounds.Count; i++)
-        {
-            if (SaveData.i.possessedBackgrounds[i].isSelected)
-            {
-                bGSpriteRenderer.sprite = BackgroundDataSO.i.backgroundDatas[i].sprite;
-            }
-        }
+        GameManager.i.gameController.SetBackground();
     }
 
     protected override void OnClose()

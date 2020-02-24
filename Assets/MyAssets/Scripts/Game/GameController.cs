@@ -6,6 +6,7 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] BlocksManager blocksManager;
     [SerializeField] ScoreNumTextManager scoreNumTextManager;
+    [SerializeField] SpriteRenderer bGSpriteRenderer;
 
     public void OnStart()
     {
@@ -63,4 +64,15 @@ public class GameController : MonoBehaviour
         Variables.timer = -1f;
     }
 
+    public void SetBackground()
+    {
+        for (int i = 0; i < SaveData.i.possessedBackgrounds.Count; i++)
+        {
+            if (SaveData.i.possessedBackgrounds[i].isSelected)
+            {
+                bGSpriteRenderer.sprite = BackgroundDataSO.i.backgroundDatas[i].sprite;
+            }
+        }
+
+    }
 }

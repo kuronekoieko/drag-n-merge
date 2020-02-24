@@ -47,7 +47,8 @@ public class SkinCanvasManager : BaseCanvasManager
 
     void OnClickCloseButton()
     {
-        Variables.screenState = ScreenState.START;
+        Variables.screenState = Variables.lastScreenState;
+        GameManager.i.gameController.SetBackground();
     }
 
     void ToggleGanarator()

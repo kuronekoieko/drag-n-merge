@@ -60,6 +60,7 @@ public class ResultCanvasManager : BaseCanvasManager
 
     protected override void OnOpen()
     {
+        if (Variables.lastScreenState == ScreenState.SKIN) { return; }
         gameObject.SetActive(true);
         targetCountText.text = "x " + Variables.eraseTargetBlockCount;
         scoreText.text = Variables.sumOfErasedBlockNumbers.ToString();
@@ -85,13 +86,13 @@ public class ResultCanvasManager : BaseCanvasManager
 
     protected override void OnClose()
     {
+        gameObject.SetActive(Variables.screenState == ScreenState.SKIN);
     }
 
     void OnClickRestartButton()
     {
         AudioManager.i.PlayOneShot(2);
         Variables.screenState = ScreenState.INITIALIZE;
-        gameObject.SetActive(false);
     }
 
     void OnClickSkinButton()

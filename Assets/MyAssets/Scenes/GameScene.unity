@@ -1554,7 +1554,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startButton: {fileID: 110317929}
   startText: {fileID: 2025266813}
-  bGSpriteRenderer: {fileID: 752639497}
 --- !u!114 &385382575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3115,6 +3114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blocksManager: {fileID: 2073170389}
   scoreNumTextManager: {fileID: 629573507}
+  bGSpriteRenderer: {fileID: 752639497}
 --- !u!114 &705103232
 MonoBehaviour:
   m_ObjectHideFlags: 0

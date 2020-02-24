@@ -9,8 +9,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] SaveDataManager saveDataManager;
     [SerializeField] TenjinManager tenjinManager;
     [SerializeField] CSVManagr cSVManagr;
-    GameController gameController;
-    UIManager uIManager;
+    public GameController gameController { get; private set; }
+    public UIManager uIManager { get; private set; }
+    public static GameManager i;
+
     void Awake()
     {
         QualitySettings.vSyncCount = 0; // VSyncをOFFにする
@@ -18,6 +20,7 @@ public class GameManager : MonoBehaviour
         Time.fixedDeltaTime = 0.008f;
         gameController = GetComponent<GameController>();
         uIManager = GetComponent<UIManager>();
+        i = this;
     }
 
     void Start()
