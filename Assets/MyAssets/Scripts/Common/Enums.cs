@@ -5,6 +5,7 @@
     GAME,
     RESULT,
     CONTINUE,
+    SKIN,
 }
 
 public enum GameState

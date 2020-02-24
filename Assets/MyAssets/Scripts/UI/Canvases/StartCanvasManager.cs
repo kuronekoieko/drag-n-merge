@@ -9,11 +9,15 @@ public class StartCanvasManager : BaseCanvasManager
 {
     [SerializeField] Button startButton;
     [SerializeField] Text startText;
+    [SerializeField] Button shopButton;
 
     public override void OnStart()
     {
         startButton.onClick.AddListener(OnClickStartButton);
-
+        shopButton.onClick.AddListener(() =>
+        {
+            Variables.screenState = ScreenState.SKIN;
+        });
         base.SetScreenAction(thisScreen: ScreenState.START);
 
         Anim();

@@ -50,7 +50,7 @@ public class BaseCanvasManager : MonoBehaviour
 
         public override void OnStart()
         {
-            base.SetScreenAction(thisScreen: ScreenState.RESULT); 
+            base.SetScreenAction(thisScreen: ScreenState.); 
         }
 
         public override void OnInitialize()
