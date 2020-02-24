@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ee43536075d403387e1b2094b69d63, type: 3}
+  m_Name: BackgroundDataSO
+  m_EditorClassIdentifier: 
+  backgroundDatas:
+  - sprite: {fileID: 21300000, guid: 6d9bf4040f3004e71a5ad6b67a7d9173, type: 3}
+    isTextBlack: 1
+    coinCount: 100
+  - sprite: {fileID: 21300000, guid: c604bee4651cc46b185a3803b2b12b12, type: 3}
+    isTextBlack: 0
+    coinCount: 200
+  - sprite: {fileID: 21300000, guid: 9b7b97d43c886447795415233f3563c3, type: 3}
+    isTextBlack: 0
+    coinCount: 300
+  - sprite: {fileID: 21300000, guid: dab87f7ade65142c8a47364cc261476e, type: 3}
+    isTextBlack: 1
+    coinCount: 400
