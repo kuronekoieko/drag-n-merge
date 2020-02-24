@@ -16,12 +16,15 @@ MonoBehaviour:
   - sprite: {fileID: 21300000, guid: 6d9bf4040f3004e71a5ad6b67a7d9173, type: 3}
     isTextBlack: 1
     coinCount: 100
-  - sprite: {fileID: 21300000, guid: c604bee4651cc46b185a3803b2b12b12, type: 3}
+  - sprite: {fileID: 21300000, guid: ace0a8964b5fa464e883e34fc2c1e470, type: 3}
     isTextBlack: 0
     coinCount: 200
-  - sprite: {fileID: 21300000, guid: 9b7b97d43c886447795415233f3563c3, type: 3}
+  - sprite: {fileID: 21300000, guid: 05492de92c3ea43a98645e2c398fd837, type: 3}
     isTextBlack: 0
     coinCount: 300
-  - sprite: {fileID: 21300000, guid: dab87f7ade65142c8a47364cc261476e, type: 3}
+  - sprite: {fileID: 21300000, guid: ec4abe015a1d84f69866f40e5658120b, type: 3}
+    isTextBlack: 1
+    coinCount: 400
+  - sprite: {fileID: 21300000, guid: bc6507105dd474e2d85f2ff7d505fc3c, type: 3}
     isTextBlack: 1
     coinCount: 400

@@ -39,4 +39,13 @@ public class Utils : MonoBehaviour
         if (lastIndex < targetBlockCount) { return lastMasterData; }
         return Variables.masterDatas[targetBlockCount];
     }
+
+    public static bool IsSuccessPerchase(int coinCount)
+    {
+        bool isLackCoin = SaveData.i.coinCount < coinCount;
+        if (isLackCoin) { return false; }
+        SaveData.i.coinCount -= coinCount;
+        SaveDataManager.i.Save();
+        return true;
+    }
 }
