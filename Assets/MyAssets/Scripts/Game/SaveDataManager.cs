@@ -50,11 +50,7 @@ public class SaveDataManager : MonoBehaviour
 
     string GetDefaultSaveDataStr()
     {
-        //ユーザーデータオブジェクトにデフォルトのjsonを書き込む
-        //※アップデートで変数の種類が増えたときに初期値を入れておくため
-        JsonUtility.FromJsonOverwrite(
-            json: defaultSaveDataJson.text,
-            objectToOverwrite: SaveData.i);
+
 
         SaveData.i.itemCounts = new int[ItemDataSO.i.itemDatas.Length];
         for (int i = 0; i < SaveData.i.itemCounts.Length; i++)
@@ -75,8 +71,18 @@ public class SaveDataManager : MonoBehaviour
                 possessedBackground.isPossessed = true;
                 possessedBackground.isSelected = true;
             }
+            if (i == 1)
+            {
+                possessedBackground.isPossessed = true;
+            }
             SaveData.i.possessedBackgrounds.Add(possessedBackground);
         }
+
+        //ユーザーデータオブジェクトにデフォルトのjsonを書き込む
+        //※アップデートで変数の種類が増えたときに初期値を入れておくため
+        JsonUtility.FromJsonOverwrite(
+            json: defaultSaveDataJson.text,
+            objectToOverwrite: SaveData.i);
 
         //デフォルトのユーザーデータを作成
         string defaultJsonStr = JsonUtility.ToJson(SaveData.i);
@@ -85,6 +91,5 @@ public class SaveDataManager : MonoBehaviour
 
     void AddUserDataInstance()
     {
-
     }
 }

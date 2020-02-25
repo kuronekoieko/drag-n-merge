@@ -15,112 +15,154 @@ MonoBehaviour:
   backgroundDatas:
   - sprite: {fileID: 21300000, guid: 6d9bf4040f3004e71a5ad6b67a7d9173, type: 3}
     isTextBlack: 1
-    coinCount: 100
+    coinCount: 0
   - sprite: {fileID: 21300000, guid: ace0a8964b5fa464e883e34fc2c1e470, type: 3}
     isTextBlack: 0
-    coinCount: 200
-  - sprite: {fileID: 21300000, guid: 05492de92c3ea43a98645e2c398fd837, type: 3}
+    coinCount: 0
+  - sprite: {fileID: 21300000, guid: bc6507105dd474e2d85f2ff7d505fc3c, type: 3}
     isTextBlack: 0
-    coinCount: 300
+    coinCount: 100
   - sprite: {fileID: 21300000, guid: ec4abe015a1d84f69866f40e5658120b, type: 3}
     isTextBlack: 1
     coinCount: 400
-  - sprite: {fileID: 21300000, guid: bc6507105dd474e2d85f2ff7d505fc3c, type: 3}
+  - sprite: {fileID: 21300000, guid: 9b7b97d43c886447795415233f3563c3, type: 3}
     isTextBlack: 1
     coinCount: 400
   - sprite: {fileID: 21300000, guid: c604bee4651cc46b185a3803b2b12b12, type: 3}
     isTextBlack: 1
     coinCount: 400
-  - sprite: {fileID: 21300000, guid: 9b7b97d43c886447795415233f3563c3, type: 3}
+  - sprite: {fileID: 21300000, guid: 5cff2347548de4c968574947bced6164, type: 3}
     isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: 99efa41ff49454356852619be3afd9d3, type: 3}
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 6f2326c51ea0242a4ad630d870b6d5e9, type: 3}
     isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: 9bd9c5f2fb86942cfb70c59bb44672db, type: 3}
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: b4009bac639e94b6b95122feb294e4e6, type: 3}
     isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: f6d105be63dfc40fba8eb58ba0f895d0, type: 3}
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 277458a2c9ef1412a9b97db3f028dafe, type: 3}
     isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: 90d96875a1a004befa43040e1a536207, type: 3}
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 959449625500a48949a707897f6c398c, type: 3}
     isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: 6e617b8dd13a34bc3b3c9ca9025d63e6, type: 3}
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 7e864fd66ad0b4b65845293d32484c63, type: 3}
     isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: 7da24ad2a0a884af684b69ada0059b83, type: 3}
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 965049bd696534a5db5cbc57fb588419, type: 3}
     isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: dfe3c3285c0604476a1e66671493a5f5, type: 3}
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 732352ef6a56946ab8502c6e107e2006, type: 3}
     isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: 7b29bd2f6f0f14cd887165309c3473cc, type: 3}
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 1f5963099aaa64cbaa7b992d0bf1bc81, type: 3}
     isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: 80b7f7fd2a0c648d4a9ec857db11129f, type: 3}
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: e341f641aaff2401ab3dd4b24fd0a560, type: 3}
     isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: 1419f4286531e41cd9783f13d86b5c49, type: 3}
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 0045e554227264ad19227f1c9cb39f92, type: 3}
     isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: 9d411930d218f4fc6bedf235066c68d1, type: 3}
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 8b86e6e970dd84a95a82ca27669fddd7, type: 3}
     isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: 0b25fcc7c43724a35b7b850d7312ba8d, type: 3}
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: f4ee4c24203984581988a7e18d1a1587, type: 3}
     isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: de9a594fb9ec343a693b615b3a26a141, type: 3}
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 4deae480fda57437faffbbb66d136f16, type: 3}
     isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: 1b181c8a2ad0942fb8c604a89364dfbd, type: 3}
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: f8f4ece4d4cf746b9a53eaf3d27f4b2d, type: 3}
     isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: bc90d58e696894b058b5d8daec88322d, type: 3}
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: bc8f4e89f340c46b3b61715c1f6d918a, type: 3}
     isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: ef9810f5074d6432a989903595792ca3, type: 3}
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: a0a2a60d085f84885a39ffcf500c2366, type: 3}
     isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: 72612b640235c47b6b0e0623da382a8e, type: 3}
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: ea2a94626554a4e7eb1af9f7ba973576, type: 3}
     isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: a590e19033ea841d198182a2c38d7a54, type: 3}
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: ef3462680694e482bb5b120762ecd77f, type: 3}
     isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: 875f299cb3f464243847745e3ca695cd, type: 3}
-    isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: 86db678005b6748359bf6ea92e9d8054, type: 3}
-    isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: 33edb5abe412d4b2fbf091de85f26fee, type: 3}
-    isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: 5485bafc4c2bd40afaf878614ae8a7ce, type: 3}
-    isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: 1a9892dbff96d401b8569cfc6731218b, type: 3}
-    isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: a71e35e76071f46d985a394af90c3219, type: 3}
-    isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: f19644cd2304c4884bb52e5c45490734, type: 3}
-    isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: 3241ff41d883049b8b96aaa074b1eeb3, type: 3}
-    isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: 84d9d4d572e8f41da8560a690b2be5fe, type: 3}
-    isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: d92bd5407106b43539316183ab88ab79, type: 3}
-    isTextBlack: 1
-    coinCount: 100
-  - sprite: {fileID: 21300000, guid: a91d68f2170384722a6468010a1b09bd, type: 3}
-    isTextBlack: 1
-    coinCount: 100
+    coinCount: 500
   - sprite: {fileID: 21300000, guid: 139be41a322ce4e7aac416873172943c, type: 3}
     isTextBlack: 1
-    coinCount: 100
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: a91d68f2170384722a6468010a1b09bd, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: d92bd5407106b43539316183ab88ab79, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 84d9d4d572e8f41da8560a690b2be5fe, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 3241ff41d883049b8b96aaa074b1eeb3, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: f19644cd2304c4884bb52e5c45490734, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: a71e35e76071f46d985a394af90c3219, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 1a9892dbff96d401b8569cfc6731218b, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 5485bafc4c2bd40afaf878614ae8a7ce, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 33edb5abe412d4b2fbf091de85f26fee, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 86db678005b6748359bf6ea92e9d8054, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 875f299cb3f464243847745e3ca695cd, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: a590e19033ea841d198182a2c38d7a54, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: ef9810f5074d6432a989903595792ca3, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: bc90d58e696894b058b5d8daec88322d, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 1b181c8a2ad0942fb8c604a89364dfbd, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 0b25fcc7c43724a35b7b850d7312ba8d, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 1419f4286531e41cd9783f13d86b5c49, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 80b7f7fd2a0c648d4a9ec857db11129f, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 7b29bd2f6f0f14cd887165309c3473cc, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 7da24ad2a0a884af684b69ada0059b83, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 6e617b8dd13a34bc3b3c9ca9025d63e6, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: f6d105be63dfc40fba8eb58ba0f895d0, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: 99efa41ff49454356852619be3afd9d3, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: d763b82e8128441d6a883ea270a62635, type: 3}
+    isTextBlack: 1
+    coinCount: 500
+  - sprite: {fileID: 21300000, guid: f9a5da7b0f3c343f3833c893ae09ab2a, type: 3}
+    isTextBlack: 1
+    coinCount: 500

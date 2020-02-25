@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 /// <summary>
 /// 【Unity】AudioSourceの同時再生による音割れを防ぐ方法
@@ -14,16 +15,20 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioFile[] audioFiles;
     AudioSource audioSource;
     public static AudioManager i;
+    float timer;
+    bool isLimit;
 
     public void OnStart()
     {
         audioSource = GetComponent<AudioSource>();
         if (i == null) i = this;
-        DontDestroyOnLoad(i);
     }
 
     public void PlayOneShot(int index)
     {
+        if (isLimit) { return; }
+        isLimit = true;
+
         AudioClip clip;
         try
         {
@@ -37,6 +42,11 @@ public class AudioManager : MonoBehaviour
 
         if (!clip) { return; }
         audioSource.PlayOneShot(clip);
+
+        DOVirtual.DelayedCall(0.05f, () =>
+        {
+            isLimit = false;
+        });
     }
 
     public void RePlayBGM()
