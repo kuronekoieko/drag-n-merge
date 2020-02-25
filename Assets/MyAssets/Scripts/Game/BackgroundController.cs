@@ -23,12 +23,12 @@ public class BackgroundController : MonoBehaviour
         float scale = 1;
         if (defaultSize.y / defaultSize.x > size.y / size.x)
         {
-            Debug.Log("横長");
+            //Debug.Log("横長");
             scale = defaultSize.y / size.y;
         }
         else
         {
-            Debug.Log("縦長");
+            //Debug.Log("縦長");
             scale = defaultSize.x / size.x;
         }
         transform.localScale = Vector3.one * scale;
