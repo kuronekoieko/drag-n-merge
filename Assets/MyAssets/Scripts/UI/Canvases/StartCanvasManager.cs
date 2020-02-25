@@ -41,7 +41,7 @@ public class StartCanvasManager : BaseCanvasManager
     protected override void OnOpen()
     {
         gameObject.SetActive(true);
-        GameManager.i.gameController.SetBackground();
+        GameManager.i.gameController.backgroundController.SetBackground();
     }
 
     protected override void OnClose()

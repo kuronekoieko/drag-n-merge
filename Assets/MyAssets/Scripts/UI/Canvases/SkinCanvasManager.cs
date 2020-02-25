@@ -48,7 +48,7 @@ public class SkinCanvasManager : BaseCanvasManager
     void OnClickCloseButton()
     {
         Variables.screenState = Variables.lastScreenState;
-        GameManager.i.gameController.SetBackground();
+        GameManager.i.gameController.backgroundController.SetBackground();
         AudioManager.i.PlayOneShot(5);
     }
 

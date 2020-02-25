@@ -19,12 +19,13 @@ public class BackgroundToggleController : MonoBehaviour
     Toggle toggle;
     int index;
     BackgroundData backgroundData;
-
+    readonly Vector2 defaultSize = new Vector2(168.6f, 195f);
     public void OnStart(ToggleGroup toggleGroup, int index)
     {
         this.index = index;
         backgroundData = BackgroundDataSO.i.backgroundDatas[index];
         bGImage.sprite = backgroundData.sprite;
+        SetSize();
         coinCountText.text = backgroundData.coinCount.ToString();
         toggle = GetComponent<Toggle>();
         toggle.group = toggleGroup;
@@ -63,5 +64,25 @@ public class BackgroundToggleController : MonoBehaviour
         getButton.gameObject.SetActive(!isPossessed);
         toggleRT.gameObject.SetActive(isPossessed);
         toggle.interactable = isPossessed;
+    }
+
+    void SetSize()
+    {
+
+        bGImage.SetNativeSize();
+        Vector2 size = bGImage.rectTransform.sizeDelta;
+        bGImage.transform.localScale = Vector3.one;
+        float scale = 1;
+        if (defaultSize.y / defaultSize.x > size.y / size.x)
+        {
+            Debug.Log("横長");
+            scale = defaultSize.y / size.y;
+        }
+        else
+        {
+            Debug.Log("縦長");
+            scale = defaultSize.x / size.x;
+        }
+        bGImage.transform.localScale = Vector3.one * scale;
     }
 }
