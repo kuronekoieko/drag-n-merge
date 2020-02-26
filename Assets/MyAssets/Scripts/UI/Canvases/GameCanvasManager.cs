@@ -147,6 +147,7 @@ public class GameCanvasManager : BaseCanvasManager
 
     void OnClickAddTimeButton()
     {
+        FirebaseAnalyticsManager.i.LogEvent("アイテム_時間追加");
         AudioManager.i.PlayOneShot(3);
 
         float addSec = 10;
@@ -170,6 +171,7 @@ public class GameCanvasManager : BaseCanvasManager
 
     void OnClickFallBlockButton()
     {
+        FirebaseAnalyticsManager.i.LogEvent("アイテム_落下");
         AudioManager.i.PlayOneShot(3);
 
         BlocksManager.i.ShowBlocksTopLine();
@@ -177,6 +179,7 @@ public class GameCanvasManager : BaseCanvasManager
 
     void OnClickShuffleButton()
     {
+        FirebaseAnalyticsManager.i.LogEvent("アイテム_シャッフル");
         AudioManager.i.PlayOneShot(3);
 
         BlocksManager.i.ShuffleBlocks();
@@ -187,7 +190,7 @@ public class GameCanvasManager : BaseCanvasManager
         if (autoMergeCount < 1) { return; }
         //無限オートマージ対策
         if (Variables.gameState != GameState.IN_PROGRESS_TIMER) { return; }
-
+        FirebaseAnalyticsManager.i.LogEvent("オートマージボタン");
         autoMergeCount--;
         BlocksManager.i.AutoMergeBlocks();
         AudioManager.i.PlayOneShot(3);

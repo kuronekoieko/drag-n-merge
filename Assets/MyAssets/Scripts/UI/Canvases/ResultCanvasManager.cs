@@ -63,11 +63,12 @@ public class ResultCanvasManager : BaseCanvasManager
     protected override void OnOpen()
     {
         if (Variables.lastScreenState == ScreenState.SKIN) { return; }
+        FirebaseAnalyticsManager.i.LogEvent("画面_リザルト");
         gameObject.SetActive(true);
         targetCountText.text = "x " + Variables.eraseTargetBlockCount;
         scoreText.text = Variables.sumOfErasedBlockNumbers.ToString();
         isUpdateHighScore = (highScoreBlockCountBeforeGame < Variables.eraseTargetBlockCount);
-        string text = "スコア:" + Variables.eraseTargetBlockCount;
+        string text = "スコア_" + Variables.eraseTargetBlockCount;
         FirebaseAnalyticsManager.i.LogEvent(text);
         AudioManager.i.PlayOneShot(4);
         if (SaveData.i.launchCount == 1 || SaveData.i.launchCount == 10)
@@ -93,12 +94,14 @@ public class ResultCanvasManager : BaseCanvasManager
 
     void OnClickRestartButton()
     {
+        FirebaseAnalyticsManager.i.LogEvent("リスタートボタン");
         AudioManager.i.PlayOneShot(1);
         Variables.screenState = ScreenState.INITIALIZE;
     }
 
     void OnClickSkinButton()
     {
+        FirebaseAnalyticsManager.i.LogEvent("リザルト_ショップボタン");
         AudioManager.i.PlayOneShot(1);
         Variables.screenState = ScreenState.SKIN;
     }

@@ -15,9 +15,9 @@ public class FirebaseAnalyticsManager
     public void OnStart()
     {
 
-#if UNITY_IOS
-        isAvailable = true;
-#elif UNITY_ANDROID
+        //#if UNITY_IOS
+        //        isAvailable = true;
+        //#elif UNITY_ANDROID
         isAvailable = false;
         Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
         {
@@ -37,7 +37,7 @@ public class FirebaseAnalyticsManager
                 // Firebase Unity SDK is not safe to use here.
             }
         });
-#endif
+        //#endif
     }
 
     public void LogEvent(string parameterValue)

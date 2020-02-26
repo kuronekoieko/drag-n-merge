@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
                 gameController.OnInitialize();
                 uIManager.OnInitialize();
                 FirebaseAnalyticsManager.i.LogScreen("ゲーム");
+                FirebaseAnalyticsManager.i.LogEvent("画面_ゲーム");
                 break;
             case ScreenState.START:
                 break;

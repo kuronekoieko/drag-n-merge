@@ -28,6 +28,7 @@ public class PauseCanvasManager : BaseCanvasManager
     protected override void OnOpen()
     {
         gameObject.SetActive(true);
+        FirebaseAnalyticsManager.i.LogEvent("画面_ポーズ");
     }
 
     protected override void OnClose()
@@ -39,6 +40,7 @@ public class PauseCanvasManager : BaseCanvasManager
     {
         Variables.screenState = ScreenState.SKIN;
         AudioManager.i.PlayOneShot(1);
+        FirebaseAnalyticsManager.i.LogEvent("ポーズ_ショップボタン");
     }
 
     void OnClickResultButton()

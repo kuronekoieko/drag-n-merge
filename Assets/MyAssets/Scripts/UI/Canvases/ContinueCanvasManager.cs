@@ -56,6 +56,7 @@ public class ContinueCanvasManager : BaseCanvasManager
 
     protected override void OnOpen()
     {
+        FirebaseAnalyticsManager.i.LogEvent("画面_コンティニュー");
         gameObject.SetActive(true);
         cancelButton.gameObject.SetActive(false);
         DOVirtual.DelayedCall(2, () =>
@@ -87,6 +88,7 @@ public class ContinueCanvasManager : BaseCanvasManager
         SaveDataManager.i.Save();
         Continue();
         AudioManager.i.PlayOneShot(3);
+        FirebaseAnalyticsManager.i.LogEvent("コンティニュー_コイン");
     }
 
     void OnClickVideoButton()
@@ -97,6 +99,7 @@ public class ContinueCanvasManager : BaseCanvasManager
     void OnClickCancelButton()
     {
         Variables.screenState = ScreenState.RESULT;
+        FirebaseAnalyticsManager.i.LogEvent("コンティニュー_無し");
     }
 
     void Continue()

@@ -17,6 +17,9 @@ public class BackgroundController : MonoBehaviour
 
         int index = SaveData.i.possessedBackgrounds.FindIndex(p => p.isSelected);
         if (index == -1) { return; }
+
+        FirebaseAnalyticsManager.i.LogEvent("背景_" + index);
+
         transform.localScale = Vector3.one;
         spriteRenderer.sprite = BackgroundDataSO.i.backgroundDatas[index].sprite;
         Vector2 size = spriteRenderer.bounds.size;

@@ -35,6 +35,7 @@ public class SkinCanvasManager : BaseCanvasManager
 
     protected override void OnOpen()
     {
+        FirebaseAnalyticsManager.i.LogEvent("画面_スキン");
         gameObject.SetActive(true);
         for (int i = 0; i < bGToggleControllers.Length; i++)
         {

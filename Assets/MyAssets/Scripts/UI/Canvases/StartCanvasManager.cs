@@ -41,6 +41,7 @@ public class StartCanvasManager : BaseCanvasManager
 
     protected override void OnOpen()
     {
+        FirebaseAnalyticsManager.i.LogEvent("画面_スタート");
         gameObject.SetActive(true);
         GameManager.i.gameController.backgroundController.SetBackground();
     }
@@ -51,7 +52,6 @@ public class StartCanvasManager : BaseCanvasManager
 
     void OnClickStartButton()
     {
-        FirebaseAnalyticsManager.i.LogEvent("スタートボタン");
         gameObject.SetActive(false);
         Variables.screenState = ScreenState.GAME;
         AudioManager.i.PlayOneShot(1);
