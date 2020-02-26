@@ -53,7 +53,6 @@ public class BackgroundToggleController : MonoBehaviour
         SaveDataManager.i.Save();
 
         if (isOn) { AudioManager.i.PlayOneShot(6); }
-        Debug.Log(index + " " + isOn);
     }
 
     public void OnOpen()

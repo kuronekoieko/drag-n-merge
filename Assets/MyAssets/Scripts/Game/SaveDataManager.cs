@@ -97,9 +97,6 @@ public class SaveDataManager : MonoBehaviour
 
     void AddUserDataInstance()
     {
-        for (int i = 0; i < SaveData.i.possessedBackgrounds.Count; i++)
-        {
-            Debug.Log(SaveData.i.possessedBackgrounds[i].bGToggleState);
-        }
+
     }
 }
