@@ -19,13 +19,14 @@ public class ContinueCanvasManager : BaseCanvasManager
     [SerializeField] Image circleImage;
     [SerializeField] Text cancelText;
 
+    public readonly ScreenState thisScreen = ScreenState.CONTINUE;
     float timer;
     float startTime = 9;
     int coinCount = 200;
 
     public override void OnStart()
     {
-        base.SetScreenAction(thisScreen: ScreenState.CONTINUE);
+        base.SetScreenAction(thisScreen: thisScreen);
 
         coinButton.onClick.AddListener(OnClickCoinButton);
         videoButton.onClick.AddListener(OnClickVideoButton);

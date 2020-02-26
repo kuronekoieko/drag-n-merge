@@ -8,9 +8,12 @@ public class PauseCanvasManager : BaseCanvasManager
     [SerializeField] Button shopButton;
     [SerializeField] Button resultButton;
     [SerializeField] Button closeButton;
+
+    public readonly ScreenState thisScreen = ScreenState.PAUSE;
+
     public override void OnStart()
     {
-        base.SetScreenAction(thisScreen: ScreenState.PAUSE);
+        base.SetScreenAction(thisScreen: thisScreen);
         gameObject.SetActive(false);
 
         shopButton.onClick.AddListener(OnClickSkinButton);

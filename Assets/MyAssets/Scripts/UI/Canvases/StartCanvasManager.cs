@@ -10,12 +10,13 @@ public class StartCanvasManager : BaseCanvasManager
 {
     [SerializeField] Button startButton;
     [SerializeField] Text startText;
+    public readonly ScreenState thisScreen = ScreenState.START;
 
     public override void OnStart()
     {
         startButton.onClick.AddListener(OnClickStartButton);
 
-        base.SetScreenAction(thisScreen: ScreenState.START);
+        base.SetScreenAction(thisScreen: thisScreen);
 
         Anim();
     }

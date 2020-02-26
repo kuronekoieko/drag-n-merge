@@ -17,6 +17,14 @@ public class SaveData
 [System.Serializable]
 public class PossessedBackground
 {
-    public bool isPossessed;
     public bool isSelected;
+    public BGToggleState bGToggleState;
+}
+
+[System.Serializable]
+public enum BGToggleState
+{
+    Unlocked = 0,
+    ShownLock = 1,
+    HiddenLock = 2,
 }

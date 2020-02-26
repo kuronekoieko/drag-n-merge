@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using System.Linq;
 
 public class SkinCanvasManager : BaseCanvasManager
 {
@@ -16,10 +17,11 @@ public class SkinCanvasManager : BaseCanvasManager
     [SerializeField] ToggleGroup toggleGroup;
     [SerializeField] BackgroundToggleController backgroundToggleControllerPrefab;
     BackgroundToggleController[] bGToggleControllers;
+    public readonly ScreenState thisScreen = ScreenState.SKIN;
 
     public override void OnStart()
     {
-        base.SetScreenAction(thisScreen: ScreenState.SKIN);
+        base.SetScreenAction(thisScreen: thisScreen);
         closeButton.onClick.AddListener(OnClickCloseButton);
 
         ToggleGanarator();
@@ -38,6 +40,36 @@ public class SkinCanvasManager : BaseCanvasManager
         {
             bGToggleControllers[i].OnOpen();
         }
+
+        OpenHiddenLock();
+    }
+
+    public void OpenHiddenLock()
+    {
+        int shownLockCount = SaveData.i.possessedBackgrounds
+                    .Where(p => p.bGToggleState == BGToggleState.ShownLock)
+                    .Count();
+
+        if (shownLockCount != 0) { return; }
+
+        int firstHiddenIndex = SaveData.i.possessedBackgrounds
+                .FindIndex(p => p.bGToggleState == BGToggleState.HiddenLock);
+
+        if (firstHiddenIndex == -1) { return; }
+
+        int lastOpenIndex = firstHiddenIndex + 8;
+        int lastIndex = SaveData.i.possessedBackgrounds.Count - 1;
+        if (lastOpenIndex > lastIndex)
+        {
+            lastOpenIndex = lastIndex;
+        }
+
+        for (int i = firstHiddenIndex; i < lastOpenIndex + 1; i++)
+        {
+            SaveData.i.possessedBackgrounds[i].bGToggleState = BGToggleState.ShownLock;
+        }
+        SaveDataManager.i.Save();
+
     }
 
     protected override void OnClose()
@@ -61,7 +93,8 @@ public class SkinCanvasManager : BaseCanvasManager
             bGToggleControllers[i] = Instantiate(backgroundToggleControllerPrefab, Vector3.zero, Quaternion.identity, content);
             bGToggleControllers[i].OnStart(
                 toggleGroup: toggleGroup,
-                index: i);
+                index: i,
+                skinCanvasManager: this);
         }
     }
 }

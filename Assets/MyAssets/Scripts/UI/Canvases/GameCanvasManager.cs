@@ -29,6 +29,7 @@ public class GameCanvasManager : BaseCanvasManager
     [SerializeField] Image autoMergeBadgeImage;
     [SerializeField] Text addTimeText;
 
+    public readonly ScreenState thisScreen = ScreenState.GAME;
     Sequence sequence;
     Sequence addTimeTextSequence;
     Color defaultColor;
@@ -37,7 +38,7 @@ public class GameCanvasManager : BaseCanvasManager
 
     public override void OnStart()
     {
-        base.SetScreenAction(thisScreen: ScreenState.GAME);
+        base.SetScreenAction(thisScreen: thisScreen);
 
         this.ObserveEveryValueChanged(timer => Variables.timer)
             .Subscribe(timer => { SetTimeCountText(); })

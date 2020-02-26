@@ -64,17 +64,23 @@ public class SaveDataManager : MonoBehaviour
             var possessedBackground = new PossessedBackground
             {
                 isSelected = false,
-                isPossessed = false,
+                bGToggleState = BGToggleState.HiddenLock,
             };
+
             if (i == 0)
             {
-                possessedBackground.isPossessed = true;
                 possessedBackground.isSelected = true;
+                possessedBackground.bGToggleState = BGToggleState.Unlocked;
             }
-            if (i == 1)
+            else if (i == 1)
             {
-                possessedBackground.isPossessed = true;
+                possessedBackground.bGToggleState = BGToggleState.Unlocked;
             }
+            else if (i < 9)
+            {
+                possessedBackground.bGToggleState = BGToggleState.ShownLock;
+            }
+
             SaveData.i.possessedBackgrounds.Add(possessedBackground);
         }
 
@@ -91,5 +97,9 @@ public class SaveDataManager : MonoBehaviour
 
     void AddUserDataInstance()
     {
+        for (int i = 0; i < SaveData.i.possessedBackgrounds.Count; i++)
+        {
+            Debug.Log(SaveData.i.possessedBackgrounds[i].bGToggleState);
+        }
     }
 }

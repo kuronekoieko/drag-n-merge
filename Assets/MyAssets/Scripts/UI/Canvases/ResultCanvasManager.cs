@@ -30,6 +30,7 @@ public class ResultCanvasManager : BaseCanvasManager
     [SerializeField] Text coinCountText;
     [SerializeField] Button shopButton;
 
+    public readonly ScreenState thisScreen = ScreenState.RESULT;
     string tweetText;
     bool isUpdateHighScore;
     int highScoreBlockCountBeforeGame;
@@ -38,7 +39,7 @@ public class ResultCanvasManager : BaseCanvasManager
     public override void OnStart()
     {
 
-        base.SetScreenAction(thisScreen: ScreenState.RESULT);
+        base.SetScreenAction(thisScreen: thisScreen);
 
         nextButton.onClick.AddListener(OnClickRestartButton);
         twitterButton.onClick.AddListener(OnClickTwitterButton);
