@@ -63,10 +63,10 @@ public class BackgroundToggleController : MonoBehaviour
 
     void OnClickGetButton()
     {
-        // if (SaveData.i.coinCount < backgroundData.coinCount) { return; }
+        if (SaveData.i.coinCount < backgroundData.coinCount) { return; }
         SaveData.i.possessedBackgrounds[index].bGToggleState = BGToggleState.Unlocked;
         toggle.group = toggleGroup;
-        // SaveData.i.coinCount -= backgroundData.coinCount;
+        SaveData.i.coinCount -= backgroundData.coinCount;
         SaveDataManager.i.Save();
         skinCanvasManager.OpenHiddenLock();
         AudioManager.i.PlayOneShot(7);
