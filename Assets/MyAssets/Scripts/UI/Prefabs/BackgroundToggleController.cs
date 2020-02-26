@@ -69,6 +69,7 @@ public class BackgroundToggleController : MonoBehaviour
         // SaveData.i.coinCount -= backgroundData.coinCount;
         SaveDataManager.i.Save();
         skinCanvasManager.OpenHiddenLock();
+        AudioManager.i.PlayOneShot(7);
     }
 
     void ShowPossessed(BGToggleState bGToggleState)

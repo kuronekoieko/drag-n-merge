@@ -7255,6 +7255,8 @@ MonoBehaviour:
     soundName: "\u30AD\u30E3\u30F3\u30BB\u30EB"
   - audioClip: {fileID: 8300000, guid: 32d4b1811dda14a6cb9e059ee8ad17d2, type: 3}
     soundName: "\u5207\u308A\u66FF\u3048"
+  - audioClip: {fileID: 8300000, guid: 79180f511d89441b9aa23ccae1992fe0, type: 3}
+    soundName: "\u80CC\u666F\u8CFC\u5165"
 --- !u!4 &1590465346
 Transform:
   m_ObjectHideFlags: 0
