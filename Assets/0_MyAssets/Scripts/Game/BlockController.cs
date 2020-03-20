@@ -484,6 +484,7 @@ public class BlockController : MonoBehaviour
         //マージ音
         AudioManager.i.PlayOneShot(0);
         MergeAnim();
+        Variables.screenState = ScreenState.REWARD;
     }
 
     void MergeAnim()

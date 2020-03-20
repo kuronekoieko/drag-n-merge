@@ -126,6 +126,11 @@ public class RewardCanvasManager : BaseCanvasManager
     {
         claimButton.enabled = false;
         CoinMoveAnims();
+
+        RectTransform rt = claimButton.GetComponent<RectTransform>();
+        Sequence sequence = DOTween.Sequence()
+        .Append(rt.DOLocalMoveY(-12.8f, 0.1f).SetRelative())
+        .Append(rt.DOLocalMoveY(12.8f, 0.1f).SetRelative());
     }
 
     void CoinMoveAnims()
