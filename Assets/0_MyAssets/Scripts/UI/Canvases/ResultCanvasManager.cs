@@ -27,14 +27,12 @@ public class ResultCanvasManager : BaseCanvasManager
     [SerializeField] Button twitterButton;
     [SerializeField] Button shareButton;
     [SerializeField] Text shareText;
-    [SerializeField] Text coinCountText;
     [SerializeField] Button shopButton;
 
     public readonly ScreenState thisScreen = ScreenState.RESULT;
     string tweetText;
     bool isUpdateHighScore;
     int highScoreBlockCountBeforeGame;
-    int coinCount;
 
     public override void OnStart()
     {
@@ -76,15 +74,7 @@ public class ResultCanvasManager : BaseCanvasManager
             ReviewGuidance();
         }
 
-
-        coinCount = 0;
-        for (int i = 0; i < Variables.eraseTargetBlockCount; i++)
-        {
-            coinCount += Utils.GetMasterData(targetBlockCount: i).coinCount;
-        }
-        SaveData.i.coinCount += coinCount;
         SaveDataManager.i.Save();
-        coinCountText.text = "+ " + coinCount;
     }
 
     protected override void OnClose()
