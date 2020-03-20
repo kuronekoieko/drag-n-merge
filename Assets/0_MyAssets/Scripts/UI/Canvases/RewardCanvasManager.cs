@@ -78,7 +78,7 @@ public class RewardCanvasManager : BaseCanvasManager
         text.rectTransform.localScale = Vector3.zero;
         text.rectTransform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
 
-        float delayTime = 0.2f;
+        float delayTime = 0.5f;
         for (int i = 0; i < coinAnims.Length; i++)
         {
             coinAnims[i].Show(0.5f, delayTime);
@@ -86,7 +86,7 @@ public class RewardCanvasManager : BaseCanvasManager
         }
 
         claimButtonRT.localScale = Vector3.zero;
-        claimButtonRT.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(0.2f);
+        claimButtonRT.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(0.5f);
 
     }
 
