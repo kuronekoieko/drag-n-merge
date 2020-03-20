@@ -533,6 +533,7 @@ public class BlockController : MonoBehaviour
                 boxCollider.enabled = false;
                 gameObject.SetActive(false);
                 transform.localScale = Vector3.one;
+                Variables.screenState = ScreenState.REWARD;
             });
     }
 

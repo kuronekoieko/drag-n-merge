@@ -7,6 +7,7 @@
     CONTINUE,
     SKIN,
     PAUSE,
+    REWARD,
 }
 
 public enum GameState
