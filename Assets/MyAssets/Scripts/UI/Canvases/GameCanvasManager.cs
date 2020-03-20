@@ -73,6 +73,7 @@ public class GameCanvasManager : BaseCanvasManager
         defaultColor = comboCountText.color;
 
         timerSlider.minValue = 0;
+        timerSlider.maxValue = Utils.GetMasterData(Variables.eraseTargetBlockCount).timeLimit;
     }
 
 
