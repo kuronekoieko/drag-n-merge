@@ -28,6 +28,7 @@ public class GameCanvasManager : BaseCanvasManager
     [SerializeField] Image autoMergeCircleImage;
     [SerializeField] Image autoMergeBadgeImage;
     [SerializeField] Text addTimeText;
+    [SerializeField] Slider timerSlider;
 
     public readonly ScreenState thisScreen = ScreenState.GAME;
     Sequence sequence;
@@ -41,11 +42,11 @@ public class GameCanvasManager : BaseCanvasManager
         base.SetScreenAction(thisScreen: thisScreen);
 
         this.ObserveEveryValueChanged(timer => Variables.timer)
-            .Subscribe(timer => { SetTimeCountText(); })
+            .Subscribe(timer => SetTimeCountText())
             .AddTo(this.gameObject);
 
         this.ObserveEveryValueChanged(count => Variables.eraseTargetBlockCount)
-            .Subscribe(count => { scoreText.text = "x " + count; })
+            .Subscribe(OnBlockCount)
             .AddTo(this.gameObject);
 
         this.ObserveEveryValueChanged(num => Variables.sumOfErasedBlockNumbers)
@@ -71,7 +72,11 @@ public class GameCanvasManager : BaseCanvasManager
 
         gameEndButton.onClick.AddListener(OnClickGameEndButton);
         defaultColor = comboCountText.color;
+
+        timerSlider.minValue = 0;
     }
+
+
 
     public override void OnInitialize()
     {
@@ -90,11 +95,21 @@ public class GameCanvasManager : BaseCanvasManager
     {
     }
 
+    void OnBlockCount(int count)
+    {
+        scoreText.text = "x " + count;
+    }
+
     void SetTimeCountText()
     {
         string timer = Variables.timer.ToString("F2");
-        if (Variables.timer < 0) timer = "0.00";
+        if (Variables.timer < 0)
+        {
+            timerSlider.maxValue = Utils.GetMasterData(Variables.eraseTargetBlockCount).timeLimit;
+            timer = "0.00";
+        }
         timerText.text = timer;
+        timerSlider.value = Variables.timer;
     }
 
     void OnClickGameEndButton()
