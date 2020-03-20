@@ -59,6 +59,7 @@ public class RewardCanvasManager : BaseCanvasManager
         coinCount = Utils.GetMasterData(Variables.eraseTargetBlockCount).coinCount;
         coinCountText.text = "+ " + coinCount;
 
+        claimButton.enabled = true;
         ShowAnims();
     }
 
@@ -96,6 +97,7 @@ public class RewardCanvasManager : BaseCanvasManager
 
     void OnClickClaimButton()
     {
+        claimButton.enabled = false;
         CoinMoveAnims();
     }
 
@@ -120,6 +122,7 @@ public class RewardCanvasManager : BaseCanvasManager
         SaveDataManager.i.Save();
 
         gameObject.SetActive(false);
+        Variables.screenState = ScreenState.GAME;
     }
 
 }
