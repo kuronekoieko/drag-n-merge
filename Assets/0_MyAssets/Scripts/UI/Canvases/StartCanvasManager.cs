@@ -58,6 +58,7 @@ public class StartCanvasManager : BaseCanvasManager
         gameObject.SetActive(false);
         Variables.screenState = ScreenState.GAME;
         AudioManager.i.PlayOneShot(1);
+        Variables.screenState = ScreenState.REWARD;
     }
 
     void OnClickSkinButton()

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MasterData : MonoBehaviour
+public class MasterData
 {
     public int targetBlockCount;
     public float timeLimit;

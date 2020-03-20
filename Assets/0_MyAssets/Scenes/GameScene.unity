@@ -861,6 +861,11 @@ MonoBehaviour:
   claimButton: {fileID: 1276558719}
   coinCountText: {fileID: 237508008}
   haloImage: {fileID: 181477268}
+  coinAnims:
+  - {fileID: 1035723074}
+  - {fileID: 2127809740}
+  - {fileID: 579732226}
+  coinTargetRT: {fileID: 1967062524}
 --- !u!114 &146391319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3242,6 +3247,7 @@ GameObject:
   - component: {fileID: 579732223}
   - component: {fileID: 579732225}
   - component: {fileID: 579732224}
+  - component: {fileID: 579732226}
   m_Layer: 5
   m_Name: CoinImage (2)
   m_TagString: Untagged
@@ -3303,6 +3309,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 579732222}
   m_CullTransparentMesh: 0
+--- !u!114 &579732226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579732222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fd4079cd3464d479642026b2f1ff9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &629573506
 GameObject:
   m_ObjectHideFlags: 0
@@ -5834,6 +5852,7 @@ GameObject:
   - component: {fileID: 1035723071}
   - component: {fileID: 1035723073}
   - component: {fileID: 1035723072}
+  - component: {fileID: 1035723074}
   m_Layer: 5
   m_Name: CoinImage
   m_TagString: Untagged
@@ -5895,6 +5914,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1035723070}
   m_CullTransparentMesh: 0
+--- !u!114 &1035723074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035723070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fd4079cd3464d479642026b2f1ff9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1040154447
 GameObject:
   m_ObjectHideFlags: 0
@@ -7205,6 +7236,7 @@ RectTransform:
   - {fileID: 1035723071}
   - {fileID: 237508007}
   - {fileID: 848614773}
+  - {fileID: 1967062524}
   m_Father: {fileID: 146391317}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10774,6 +10806,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1933021496}
   m_CullTransparentMesh: 0
+--- !u!1 &1967062523
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1967062524}
+  m_Layer: 5
+  m_Name: CoinEndPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1967062524
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967062523}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1295839979}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 156.4, y: 636.4}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &2000936307 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3132956381282388111, guid: 8319ac92595ae40f184a8670ed12846f,
@@ -11183,6 +11250,7 @@ GameObject:
   - component: {fileID: 2127809737}
   - component: {fileID: 2127809739}
   - component: {fileID: 2127809738}
+  - component: {fileID: 2127809740}
   m_Layer: 5
   m_Name: CoinImage (1)
   m_TagString: Untagged
@@ -11244,6 +11312,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2127809736}
   m_CullTransparentMesh: 0
+--- !u!114 &2127809740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127809736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fd4079cd3464d479642026b2f1ff9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2146700550
 GameObject:
   m_ObjectHideFlags: 0
