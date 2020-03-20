@@ -21,7 +21,7 @@ public class CoinAnimController : MonoBehaviour
 
     public void MoveTowardsCoin(float delayTime, Action OnComplete = null)
     {
-        float duration = 0.7f;
+        float duration = 0.8f;
 
         rectTransform
             .DOLocalMove(targetRT.anchoredPosition, duration)

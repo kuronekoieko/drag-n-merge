@@ -20,6 +20,7 @@ public class RewardCanvasManager : BaseCanvasManager
 
     int coinCount;
     Color bgColor;
+    float blockScale;
 
     public override void OnStart()
     {
@@ -38,7 +39,7 @@ public class RewardCanvasManager : BaseCanvasManager
         }
 
         bgColor = bgImage.color;
-
+        blockScale = blockRT.localScale.x;
     }
 
     void ChangeAlpha(Image image, float a)
@@ -65,15 +66,16 @@ public class RewardCanvasManager : BaseCanvasManager
 
     void ShowAnims()
     {
+        // 前半----------------------------
         ChangeAlpha(bgImage, 0);
         bgImage.DOFade(bgColor.a, 0.5f);
 
         ChangeAlpha(haloImage, 0);
         haloImage.DOFade(1, 1f);
 
-        float scale = blockRT.localScale.x;
+
         blockRT.localScale = Vector3.zero;
-        blockRT.DOScale(Vector3.one * scale, 0.5f).SetEase(Ease.OutBack);
+        blockRT.DOScale(Vector3.one * blockScale, 0.5f).SetEase(Ease.OutBack);
 
         text.rectTransform.localScale = Vector3.zero;
         text.rectTransform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
@@ -85,9 +87,32 @@ public class RewardCanvasManager : BaseCanvasManager
             delayTime += 0.05f;
         }
 
+        // 後半----------------------------
         claimButtonRT.localScale = Vector3.zero;
         claimButtonRT.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(0.5f);
 
+        coinCountText.rectTransform.localScale = Vector3.zero;
+        coinCountText.rectTransform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(0.5f);
+    }
+
+    void HideAnims()
+    {
+
+        // 前半----------------------------
+        haloImage.DOFade(0, 1f);
+        blockRT.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack);
+        text.rectTransform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack);
+
+        // 後半----------------------------
+        bgImage.DOFade(0, 0.5f).SetDelay(0.5f);
+        claimButtonRT.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack).SetDelay(0.5f);
+        coinCountText.rectTransform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack).SetDelay(0.5f);
+
+        DOVirtual.DelayedCall(1f, () =>
+        {
+            gameObject.SetActive(false);
+            Variables.screenState = ScreenState.GAME;
+        });
     }
 
     protected override void OnClose()
@@ -121,8 +146,8 @@ public class RewardCanvasManager : BaseCanvasManager
         SaveData.i.coinCount += coinCount;
         SaveDataManager.i.Save();
 
-        gameObject.SetActive(false);
-        Variables.screenState = ScreenState.GAME;
+        HideAnims();
+
     }
 
 }
