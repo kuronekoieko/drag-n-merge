@@ -21,10 +21,12 @@ public class CoinAnimController : MonoBehaviour
 
     public void MoveTowardsCoin(float delayTime, Action OnComplete = null)
     {
-        float duration = 1f;
-        Sequence sequence = DOTween.Sequence()
-            .AppendInterval(delayTime)
-            .Append(rectTransform.DOLocalMove(targetRT.anchoredPosition, duration).SetEase(Ease.InBack))
+        float duration = 0.7f;
+
+        rectTransform
+            .DOLocalMove(targetRT.anchoredPosition, duration)
+            .SetEase(Ease.InBack)
+            .SetDelay(delayTime)
             .OnComplete(() => { if (OnComplete != null) { OnComplete(); } });
 
         rectTransform.DOScale(Vector3.one * endScale, duration).SetEase(Ease.InBack);
