@@ -9,12 +9,14 @@ public class CoinAnimController : MonoBehaviour
 {
     RectTransform targetRT;
     RectTransform rectTransform;
+    Vector3 startPos;
     float endScale = 0.7f;
 
     public void OnStart(RectTransform targetRT)
     {
         rectTransform = GetComponent<RectTransform>();
         this.targetRT = targetRT;
+        startPos = rectTransform.anchoredPosition;
     }
 
     public void MoveTowardsCoin(float delayTime, Action OnComplete = null)
@@ -31,6 +33,7 @@ public class CoinAnimController : MonoBehaviour
 
     public void Show(float duration, float delayTime)
     {
+        rectTransform.anchoredPosition = startPos;
         rectTransform.localScale = Vector3.zero;
 
         rectTransform
