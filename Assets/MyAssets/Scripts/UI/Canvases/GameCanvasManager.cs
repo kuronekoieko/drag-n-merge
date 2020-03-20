@@ -14,7 +14,6 @@ using UnityEngine.Events;
 /// </summary>
 public class GameCanvasManager : BaseCanvasManager
 {
-    [SerializeField] Text timerText;
     [SerializeField] Text scoreText;
     [SerializeField] Text bestTargetBlockCountText;
     [SerializeField] Text bestScoreText;
@@ -42,7 +41,7 @@ public class GameCanvasManager : BaseCanvasManager
         base.SetScreenAction(thisScreen: thisScreen);
 
         this.ObserveEveryValueChanged(timer => Variables.timer)
-            .Subscribe(timer => SetTimeCountText())
+            .Subscribe(SetTimeCountText)
             .AddTo(this.gameObject);
 
         this.ObserveEveryValueChanged(count => Variables.eraseTargetBlockCount)
@@ -100,16 +99,13 @@ public class GameCanvasManager : BaseCanvasManager
         scoreText.text = "x " + count;
     }
 
-    void SetTimeCountText()
+    void SetTimeCountText(float timer)
     {
-        string timer = Variables.timer.ToString("F2");
-        if (Variables.timer < 0)
+        if (timer < 0)
         {
             timerSlider.maxValue = Utils.GetMasterData(Variables.eraseTargetBlockCount).timeLimit;
-            timer = "0.00";
         }
-        timerText.text = timer;
-        timerSlider.value = Variables.timer;
+        timerSlider.value = timer;
     }
 
     void OnClickGameEndButton()
