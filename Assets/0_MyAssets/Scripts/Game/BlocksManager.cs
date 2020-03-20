@@ -49,15 +49,11 @@ public class BlocksManager : MonoBehaviour
 
     public BlockController GetBlock(int indexX, int indexY)
     {
-        for (int i = 0; i < blockControllers.Length; i++)
-        {
-            if (blockControllers[i].indexX != indexX) { continue; }
-            if (blockControllers[i].indexY != indexY) { continue; }
-            if (!blockControllers[i].gameObject.activeSelf) { continue; }
-            // if (blockControllers[i].blockState != BlockState.STOP) { continue; }
-            return blockControllers[i];
-        }
-        return null;
+        return blockControllers
+            .Where(b => b.indexX == indexX)
+            .Where(b => b.indexY == indexY)
+            .Where(b => b.gameObject.activeSelf)
+            .FirstOrDefault();
     }
 
     public BlockController GetDragBlock()
