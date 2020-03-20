@@ -106,11 +106,13 @@ public class RewardCanvasManager : BaseCanvasManager
         text.rectTransform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack);
 
         // 後半----------------------------
-        bgImage.DOFade(0, 0.5f).SetDelay(0.5f);
+
         claimButtonRT.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack).SetDelay(0.5f);
         coinCountText.rectTransform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack).SetDelay(0.5f);
 
-        DOVirtual.DelayedCall(1f, () =>
+        bgImage.DOFade(0, 0.5f).SetDelay(1f);
+
+        DOVirtual.DelayedCall(1.5f, () =>
         {
             gameObject.SetActive(false);
             Variables.screenState = ScreenState.GAME;
