@@ -28,4 +28,14 @@ public class CoinAnimController : MonoBehaviour
         rectTransform.DOScale(Vector3.one * endScale, duration).SetEase(Ease.InBack);
 
     }
+
+    public void Show(float duration, float delayTime)
+    {
+        rectTransform.localScale = Vector3.zero;
+
+        rectTransform
+            .DOScale(Vector3.one, duration)
+            .SetEase(Ease.OutBack)
+            .SetDelay(delayTime);
+    }
 }

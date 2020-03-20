@@ -866,6 +866,10 @@ MonoBehaviour:
   - {fileID: 2127809740}
   - {fileID: 579732226}
   coinTargetRT: {fileID: 1967062524}
+  bgImage: {fileID: 1295839980}
+  blockRT: {fileID: 858290719}
+  text: {fileID: 1843597963}
+  claimButtonRT: {fileID: 848614773}
 --- !u!114 &146391319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5204,17 +5208,17 @@ PrefabInstance:
     - target: {fileID: 9205403319148911615, guid: a3ddcba645c91448f8d96ec3ac9322ce,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.6976
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9205403319148911615, guid: a3ddcba645c91448f8d96ec3ac9322ce,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.6976
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9205403319148911615, guid: a3ddcba645c91448f8d96ec3ac9322ce,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.6976
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3ddcba645c91448f8d96ec3ac9322ce, type: 3}

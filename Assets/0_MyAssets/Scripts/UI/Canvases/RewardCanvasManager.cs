@@ -13,7 +13,13 @@ public class RewardCanvasManager : BaseCanvasManager
     [SerializeField] Image haloImage;
     [SerializeField] CoinAnimController[] coinAnims;
     [SerializeField] RectTransform coinTargetRT;
+    [SerializeField] Image bgImage;
+    [SerializeField] RectTransform blockRT;
+    [SerializeField] Text text;
+    [SerializeField] RectTransform claimButtonRT;
+
     int coinCount;
+    Color bgColor;
 
     public override void OnStart()
     {
@@ -30,6 +36,16 @@ public class RewardCanvasManager : BaseCanvasManager
         {
             coinAnims[i].OnStart(coinTargetRT);
         }
+
+        bgColor = bgImage.color;
+
+    }
+
+    void ChangeAlpha(Image image, float a)
+    {
+        Color color = image.color;
+        color.a = a;
+        image.color = color;
     }
 
     public override void OnInitialize()
@@ -41,9 +57,36 @@ public class RewardCanvasManager : BaseCanvasManager
         gameObject.SetActive(true);
 
         coinCount = Utils.GetMasterData(Variables.eraseTargetBlockCount).coinCount;
-
-
         coinCountText.text = "+ " + coinCount;
+
+        ShowAnims();
+    }
+
+    void ShowAnims()
+    {
+        ChangeAlpha(bgImage, 0);
+        bgImage.DOFade(bgColor.a, 0.5f);
+
+        ChangeAlpha(haloImage, 0);
+        haloImage.DOFade(1, 1f);
+
+        float scale = blockRT.localScale.x;
+        blockRT.localScale = Vector3.zero;
+        blockRT.DOScale(Vector3.one * scale, 0.5f).SetEase(Ease.OutBack);
+
+        text.rectTransform.localScale = Vector3.zero;
+        text.rectTransform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
+
+        float delayTime = 0.2f;
+        for (int i = 0; i < coinAnims.Length; i++)
+        {
+            coinAnims[i].Show(0.5f, delayTime);
+            delayTime += 0.05f;
+        }
+
+        claimButtonRT.localScale = Vector3.zero;
+        claimButtonRT.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).SetDelay(0.2f);
+
     }
 
     protected override void OnClose()
