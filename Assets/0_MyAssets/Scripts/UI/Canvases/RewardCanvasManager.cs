@@ -17,6 +17,7 @@ public class RewardCanvasManager : BaseCanvasManager
     [SerializeField] RectTransform blockRT;
     [SerializeField] Text text;
     [SerializeField] RectTransform claimButtonRT;
+    [SerializeField] ParticleSystem confettiPS;
 
     int coinCount;
     Color bgColor;
@@ -62,6 +63,7 @@ public class RewardCanvasManager : BaseCanvasManager
 
         claimButton.enabled = true;
         ShowAnims();
+        confettiPS.Play();
     }
 
     void ShowAnims()
