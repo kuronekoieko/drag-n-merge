@@ -10,11 +10,14 @@ public class StartCanvasManager : BaseCanvasManager
 {
     [SerializeField] Button startButton;
     [SerializeField] Text startText;
+    [SerializeField] Button skinButton;
+
     public readonly ScreenState thisScreen = ScreenState.START;
 
     public override void OnStart()
     {
         startButton.onClick.AddListener(OnClickStartButton);
+        skinButton.onClick.AddListener(OnClickSkinButton);
 
         base.SetScreenAction(thisScreen: thisScreen);
 
@@ -55,5 +58,12 @@ public class StartCanvasManager : BaseCanvasManager
         gameObject.SetActive(false);
         Variables.screenState = ScreenState.GAME;
         AudioManager.i.PlayOneShot(1);
+    }
+
+    void OnClickSkinButton()
+    {
+        Variables.screenState = ScreenState.SKIN;
+        AudioManager.i.PlayOneShot(1);
+        FirebaseAnalyticsManager.i.LogEvent("スタート_ショップボタン");
     }
 }
