@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class RewardCanvasManager : BaseCanvasManager
 {
     [SerializeField] Button claimButton;
     [SerializeField] Text coinCountText;
+    [SerializeField] Image haloImage;
     int coinCount;
 
     public override void OnStart()
@@ -14,6 +16,11 @@ public class RewardCanvasManager : BaseCanvasManager
         base.SetScreenAction(thisScreen: ScreenState.REWARD);
         gameObject.SetActive(false);
         claimButton.onClick.AddListener(OnClickClaimButton);
+
+        haloImage.rectTransform.DOLocalRotate(new Vector3(0, 0, -360), 6)
+            .SetRelative()
+            .SetLoops(-1)
+            .SetEase(Ease.Linear);
     }
 
     public override void OnInitialize()
