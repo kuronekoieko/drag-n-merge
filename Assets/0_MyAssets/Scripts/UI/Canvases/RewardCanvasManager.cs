@@ -146,7 +146,7 @@ public class RewardCanvasManager : BaseCanvasManager
                 OnComplete = OnCompleteCoinMoveAnim;
             }
             coinAnims[i].MoveTowardsCoin(delayTime, OnComplete);
-            delayTime += 0.1f;
+            delayTime += 0.2f;
         }
     }
 
