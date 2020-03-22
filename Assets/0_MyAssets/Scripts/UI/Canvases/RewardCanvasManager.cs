@@ -18,6 +18,7 @@ public class RewardCanvasManager : BaseCanvasManager
     [SerializeField] Text text;
     [SerializeField] RectTransform claimButtonRT;
     [SerializeField] ParticleSystem confettiPS;
+    [SerializeField] Text blockCountText;
 
     int coinCount;
     Color bgColor;
@@ -60,6 +61,7 @@ public class RewardCanvasManager : BaseCanvasManager
 
         coinCount = Utils.GetMasterData(Variables.eraseTargetBlockCount).coinCount;
         coinCountText.text = "+ " + coinCount;
+        blockCountText.text = "x " + Variables.eraseTargetBlockCount;
 
         claimButton.enabled = true;
         ShowAnims();
@@ -83,6 +85,9 @@ public class RewardCanvasManager : BaseCanvasManager
 
         blockRT.localScale = Vector3.zero;
         blockRT.DOScale(Vector3.one * blockScale, 0.5f).SetEase(Ease.OutBack);
+
+        blockCountText.rectTransform.localScale = Vector3.zero;
+        blockCountText.rectTransform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
 
         text.rectTransform.localScale = Vector3.zero;
         text.rectTransform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
@@ -108,6 +113,7 @@ public class RewardCanvasManager : BaseCanvasManager
         // 前半----------------------------
         haloImage.DOFade(0, 1f);
         blockRT.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack);
+        blockCountText.rectTransform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack);
         text.rectTransform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack);
 
         // 後半----------------------------
