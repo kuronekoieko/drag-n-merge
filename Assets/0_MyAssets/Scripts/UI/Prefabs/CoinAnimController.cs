@@ -27,7 +27,11 @@ public class CoinAnimController : MonoBehaviour
             .DOLocalMove(targetRT.anchoredPosition, duration)
             .SetEase(Ease.InBack)
             .SetDelay(delayTime)
-            .OnComplete(() => { if (OnComplete != null) { OnComplete(); } });
+            .OnComplete(() =>
+            {
+                if (OnComplete != null) { OnComplete(); }
+                AudioManager.i.PlayOneShot(9);
+            });
 
         rectTransform.DOScale(Vector3.one * endScale, duration).SetEase(Ease.InBack);
 

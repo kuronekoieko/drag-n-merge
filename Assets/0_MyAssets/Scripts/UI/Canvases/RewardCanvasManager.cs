@@ -68,6 +68,11 @@ public class RewardCanvasManager : BaseCanvasManager
 
     void ShowAnims()
     {
+        DOVirtual.DelayedCall(0.3f, () =>
+        {
+            AudioManager.i.PlayOneShot(8);
+        });
+
         // 前半----------------------------
         ChangeAlpha(bgImage, 0);
         bgImage.DOFade(bgColor.a, 0.5f);

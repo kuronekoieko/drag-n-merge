@@ -444,7 +444,8 @@ public class BlockController : MonoBehaviour
         if (distance > 0.3f) { return; }
         if (draggingBlock.num != num) { return; }
 
-        if (num < Values.TARGET_BLOCK_NUM) { num++; }
+        //if (num < Values.TARGET_BLOCK_NUM) { num++; }
+        if (num < Values.TARGET_BLOCK_NUM) { num = 10; }
         hitPS.Play();
         SaveBestScore();
         Variables.autoMergePoint += num;

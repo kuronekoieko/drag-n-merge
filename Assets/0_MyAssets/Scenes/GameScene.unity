@@ -9091,6 +9091,10 @@ MonoBehaviour:
     soundName: "\u5207\u308A\u66FF\u3048"
   - audioClip: {fileID: 8300000, guid: 79180f511d89441b9aa23ccae1992fe0, type: 3}
     soundName: "\u80CC\u666F\u8CFC\u5165"
+  - audioClip: {fileID: 8300000, guid: 589ed17a21a064ad883e5aacae456692, type: 3}
+    soundName: "\u3010\u30AF\u30EA\u30A2\u753B\u9762\u3011\u958B\u3044\u305F\u3068\u304D"
+  - audioClip: {fileID: 8300000, guid: d1ff6cca834dc4edaa787e818dc90884, type: 3}
+    soundName: "\u3010\u30AF\u30EA\u30A2\u753B\u9762\u3011\u30B3\u30A4\u30F3\u5230\u9054\u6642"
 --- !u!4 &1590465346
 Transform:
   m_ObjectHideFlags: 0
