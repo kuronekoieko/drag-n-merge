@@ -29,11 +29,16 @@ public class CSVManagr : MonoBehaviour
                 {
                     if (int.TryParse(strList[iy][ix], out int num))
                     {
-                        nums[ix, iy] = num;
+                        nums[ix, strList.Count - 1 - iy] = num;
                     }
                 }
+                Debug.Log(iy);
             }
             Variables.stageNums.Add(nums);
+        }
+        for (int i = 0; i < 6; i++)
+        {
+            //  Debug.Log(Variables.stageNums[0][i, 0]);
         }
     }
 

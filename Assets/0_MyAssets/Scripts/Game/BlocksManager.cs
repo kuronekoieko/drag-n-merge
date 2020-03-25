@@ -44,12 +44,51 @@ public class BlocksManager : MonoBehaviour
             blockControllers[i].gameObject.SetActive(false);
         }
 
+
+        if (Variables.isDebugStage)
+        {
+            InitAdBlocks();
+        }
+        else
+        {
+            InitBlocks();
+        }
+    }
+
+    void InitBlocks()
+    {
         int lineNum = 2;
         for (int i = 1; i < lineNum + 1; i++)
         {
             SetBlocksNewLine(i);
         }
+    }
 
+    void InitAdBlocks()
+    {
+        for (int iy = 1; iy < 9; iy++)
+        {
+            int ix = 0;
+
+            for (int i = 0; i < blockControllers.Length; i++)
+            {
+                BlockController block = blockControllers[i];
+
+                if (block.gameObject.activeSelf) { continue; }
+
+                if (block.SetCSVNum(ix, iy) == 0)
+                {
+                    ix++;
+                    continue;
+                }
+
+                block.TransrateBlock(indexX: ix, indexY: iy);
+                block.gameObject.SetActive(true);
+                block.SetNewLine();
+                ix++;
+                if (ix == Values.BOARD_LENGTH_X) { break; }
+            }
+        }
     }
 
     public BlockController GetBlock(int indexX, int indexY)
@@ -93,19 +132,19 @@ public class BlocksManager : MonoBehaviour
 
     public void SetBlocksNewLine(int indexY)
     {
-        int count = 0;
+        int ix = 0;
 
         for (int i = 0; i < blockControllers.Length; i++)
         {
             BlockController block = blockControllers[i];
-            if (block.gameObject.activeSelf) { continue; }
 
-            block.TransrateBlock(indexX: count, indexY: indexY);
+            if (block.gameObject.activeSelf) { continue; }
+            block.TransrateBlock(indexX: ix, indexY: indexY);
             block.gameObject.SetActive(true);
             block.SetNewLine();
             block.SetRandomNum();
-            count++;
-            if (count == Values.BOARD_LENGTH_X) { break; }
+            ix++;
+            if (ix == Values.BOARD_LENGTH_X) { break; }
         }
     }
 

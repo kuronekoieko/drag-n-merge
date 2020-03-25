@@ -114,6 +114,12 @@ public class BlockController : MonoBehaviour
         num = tmpNum;
     }
 
+    public int SetCSVNum(int ix, int iy)
+    {
+        num = Variables.stageNums[Variables.adStageIndex][ix, iy - 1];
+        return num;
+    }
+
     BlockType GetBlockType()
     {
         int specialBlockProbability = Random.Range(1, 101);
