@@ -43,8 +43,13 @@ public class BlocksManager : MonoBehaviour
         {
             blockControllers[i].gameObject.SetActive(false);
         }
-        SetBlocksNewLine(1);
-        SetBlocksNewLine(2);
+
+        int lineNum = 2;
+        for (int i = 1; i < lineNum + 1; i++)
+        {
+            SetBlocksNewLine(i);
+        }
+
     }
 
     public BlockController GetBlock(int indexX, int indexY)

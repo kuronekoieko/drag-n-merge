@@ -24,4 +24,6 @@ public class Variables : MonoBehaviour
     public static int comboCount;
     public static List<MasterData> masterDatas;
     public static int autoMergePoint;
+    public static List<int[,]> stageNums;
+    public static int adStageIndex;
 }

@@ -9,8 +9,50 @@ public class CSVManagr : MonoBehaviour
     [SerializeField] TextAsset masterDataCSV;
     public void OnStart()
     {
+        SetMasterData();
+        SetAdStages();
+    }
+
+    void SetAdStages()
+    {
+        TextAsset[] adStageCSVs = GetTextAssets("AdStages");
+
+        Variables.stageNums = new List<int[,]>();
+        for (int i = 0; i < adStageCSVs.Length; i++)
+        {
+            List<string[]> strList = CsvToStrList(adStageCSVs[i]);
+
+            int[,] nums = new int[6, 8];
+            for (int iy = strList.Count - 1; iy > -1; iy--)
+            {
+                for (int ix = 0; ix < strList[iy].Length; ix++)
+                {
+                    if (int.TryParse(strList[iy][ix], out int num))
+                    {
+                        nums[ix, iy] = num;
+                    }
+                }
+            }
+            Variables.stageNums.Add(nums);
+        }
+    }
+
+    TextAsset[] GetTextAssets(string path)
+    {
+        UnityEngine.Object[] resources = Resources.LoadAll(path);
+        TextAsset[] textAssets = new TextAsset[resources.Length];
+
+        for (int i = 0; i < resources.Length; i++)
+        {
+            textAssets[i] = (TextAsset)resources[i];
+        }
+        return textAssets;
+    }
+
+    void SetMasterData()
+    {
         Variables.masterDatas = new List<MasterData>();
-        ParseDatas((rowStrs) =>
+        ParseDatas(masterDataCSV, (rowStrs, iy) =>
         {
             MasterData masterData = new MasterData();
 
@@ -33,12 +75,12 @@ public class CSVManagr : MonoBehaviour
         });
     }
 
-    void ParseDatas(Action<string[]> Action)
+    void ParseDatas(TextAsset csv, Action<string[], int> Action)
     {
-        List<string[]> strList = CsvToStrList(masterDataCSV);
+        List<string[]> strList = CsvToStrList(csv);
         for (int iy = 1; iy < strList.Count; iy++)
         {
-            Action(strList[iy]);
+            Action(strList[iy], iy);
         }
     }
 
