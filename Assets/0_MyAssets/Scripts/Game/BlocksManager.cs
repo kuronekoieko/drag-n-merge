@@ -76,11 +76,13 @@ public class BlocksManager : MonoBehaviour
 
                 if (block.gameObject.activeSelf) { continue; }
 
+                // Debug.Log(Variables.adStageIndex);
                 int num = Variables.stageNums[Variables.adStageIndex][ix, iy - 1];
-                // Debug.Log(ix + " " + iy + " " + num);
+                Debug.Log(ix + " " + iy + " " + num);
                 if (num == 0)
                 {
                     ix++;
+                    if (ix == Values.BOARD_LENGTH_X) { break; }
                     continue;
                 }
 

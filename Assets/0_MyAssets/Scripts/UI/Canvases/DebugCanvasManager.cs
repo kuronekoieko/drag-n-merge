@@ -11,6 +11,8 @@ public class DebugCanvasManager : BaseCanvasManager
     [SerializeField] Image debugPanel;
     [SerializeField] Button applyButton;
     [SerializeField] Button cancelButton;
+    [SerializeField] InputField stageNumIF;
+    [SerializeField] Toggle isDebugStageT;
 
     public override void OnStart()
     {
@@ -29,6 +31,13 @@ public class DebugCanvasManager : BaseCanvasManager
     void OnClickOpenButton()
     {
         debugPanel.gameObject.SetActive(true);
+        ShowParam();
+    }
+
+    void ShowParam()
+    {
+        stageNumIF.text = Variables.adStageIndex.ToString();
+        isDebugStageT.isOn = Variables.isDebugStage;
     }
 
     void OnClickHideButton()
@@ -40,6 +49,14 @@ public class DebugCanvasManager : BaseCanvasManager
 
     void OnClickApplyButton()
     {
+        if (int.TryParse(stageNumIF.text, out int adStageIndex))
+        {
+            Variables.adStageIndex = adStageIndex;
+        }
+
+        Variables.isDebugStage = isDebugStageT.isOn;
+
+        Variables.screenState = ScreenState.INITIALIZE;
         Close();
     }
 

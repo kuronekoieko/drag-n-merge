@@ -26,5 +26,5 @@ public class Variables : MonoBehaviour
     public static int autoMergePoint;
     public static List<int[,]> stageNums;
     public static int adStageIndex;
-    public static bool isDebugStage = true;
+    public static bool isDebugStage;
 }

@@ -21,6 +21,7 @@ public class CoinCountController : MonoBehaviour
             .AddTo(this.gameObject);
 
         openShopButton.onClick.AddListener(OnClickShopButton);
+        openShopButton.gameObject.SetActive(Debug.isDebugBuild);
     }
 
     void CountUpAnim()
