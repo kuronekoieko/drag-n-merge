@@ -32,7 +32,7 @@ public class CSVManagr : MonoBehaviour
                         nums[ix, strList.Count - 1 - iy] = num;
                     }
                 }
-                Debug.Log(iy);
+                //                Debug.Log(iy);
             }
             Variables.stageNums.Add(nums);
         }

@@ -76,7 +76,9 @@ public class BlocksManager : MonoBehaviour
 
                 if (block.gameObject.activeSelf) { continue; }
 
-                if (block.SetCSVNum(ix, iy) == 0)
+                int num = Variables.stageNums[Variables.adStageIndex][ix, iy - 1];
+                // Debug.Log(ix + " " + iy + " " + num);
+                if (num == 0)
                 {
                     ix++;
                     continue;
@@ -85,7 +87,9 @@ public class BlocksManager : MonoBehaviour
                 block.TransrateBlock(indexX: ix, indexY: iy);
                 block.gameObject.SetActive(true);
                 block.SetNewLine();
+                block.SetCSVNum(num);
                 ix++;
+
                 if (ix == Values.BOARD_LENGTH_X) { break; }
             }
         }

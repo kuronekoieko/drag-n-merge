@@ -114,10 +114,9 @@ public class BlockController : MonoBehaviour
         num = tmpNum;
     }
 
-    public int SetCSVNum(int ix, int iy)
+    public void SetCSVNum(int num)
     {
-        num = Variables.stageNums[Variables.adStageIndex][ix, iy - 1];
-        return num;
+        this.num = num;
     }
 
     BlockType GetBlockType()
