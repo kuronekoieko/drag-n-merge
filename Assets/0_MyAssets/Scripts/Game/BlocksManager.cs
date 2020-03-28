@@ -78,7 +78,7 @@ public class BlocksManager : MonoBehaviour
 
                 // Debug.Log(Variables.adStageIndex);
                 int num = Variables.stageNums[Variables.adStageIndex][ix, iy - 1];
-                Debug.Log(ix + " " + iy + " " + num);
+                //  Debug.Log(ix + " " + iy + " " + num);
                 if (num == 0)
                 {
                     ix++;
