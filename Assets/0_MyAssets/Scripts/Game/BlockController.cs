@@ -23,6 +23,7 @@ public class BlockController : MonoBehaviour
 {
     [SerializeField] TextMesh textMesh;
     [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] SpriteRenderer shadowColorSR;
     [SerializeField] ParticleSystem hitPS;
     EventTrigger eventTrigger;
     public int num
@@ -173,6 +174,7 @@ public class BlockController : MonoBehaviour
     {
         textMesh.color = BlockColorData.i.blockColors[num - 1].textColor;
         spriteRenderer.color = BlockColorData.i.blockColors[num - 1].color;
+        shadowColorSR.color = BlockColorData.i.blockColors[num - 1].color;
         ParticleSystem.MainModule par = hitPS.main;
         par.startColor = BlockColorData.i.blockColors[num - 1].color;
 
