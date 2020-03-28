@@ -7,6 +7,7 @@ public class FingerController : MonoBehaviour
     void Start()
     {
         gameObject.SetActive(Debug.isDebugBuild);
+        gameObject.SetActive(false);
     }
 
 
