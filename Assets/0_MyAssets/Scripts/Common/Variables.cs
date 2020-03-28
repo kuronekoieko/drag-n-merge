@@ -27,4 +27,5 @@ public class Variables : MonoBehaviour
     public static List<int[,]> stageNums;
     public static int adStageIndex;
     public static bool isDebugStage;
+    public static bool isShowFinger;
 }

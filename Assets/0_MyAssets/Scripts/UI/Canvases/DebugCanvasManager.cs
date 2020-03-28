@@ -13,6 +13,7 @@ public class DebugCanvasManager : BaseCanvasManager
     [SerializeField] Button cancelButton;
     [SerializeField] InputField stageNumIF;
     [SerializeField] Toggle isDebugStageT;
+    [SerializeField] Toggle isShowFingerT;
 
     public override void OnStart()
     {
@@ -38,6 +39,7 @@ public class DebugCanvasManager : BaseCanvasManager
     {
         stageNumIF.text = Variables.adStageIndex.ToString();
         isDebugStageT.isOn = Variables.isDebugStage;
+        isShowFingerT.isOn = Variables.isShowFinger;
     }
 
     void OnClickHideButton()
@@ -55,6 +57,7 @@ public class DebugCanvasManager : BaseCanvasManager
         }
 
         Variables.isDebugStage = isDebugStageT.isOn;
+        Variables.isShowFinger = isShowFingerT.isOn;
 
         Variables.screenState = ScreenState.INITIALIZE;
         Close();
