@@ -16,16 +16,12 @@ public class MyBuildPostprocessor : IPreprocessBuild
     // ビルド前処理
     public void OnPreprocessBuild(BuildTarget target, string path)
     {
-        // SetPlayserSetting();
     }
 
     [PostProcessBuildAttribute(1)]
     public static void OnPostprocessBuild(BuildTarget target, string pathToBuiltProject)
     {
-        Debug.Log(pathToBuiltProject);
-        //SetPlayserSetting();
     }
-
 
     [PostProcessBuild]
     public static void OnPostProcessBuild(BuildTarget buildTarget, string path)
@@ -38,7 +34,7 @@ public class MyBuildPostprocessor : IPreprocessBuild
         string target = pbxProject.TargetGuidByName("Unity-iPhone");
 
 
-        pbxProject.AddCapability(target, PBXCapabilityType.InAppPurchase);
+        //pbxProject.AddCapability(target, PBXCapabilityType.InAppPurchase);
 
         // Plistの設定のための初期化
         var plistPath = Path.Combine(path, "Info.plist");
@@ -63,8 +59,22 @@ public class MyBuildPostprocessor : IPreprocessBuild
         string name = $"{Application.productName}_{buildMode}_ver{Application.version}_{dateName}_{timeName}";
         Debug.Log($"~~~~~~~~~~~~~~~\n{name}\n~~~~~~~~~~~~~~~");
 
+        //tenjinの計測フレームワーク
+        //https://github.com/tenjin/tenjin-ios-sdk
+        string[] fileNames = {
+            "AdSupport.framework",
+            "StoreKit.framework",
+            "iAd.framework"
+        };
+
+        foreach (var fileName in fileNames)
+        {
+            pbxProject.AddFrameworkToProject(target, fileName, false);
+        }
+
         plist.WriteToFile(plistPath);
         pbxProject.WriteToFile(projectPath);
     }
+
 }
 #endif
